@@ -1,0 +1,29 @@
+aid: rudderstack
+url: https://raw.githubusercontent.com/api-evangelist/rudderstack/refs/heads/main/apis.yml
+name: RudderStack
+x-type: company
+description: >-
+  RudderStack is a customer data platform built for developers, with open-source SDKs and warehouse-native architecture. The RudderStack API exposes sources, destinations, transformations, and tracking-plan management.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Customer Data Platform
+  - Data Pipeline
+  - Open Source
+  - Event Streaming
+  - Analytics
+created: '2026-05-08'
+modified: '2026-05-08'
+specificationVersion: '0.19'
+apis: []
+common:
+  - type: Website
+    url: https://www.rudderstack.com/
+  - type: Plans
+    url: plans/rudderstack-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/rudderstack-rate-limits.yml
+  - type: FinOps
+    url: finops/rudderstack-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
