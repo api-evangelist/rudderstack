@@ -5,38 +5,146 @@ provider: RudderStack
 providerId: rudderstack
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: true
 tags:
-- Customer Data Platform
-- Data Pipeline
-- Open Source
-- Event Streaming
-- Analytics
-- Plans
-description: Placeholder plans/pricing artifact for RudderStack. Replace with real published pricing once
-  the pipeline researches the provider's plans page.
-notes: Initial scaffold — plans/pricing have not yet been reconciled against the provider's documentation.
+  - Customer Data Platform
+  - CDP
+  - Data Pipeline
+  - Event Streaming
+  - Plans
+description: >-
+  RudderStack offers four published plan tiers — Free, Starter, Growth, and Enterprise — metered primarily on monthly events tracked through the Event Stream pipeline. Reverse ETL connections are bundled with caps that grow by tier. Profiles (warehouse-native identity resolution) and Python Transformations are gated to Growth/Enterprise. The data plane (rudder-server) is open source and available under the AGPLv3, allowing fully self-hosted deployments at no software cost.
+notes: >-
+  Reconciled against https://www.rudderstack.com/pricing/ on 2026-05-08. Custom volumes for Growth/Enterprise are quoted by RudderStack sales. Cloud Extract (legacy ETL) is deprecated.
 sources:
-- https://www.rudderstack.com/
+  - https://www.rudderstack.com/pricing/
+  - https://www.rudderstack.com/legal/master-services-agreement/
+  - https://github.com/rudderlabs/rudder-server
 plans:
-- id: rudderstack-default
-  name: To Be Reconciled
-  type: enterprise
-  description: Initial scaffold; replace with provider plan tiers (Free / Pro / Enterprise / pay-as-you-go,
-    etc.) once pricing is reconciled.
-  entries:
-  - label: API Access
-    name: api_access
-    type: flat
-    metric: varies
-    limit: -1
-    timeFrame: usage
-    geo: global
-    unit: 1
-    price: see https://www.rudderstack.com/
-    userMultiplied: false
-  elements:
-  - name: Pending Reconciliation
+  - id: rudderstack-open-source
+    name: Open Source (Self-Hosted)
+    type: free
+    description: >-
+      The rudder-server data plane is licensed under AGPLv3 and can be self-hosted. Customers run their own infrastructure and (optionally) host the control plane via Control Plane Lite. No software fee.
+    entries:
+      - label: Self-Host
+        name: self_host
+        type: flat
+        metric: events
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: 0
+        currency: USD
+        userMultiplied: false
+    elements:
+      - name: AGPLv3 License
+      - name: All SDKs and Connectors
+      - name: Bring Your Own Infrastructure
+  - id: rudderstack-free
+    name: Free
+    type: free
+    description: >-
+      Cloud free tier — up to 250,000 monthly tracked events, 16+ SDKs, 200+ cloud destinations, warehouse destinations, and Reverse ETL.
+    entries:
+      - label: Monthly Tracked Events
+        name: monthly_events
+        type: included
+        metric: event
+        limit: 250000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 0
+        currency: USD
+        userMultiplied: false
+    elements:
+      - name: 250K Events/mo
+      - name: All SDK Sources
+      - name: 200+ Cloud Destinations
+      - name: Warehouse Destinations
+      - name: Reverse ETL (limited connections)
+      - name: Community Support
+  - id: rudderstack-starter
+    name: Starter
+    type: paid
+    description: >-
+      $220/month for up to 1 million tracked events; adds unlimited tracking plans, email support, and a 99.95% uptime SLA. Most popular self-serve tier.
+    entries:
+      - label: Monthly Subscription
+        name: monthly_subscription
+        type: flat
+        metric: account
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 220
+        currency: USD
+        userMultiplied: false
+      - label: Included Monthly Events
+        name: monthly_events_included
+        type: included
+        metric: event
+        limit: 1000000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 0
+        currency: USD
+        userMultiplied: false
+    elements:
+      - name: 1M Events/mo
+      - name: Unlimited Tracking Plans
+      - name: Email Support
+      - name: 99.95% Uptime SLA
+  - id: rudderstack-growth
+    name: Growth
+    type: paid
+    description: >-
+      Custom-volume plan with unlimited team members, transformations, and Reverse ETL connections. Profiles (identity resolution, audiences, activations, attribution, propensity scoring) become available at this tier. Pricing on request.
+    entries:
+      - label: Custom Subscription
+        name: custom_subscription
+        type: custom
+        metric: events
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact_sales
+        currency: USD
+        userMultiplied: false
+    elements:
+      - name: Unlimited Team Members
+      - name: Unlimited Transformations
+      - name: Unlimited Reverse ETL Connections
+      - name: Profiles (Identity, Audiences, Activations)
+      - name: Dedicated Support
+  - id: rudderstack-enterprise
+    name: Enterprise
+    type: enterprise
+    description: >-
+      Highest tier — adds Python Transformations, full Profiles & Data Apps, HIPAA compliance, SSO/SAML, custom retention, and named TAM. Pricing on request.
+    entries:
+      - label: Custom Subscription
+        name: custom_subscription
+        type: custom
+        metric: events
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: contact_sales
+        currency: USD
+        userMultiplied: false
+    elements:
+      - name: Python Transformations
+      - name: Profiles + Data Apps
+      - name: HIPAA-Compliant Hosting
+      - name: SSO / SAML
+      - name: Named TAM and Premium SLA
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com

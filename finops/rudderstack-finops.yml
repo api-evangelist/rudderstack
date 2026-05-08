@@ -5,22 +5,23 @@ provider: RudderStack
 providerId: rudderstack
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: true
 tags:
-- Customer Data Platform
-- Data Pipeline
-- Open Source
-- Event Streaming
-- Analytics
-- FinOps
-- Cost Management
-- FOCUS
-description: FOCUS-aligned FinOps placeholder for RudderStack. Pipeline will replace with the provider's
-  real billing-model details once researched.
-notes: Initial scaffold — billing model has not yet been reconciled.
+  - Customer Data Platform
+  - CDP
+  - Data Pipeline
+  - Event Streaming
+  - FinOps
+  - Cost Management
+  - FOCUS
+description: >-
+  RudderStack's billing surface is a tier-based monthly subscription metered primarily on monthly tracked events. Free (250K events) is gratis; Starter is a flat $220/month including 1M events; Growth and Enterprise are custom-quoted committed-volume contracts. Reverse ETL connections, Profiles, and Python Transformations gate higher tiers. Hidden adjacent costs include the customer-owned data warehouse compute used by Profiles and Reverse ETL, and the egress traffic to downstream SaaS destinations.
+notes: >-
+  Reconciled against published RudderStack pricing on 2026-05-08. RudderStack does not currently expose a public FOCUS-formatted billing feed; usage and invoice data is available through the Dashboard, monthly invoices, and (for Enterprise) custom usage exports. Self-hosted (open-source) deployments do not generate RudderStack invoices but do incur infrastructure cost in the operator's cloud.
 sources:
-- https://www.rudderstack.com/
-- https://focus.finops.org/focus-specification/v1-3/
+  - https://www.rudderstack.com/pricing/
+  - https://www.rudderstack.com/docs/data-pipelines/event-stream/
+  - https://focus.finops.org/focus-specification/v1-3/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -30,13 +31,16 @@ alignedWith:
 publisherName: RudderStack
 serviceCategory: Customer Data Platform
 billingModel:
-  pricingCategory: To Be Reconciled
+  pricingCategory: Tier-Based Subscription with Event Quota
   billingFrequency: Monthly
+  billingTerm: Monthly or Annual
   billingCurrency: USD
   chargeCategories:
-  - Usage
-  - Purchase
-  - Adjustment
+    - Subscription
+    - Usage
+    - Adjustment
+    - Tax
+  commitmentDiscount: Annual prepay discount on Starter; committed-volume discount on Growth and Enterprise contracts.
 focusColumns:
   ServiceName: RudderStack
   ServiceCategory: Customer Data Platform
@@ -44,24 +48,63 @@ focusColumns:
   PublisherName: RudderStack
   InvoiceIssuerName: RudderStack
   BillingCurrency: USD
-  ChargeCategory: Usage
+  ChargeCategory: Subscription
+  PricingCategory: Standard Pricing
 meters:
-- name: api_usage
-  description: Catch-all meter pending reconciliation against the provider's published metering.
-  unit: varies
-  aggregation: sum
-  dimensions:
-  - account
-  - resource
+  - name: tracked_events
+    description: Events ingested via Event Stream (identify, track, page, screen, group, alias) and counted toward the plan's monthly quota.
+    unit: event
+    aggregation: sum
+    dimensions:
+      - workspace
+      - source
+      - event_type
+  - name: reverse_etl_rows
+    description: Rows synced through Reverse ETL pipelines.
+    unit: row
+    aggregation: sum
+    dimensions:
+      - workspace
+      - source
+      - destination
+      - model
+  - name: profiles_runs
+    description: Profiles model executions (identity stitching, feature compute, audience materialization).
+    unit: run
+    aggregation: sum
+    dimensions:
+      - workspace
+      - project
+      - model
+  - name: transformation_invocations
+    description: Transformation function invocations (JS or Python) on the streaming pipeline.
+    unit: invocation
+    aggregation: sum
+    dimensions:
+      - workspace
+      - destination
+      - language
+  - name: connections_active
+    description: Active source-to-destination connections (caps vary by tier).
+    unit: connection-month
+    aggregation: max
+    dimensions:
+      - workspace
+      - source
+      - destination
 principles:
-- name: Visibility
-  description: Pull provider invoices or usage exports until a self-serve usage feed is documented.
-- name: Allocation
-  description: Tag invoice line items to consuming business units in your FinOps store.
-- name: Optimization
-  description: Levers depend on the provider's billing model; review at renewal once reconciled.
-- name: Accountability
-  description: Assign a contract owner to review billing against negotiated terms.
+  - name: Visibility
+    description: >-
+      Pull the monthly invoice and Dashboard usage report. Track event-volume burn-down vs plan quota; on Enterprise, request a scheduled usage export feeding your cost-allocation pipeline. Account for warehouse compute consumed by Profiles and Reverse ETL inside your warehouse provider's bill, not the RudderStack invoice.
+  - name: Allocation
+    description: >-
+      Use one workspace per business unit (or use source-level tagging) to attribute event volume back to product surfaces. Allocate Reverse ETL rows by destination owner.
+  - name: Optimization
+    description: >-
+      Suppress noisy events at the SDK and via Tracking Plan validation; right-size Reverse ETL sync frequency; archive rarely used connections; consolidate shadow workspaces; renegotiate at renewal once stable volume is known.
+  - name: Accountability
+    description: >-
+      Assign a workspace owner; alert on month-to-date events at 70/85/95% of plan; review forecast monthly with the contract owner ahead of renewal.
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com

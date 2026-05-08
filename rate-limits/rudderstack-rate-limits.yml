@@ -5,32 +5,78 @@ provider: RudderStack
 providerId: rudderstack
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: true
 tags:
-- Customer Data Platform
-- Data Pipeline
-- Open Source
-- Event Streaming
-- Analytics
-- Rate Limiting
-- Quotas
-- Throttling
-description: Placeholder rate-limit artifact for RudderStack. Replace with real limits once the pipeline
-  researches the provider's rate-limit documentation.
-notes: Initial scaffold — limits have not yet been reconciled against the provider's documentation.
+  - Customer Data Platform
+  - CDP
+  - Event Streaming
+  - Rate Limiting
+  - Quotas
+  - Throttling
+description: >-
+  RudderStack does not publish hard request-per-second caps on its HTTP Tracking API; instead, primary metering is monthly events as set by the subscribed plan tier (Free 250K, Starter 1M, Growth/Enterprise custom). The Config Backend API and Dashboard APIs apply lighter throttles primarily to protect the control plane. Self-hosted (open-source) deployments inherit only the limits the operator sets on rudder-server. Downstream destination throughput is bounded by the destination's own rate limits, which RudderStack respects per-connection.
+notes: >-
+  The principal commercial constraint is the monthly event quota in the customer's plan; bursts above plan are buffered and counted against the next billing period (or surface as overage on enterprise contracts). Verify the latest published throughput guidance with RudderStack support if scoping a sustained ingest > 5,000 events/sec.
 sources:
-- https://www.rudderstack.com/
+  - https://www.rudderstack.com/docs/sources/event-streams/http/
+  - https://www.rudderstack.com/pricing/
+  - https://github.com/rudderlabs/rudder-server
 responseCodes:
   throttled: 429
+  payloadTooLarge: 413
 limits:
-- name: Default
-  scope: account
-  metric: varies
-  limit: see provider documentation
-  notes: Pending reconciliation.
+  - name: Free Plan Monthly Events
+    scope: workspace
+    metric: events
+    limit: 250000
+    timeFrame: month
+    notes: >-
+      Hard cap on tracked events per month for the Free tier; excess events are dropped or queued depending on settings.
+  - name: Starter Plan Monthly Events
+    scope: workspace
+    metric: events
+    limit: 1000000
+    timeFrame: month
+    notes: >-
+      Included events on the $220/month Starter plan; overage is billed or capped per contract.
+  - name: Growth Plan Monthly Events
+    scope: workspace
+    metric: events
+    limit: -1
+    timeFrame: month
+    notes: >-
+      Custom-quoted volume; specific cap is set in the Growth subscription order form.
+  - name: Enterprise Plan Monthly Events
+    scope: workspace
+    metric: events
+    limit: -1
+    timeFrame: month
+    notes: >-
+      Custom-quoted volume with optional burst allowance; defined in the enterprise contract.
+  - name: HTTP Payload Size
+    scope: request
+    metric: bytes
+    limit: 32768
+    timeFrame: per-event
+    notes: >-
+      Single tracking call payloads are recommended to stay under 32 KB; batch endpoint accepts up to 4 MB total.
+  - name: Batch Size
+    scope: request
+    metric: events
+    limit: 500
+    timeFrame: per-batch
+    notes: >-
+      Typical safe batch size for the /v1/batch endpoint; align with the SDKs' default flush thresholds.
 policies:
-- name: Backoff Strategy
-  description: Clients should implement exponential backoff with jitter and honor any Retry-After header.
+  - name: Backoff Strategy
+    description: >-
+      Implement exponential backoff with jitter and honor Retry-After. The official SDKs already implement queueing, batching, and retry semantics.
+  - name: Quota Management
+    description: >-
+      Track workspace event volume continuously; alert at 70/85/95% of monthly quota; segment noisy SDKs to a separate workspace if approaching plan limits.
+  - name: Destination Backpressure
+    description: >-
+      RudderStack enforces destination-specific rate limits per connection. Failing destinations are retried with backoff; persistent failures route to dead-letter storage when configured.
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
