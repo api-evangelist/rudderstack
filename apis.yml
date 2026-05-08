@@ -36,6 +36,8 @@ apis:
         type: Documentation
       - url: https://www.rudderstack.com/docs/event-spec/standard-events/
         type: API Reference
+      - url: openapi/rudderstack-gateway-openapi.yml
+        type: OpenAPI
     description: >-
       The RudderStack HTTP Tracking API ingests customer events server-side via the standard CDP event-spec calls — identify, track, page, screen, group, alias, and batch — using a Segment-compatible payload at /v1/{call}.
   - aid: rudderstack:rudderstack-config-backend-api
