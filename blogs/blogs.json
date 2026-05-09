@@ -1,0 +1,13 @@
+{
+  "repo": "rudderstack",
+  "feeds": [
+    {
+      "source": "https://www.rudderstack.com/blog/",
+      "feed_url": "https://www.rudderstack.com/blog/rss.xml",
+      "title": "RudderStack Blog",
+      "saved": 25
+    }
+  ],
+  "fetched": "2026-05-09T20:17:51Z",
+  "post_count": 25
+}
