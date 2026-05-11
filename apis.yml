@@ -230,6 +230,11 @@ common:
     url: rate-limits/rudderstack-rate-limits.yml
   - type: FinOps
     url: finops/rudderstack-finops.yml
+  - type: Integrations
+    url: https://www.rudderstack.com/partners/
+integrations:
+  - name: Solutions partners directory
+  - name: Technology partners directory
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
