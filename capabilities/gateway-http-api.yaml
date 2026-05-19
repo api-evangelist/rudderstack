@@ -1,0 +1,333 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: RudderStack HTTP API — HTTP API
+  description: 'RudderStack HTTP API — HTTP API. 7 operations. Lead operation: Alias. Self-contained Naftiko capability covering
+    one Rudderstack business surface.'
+  tags:
+  - Rudderstack
+  - HTTP API
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RUDDERSTACK_API_KEY: RUDDERSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: gateway-http-api
+    baseUri: ''
+    description: RudderStack HTTP API — HTTP API business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-alias
+      path: /v1/alias
+      operations:
+      - name: alias
+        method: POST
+        description: Alias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-batch
+      path: /v1/batch
+      operations:
+      - name: batch
+        method: POST
+        description: Batch
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-group
+      path: /v1/group
+      operations:
+      - name: group
+        method: POST
+        description: Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-identify
+      path: /v1/identify
+      operations:
+      - name: identify
+        method: POST
+        description: Identify
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-page
+      path: /v1/page
+      operations:
+      - name: page
+        method: POST
+        description: Page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-screen
+      path: /v1/screen
+      operations:
+      - name: screen
+        method: POST
+        description: Screen
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-track
+      path: /v1/track
+      operations:
+      - name: track
+        method: POST
+        description: Track
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.RUDDERSTACK_USER}}'
+      password: '{{env.RUDDERSTACK_PASS}}'
+  exposes:
+  - type: rest
+    namespace: gateway-http-api-rest
+    port: 8080
+    description: REST adapter for RudderStack HTTP API — HTTP API. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/alias
+      name: v1-alias
+      description: REST surface for v1-alias.
+      operations:
+      - method: POST
+        name: alias
+        description: Alias
+        call: gateway-http-api.alias
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/batch
+      name: v1-batch
+      description: REST surface for v1-batch.
+      operations:
+      - method: POST
+        name: batch
+        description: Batch
+        call: gateway-http-api.batch
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/group
+      name: v1-group
+      description: REST surface for v1-group.
+      operations:
+      - method: POST
+        name: group
+        description: Group
+        call: gateway-http-api.group
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/identify
+      name: v1-identify
+      description: REST surface for v1-identify.
+      operations:
+      - method: POST
+        name: identify
+        description: Identify
+        call: gateway-http-api.identify
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/page
+      name: v1-page
+      description: REST surface for v1-page.
+      operations:
+      - method: POST
+        name: page
+        description: Page
+        call: gateway-http-api.page
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/screen
+      name: v1-screen
+      description: REST surface for v1-screen.
+      operations:
+      - method: POST
+        name: screen
+        description: Screen
+        call: gateway-http-api.screen
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/track
+      name: v1-track
+      description: REST surface for v1-track.
+      operations:
+      - method: POST
+        name: track
+        description: Track
+        call: gateway-http-api.track
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: gateway-http-api-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for RudderStack HTTP API — HTTP API. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: alias
+      description: Alias
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gateway-http-api.alias
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: batch
+      description: Batch
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gateway-http-api.batch
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: group
+      description: Group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gateway-http-api.group
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: identify
+      description: Identify
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gateway-http-api.identify
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: page
+      description: Page
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gateway-http-api.page
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: screen
+      description: Screen
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gateway-http-api.screen
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: track
+      description: Track
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: gateway-http-api.track
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
