@@ -18,7 +18,7 @@ tags:
 - Analytics
 - Identity Resolution
 created: '2026-05-08'
-modified: '2026-05-19'
+modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
 - aid: rudderstack:rudderstack-http-tracking-api
@@ -41,6 +41,8 @@ apis:
     type: APIReference
   - url: openapi/rudderstack-gateway-openapi.yml
     type: OpenAPI
+  - url: asyncapi/rudderstack-event-streaming-asyncapi.yml
+    type: AsyncAPI
   - type: NaftikoCapability
     url: capabilities/gateway-http-api.yaml
   - type: NaftikoCapability
@@ -150,6 +152,8 @@ apis:
   properties:
   - url: https://www.rudderstack.com/docs/sources/event-streams/cloud-apps/webhook-source/
     type: Documentation
+  - url: asyncapi/rudderstack-event-streaming-asyncapi.yml
+    type: AsyncAPI
   description: The RudderStack Webhook Source API receives inbound webhooks from third-party SaaS tools and normalizes them
     into RudderStack events for downstream routing.
 - aid: rudderstack:rudderstack-warehouse-destination-api

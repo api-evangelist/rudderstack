@@ -1,0 +1,589 @@
+asyncapi: '2.6.0'
+id: 'urn:com:rudderstack:event-streaming'
+info:
+  title: RudderStack Event Streaming API
+  version: '1.0.0'
+  description: >-
+    AsyncAPI 2.6 specification describing RudderStack's event-streaming
+    surfaces over HTTP. RudderStack ingests customer events server-side via
+    the HTTP Tracking API (identify, track, page, screen, group, alias, batch)
+    and via the Webhook Source (raw third-party payloads at /v1/webhook).
+    Events are then forwarded by RudderStack Cloud Mode destinations — including
+    the generic Webhook destination — to downstream HTTP endpoints (200+
+    supported tools). Reverse ETL extends the same pattern, syncing rows from
+    a customer's warehouse to webhooks and SaaS destinations.
+
+    This document models three HTTP-based channels:
+
+      1. event-ingest   — outbound, application → RudderStack data plane
+                          (HTTP Tracking API: /v1/{call} and /v1/batch)
+      2. webhook-source — inbound, third-party SaaS → RudderStack
+                          (/v1/webhook on the data plane)
+      3. webhook-destination — outbound, RudderStack → customer-supplied
+                          HTTP endpoint (Webhook destination, Cloud Mode and
+                          Reverse ETL syncs share this delivery surface)
+  termsOfService: https://www.rudderstack.com/master-service-agreement/
+  contact:
+    name: RudderStack Support
+    email: support@rudderstack.com
+    url: https://www.rudderstack.com/docs/
+  license:
+    name: Elastic License 2.0
+    url: https://www.elastic.co/licensing/elastic-license
+  tags:
+    - name: event-stream
+      description: Real-time customer event streaming
+    - name: cdp
+      description: Warehouse-native Customer Data Platform
+    - name: webhook
+      description: HTTP webhook-based event delivery
+    - name: reverse-etl
+      description: Warehouse-row-to-SaaS sync over the same webhook delivery surface
+
+defaultContentType: application/json
+
+servers:
+  dataplane:
+    url: '{dataplaneUrl}'
+    protocol: https
+    description: >-
+      Customer-specific RudderStack data plane URL, surfaced in the
+      RudderStack dashboard. Hosts the HTTP Tracking API and the Webhook
+      Source endpoint. Self-hosted rudder-server installations expose the
+      same paths on their own host.
+    variables:
+      dataplaneUrl:
+        default: https://your-dataplane.dataplane.rudderstack.com
+        description: Workspace-specific data plane base URL.
+    security:
+      - writeKeyBasicAuth: []
+  customerEndpoint:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      Customer-supplied HTTPS endpoint that the RudderStack Webhook
+      destination delivers events to. Configured per destination in the
+      RudderStack dashboard. Reverse ETL syncs to webhook-style destinations
+      use this same delivery surface.
+    variables:
+      webhookUrl:
+        default: https://example.com/rudderstack-webhook
+        description: User-configured destination URL.
+
+channels:
+  /v1/identify:
+    description: >-
+      HTTP Tracking API identify endpoint. Associates a visiting user with
+      their actions and records any traits.
+    bindings:
+      http:
+        bindingVersion: '0.3.0'
+    publish:
+      operationId: ingestIdentify
+      summary: Send an identify call to the RudderStack data plane.
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/IdentifyEvent'
+
+  /v1/track:
+    description: >-
+      HTTP Tracking API track endpoint. Records user actions with associated
+      properties.
+    bindings:
+      http:
+        bindingVersion: '0.3.0'
+    publish:
+      operationId: ingestTrack
+      summary: Send a track call to the RudderStack data plane.
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/TrackEvent'
+
+  /v1/page:
+    description: >-
+      HTTP Tracking API page endpoint. Records a page view and any associated
+      properties.
+    bindings:
+      http:
+        bindingVersion: '0.3.0'
+    publish:
+      operationId: ingestPage
+      summary: Send a page call to the RudderStack data plane.
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/PageEvent'
+
+  /v1/screen:
+    description: >-
+      HTTP Tracking API screen endpoint. Mobile equivalent of page; records a
+      mobile screen view.
+    bindings:
+      http:
+        bindingVersion: '0.3.0'
+    publish:
+      operationId: ingestScreen
+      summary: Send a screen call to the RudderStack data plane.
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/ScreenEvent'
+
+  /v1/group:
+    description: >-
+      HTTP Tracking API group endpoint. Links an identified user with a
+      group such as a company, organization, or account and records group
+      traits.
+    bindings:
+      http:
+        bindingVersion: '0.3.0'
+    publish:
+      operationId: ingestGroup
+      summary: Send a group call to the RudderStack data plane.
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/GroupEvent'
+
+  /v1/alias:
+    description: >-
+      HTTP Tracking API alias endpoint. Merges different identities of a
+      known user.
+    bindings:
+      http:
+        bindingVersion: '0.3.0'
+    publish:
+      operationId: ingestAlias
+      summary: Send an alias call to the RudderStack data plane.
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/AliasEvent'
+
+  /v1/batch:
+    description: >-
+      HTTP Tracking API batch endpoint. Sends a batch of identify, track,
+      page, screen, group, or alias events in a single request.
+    bindings:
+      http:
+        bindingVersion: '0.3.0'
+    publish:
+      operationId: ingestBatch
+      summary: Send a batch of events to the RudderStack data plane.
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/BatchEnvelope'
+
+  /v1/webhook:
+    description: >-
+      Webhook Source endpoint. Accepts inbound webhooks from third-party SaaS
+      tools. RudderStack identifies which Webhook Source should handle the
+      request using the write key supplied via Basic Auth, then normalizes
+      the raw payload (application/json, application/x-www-form-urlencoded,
+      or multipart/form-data) into a RudderStack event for downstream
+      routing.
+    bindings:
+      http:
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: receiveWebhookSourceEvent
+      summary: >-
+        Receive an inbound webhook from a third-party SaaS source.
+        RudderStack accepts both POST and GET on this path; the handler is
+        the same.
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/InboundWebhookPayload'
+
+  /:
+    description: >-
+      Customer-configured Webhook destination endpoint. RudderStack delivers
+      Cloud Mode events and Reverse ETL sync rows to this URL using the HTTP
+      method, headers, and payload shape configured for the destination. The
+      effective path is set by the customer in the destination's webhook
+      URL; this channel models the delivery, not a fixed path on the
+      RudderStack side.
+    servers:
+      - customerEndpoint
+    bindings:
+      http:
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: deliverToWebhookDestination
+      summary: >-
+        Deliver a RudderStack event (Cloud Mode forward or Reverse ETL sync
+        row) to a customer-supplied webhook URL. The transformer applies the
+        configured HTTP method (POST default, also GET / PUT / PATCH /
+        DELETE), static headers from destination config, and any dynamic
+        headers set by a user transformation. POST / PUT / PATCH carry the
+        event as a JSON body; GET / DELETE pass message properties as query
+        parameters.
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+          type: request
+          method: POST
+      message:
+        $ref: '#/components/messages/OutboundWebhookDelivery'
+
+components:
+  securitySchemes:
+    writeKeyBasicAuth:
+      type: userPassword
+      description: >-
+        HTTP Basic Authentication. The RudderStack source write key is sent
+        as the Basic Auth username with an empty password. Applies to the
+        HTTP Tracking API and the Webhook Source.
+
+  messages:
+    IdentifyEvent:
+      name: IdentifyEvent
+      title: Identify event
+      summary: Associate a user with their actions and record traits.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/IdentifyPayload'
+
+    TrackEvent:
+      name: TrackEvent
+      title: Track event
+      summary: Record a user action along with its properties.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/TrackPayload'
+
+    PageEvent:
+      name: PageEvent
+      title: Page event
+      summary: Record a page view with any associated properties.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PagePayload'
+
+    ScreenEvent:
+      name: ScreenEvent
+      title: Screen event
+      summary: Record a mobile screen view with any associated properties.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ScreenPayload'
+
+    GroupEvent:
+      name: GroupEvent
+      title: Group event
+      summary: Link a user with a group and record group traits.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/GroupPayload'
+
+    AliasEvent:
+      name: AliasEvent
+      title: Alias event
+      summary: Merge identities for a known user.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AliasPayload'
+
+    BatchEnvelope:
+      name: BatchEnvelope
+      title: Batch envelope
+      summary: A batch of mixed event-spec events sent in a single request.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BatchPayload'
+
+    InboundWebhookPayload:
+      name: InboundWebhookPayload
+      title: Inbound third-party webhook payload
+      summary: >-
+        Raw inbound webhook payload received from a third-party SaaS source.
+        RudderStack converts the payload (JSON, form-urlencoded, or
+        multipart) into one or more RudderStack events using the source's
+        Webhook source definition.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/InboundWebhookPayload'
+
+    OutboundWebhookDelivery:
+      name: OutboundWebhookDelivery
+      title: Outbound webhook destination delivery
+      summary: >-
+        Event delivered by RudderStack's Webhook destination to a
+        customer-configured HTTP endpoint. POST / PUT / PATCH carry the
+        event as a JSON body; GET / DELETE carry message properties as
+        query parameters.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/OutboundWebhookDelivery'
+
+  schemas:
+    Context:
+      type: object
+      description: >-
+        Dictionary of information that provides context about a message —
+        ip, library, traits, and other environment metadata.
+      properties:
+        traits:
+          type: object
+          additionalProperties: true
+          description: User or group traits attached at the context level.
+        ip:
+          type: string
+          description: IP address associated with the event.
+        library:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Name of the library or SDK that produced the event.
+
+    IdentifyPayload:
+      type: object
+      description: Payload for /v1/identify.
+      properties:
+        type:
+          type: string
+          enum: [identify]
+          description: Event-spec message type. Always "identify" for this channel.
+        userId:
+          type: string
+          description: Unique identifier for the user in your database.
+        anonymousId:
+          type: string
+          description: Identifier used when the user has no known userId yet.
+        context:
+          $ref: '#/components/schemas/Context'
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of when the message was created.
+
+    TrackPayload:
+      type: object
+      description: Payload for /v1/track.
+      properties:
+        type:
+          type: string
+          enum: [track]
+          description: Event-spec message type. Always "track" for this channel.
+        userId:
+          type: string
+        anonymousId:
+          type: string
+        event:
+          type: string
+          description: Name of the tracked event.
+        properties:
+          type: object
+          additionalProperties: true
+          description: Properties associated with the tracked event.
+        context:
+          $ref: '#/components/schemas/Context'
+        timestamp:
+          type: string
+          format: date-time
+
+    PagePayload:
+      type: object
+      description: Payload for /v1/page.
+      properties:
+        type:
+          type: string
+          enum: [page]
+          description: Event-spec message type. Always "page" for this channel.
+        userId:
+          type: string
+        anonymousId:
+          type: string
+        name:
+          type: string
+          description: Name of the viewed page.
+        properties:
+          type: object
+          additionalProperties: true
+        context:
+          $ref: '#/components/schemas/Context'
+        timestamp:
+          type: string
+          format: date-time
+
+    ScreenPayload:
+      type: object
+      description: Payload for /v1/screen.
+      properties:
+        type:
+          type: string
+          enum: [screen]
+          description: Event-spec message type. Always "screen" for this channel.
+        userId:
+          type: string
+        anonymousId:
+          type: string
+        name:
+          type: string
+          description: Name of the viewed screen.
+        properties:
+          type: object
+          additionalProperties: true
+        context:
+          $ref: '#/components/schemas/Context'
+        timestamp:
+          type: string
+          format: date-time
+
+    GroupPayload:
+      type: object
+      description: Payload for /v1/group.
+      properties:
+        type:
+          type: string
+          enum: [group]
+          description: Event-spec message type. Always "group" for this channel.
+        userId:
+          type: string
+        anonymousId:
+          type: string
+        groupId:
+          type: string
+          description: Unique identifier of the group.
+        traits:
+          type: object
+          additionalProperties: true
+          description: Traits associated with the group (e.g. name, employee count).
+        context:
+          $ref: '#/components/schemas/Context'
+        timestamp:
+          type: string
+          format: date-time
+
+    AliasPayload:
+      type: object
+      description: Payload for /v1/alias.
+      properties:
+        type:
+          type: string
+          enum: [alias]
+          description: Event-spec message type. Always "alias" for this channel.
+        userId:
+          type: string
+        previousId:
+          type: string
+          description: Previous unique identifier for the user.
+        context:
+          $ref: '#/components/schemas/Context'
+        timestamp:
+          type: string
+          format: date-time
+
+    BatchPayload:
+      type: object
+      description: Payload for /v1/batch.
+      required:
+        - batch
+      properties:
+        batch:
+          type: array
+          description: >-
+            Array of event-spec messages. Each item is an identify, track,
+            page, screen, group, or alias payload; the per-item "type" field
+            disambiguates the call shape.
+          items:
+            type: object
+            additionalProperties: true
+            properties:
+              type:
+                type: string
+                enum: [identify, track, page, screen, group, alias]
+              userId:
+                type: string
+              anonymousId:
+                type: string
+              event:
+                type: string
+              properties:
+                type: object
+                additionalProperties: true
+              traits:
+                type: object
+                additionalProperties: true
+              groupId:
+                type: string
+              previousId:
+                type: string
+              name:
+                type: string
+              context:
+                $ref: '#/components/schemas/Context'
+              timestamp:
+                type: string
+                format: date-time
+
+    InboundWebhookPayload:
+      type: object
+      description: >-
+        Raw inbound webhook payload from a third-party SaaS source. Shape is
+        determined entirely by the upstream sender; RudderStack accepts
+        application/json, application/x-www-form-urlencoded, and
+        multipart/form-data and normalizes the body to JSON before
+        transforming it into one or more RudderStack events.
+      additionalProperties: true
+
+    OutboundWebhookDelivery:
+      type: object
+      description: >-
+        Event delivered to a customer-configured Webhook destination. For
+        POST / PUT / PATCH the full RudderStack event message is sent as the
+        JSON body. For GET / DELETE the destination's transformer extracts
+        message properties and sends them as query parameters; in that case
+        the body is empty.
+      additionalProperties: true
+      properties:
+        type:
+          type: string
+          enum: [identify, track, page, screen, group, alias]
+          description: Event-spec message type being delivered.
+        userId:
+          type: string
+        anonymousId:
+          type: string
+        event:
+          type: string
+        properties:
+          type: object
+          additionalProperties: true
+        traits:
+          type: object
+          additionalProperties: true
+        context:
+          $ref: '#/components/schemas/Context'
+        timestamp:
+          type: string
+          format: date-time
