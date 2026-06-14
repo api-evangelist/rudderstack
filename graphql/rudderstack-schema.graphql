@@ -1,0 +1,1023 @@
+"""
+RudderStack GraphQL Schema
+Conceptual schema modelling the RudderStack customer data platform (CDP) API surface.
+Covers event ingestion, source/destination management, pipeline configuration,
+transformations, identity resolution, tracking plans, regulations, and data governance.
+Reference: https://www.rudderstack.com/docs/api/
+"""
+
+# ─── Scalars ─────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar JSON
+scalar URL
+
+# ─── Enumerations ────────────────────────────────────────────────────────────
+
+"""Standard CDP event types supported by the RudderStack event-spec."""
+enum EventType {
+  TRACK
+  IDENTIFY
+  PAGE
+  SCREEN
+  GROUP
+  ALIAS
+  BATCH
+}
+
+"""Lifecycle state of a Source object in the workspace."""
+enum SourceStatus {
+  ENABLED
+  DISABLED
+  DELETED
+}
+
+"""Category of source connector."""
+enum SourceType {
+  HTTP
+  JAVASCRIPT_SDK
+  NODE_SDK
+  ANDROID_SDK
+  IOS_SDK
+  FLUTTER_SDK
+  REACT_NATIVE_SDK
+  UNITY_SDK
+  CLOUD_APP
+  WEBHOOK
+  WAREHOUSE
+  REVERSE_ETL
+}
+
+"""Category of destination connector."""
+enum DestinationType {
+  WAREHOUSE
+  ANALYTICS
+  ADVERTISING
+  EMAIL
+  PUSH_NOTIFICATION
+  CRM
+  CUSTOMER_SUCCESS
+  LIVE_CHAT
+  ERROR_REPORTING
+  TAG_MANAGER
+  ATTRIBUTION
+  CUSTOM_WEBHOOK
+}
+
+"""Data flow mode for a source-destination connection."""
+enum ConnectionMode {
+  CLOUD
+  DEVICE
+  HYBRID
+}
+
+"""Execution status of a pipeline."""
+enum PipelineStatus {
+  ACTIVE
+  PAUSED
+  FAILED
+  ARCHIVED
+}
+
+"""Language of a user-defined transformation function."""
+enum TransformationLanguage {
+  JAVASCRIPT
+  PYTHON
+}
+
+"""Category of data regulation request."""
+enum RegulationType {
+  SUPPRESS
+  DELETE
+  SUPPRESS_AND_DELETE
+}
+
+"""Data type of an event property value."""
+enum PropertyType {
+  STRING
+  NUMBER
+  BOOLEAN
+  OBJECT
+  ARRAY
+  NULL
+}
+
+"""Data type of a user trait value."""
+enum TraitType {
+  STRING
+  NUMBER
+  BOOLEAN
+  DATE
+  OBJECT
+  ARRAY
+}
+
+"""Token type for authentication credentials."""
+enum TokenType {
+  WRITE_KEY
+  PERSONAL_ACCESS_TOKEN
+  WORKSPACE_TOKEN
+}
+
+# ─── Source Types ─────────────────────────────────────────────────────────────
+
+"""
+A RudderStack Source represents an origin of customer event data — an SDK
+integration, HTTP endpoint, cloud app connector, or warehouse.
+"""
+type Source {
+  id: ID!
+  name: String!
+  type: SourceType!
+  status: SourceStatus!
+  writeKey: String!
+  workspaceId: ID!
+  details: SourceDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  connections: [Connection!]
+}
+
+"""Extended metadata and configuration for a Source."""
+type SourceDetails {
+  sourceId: ID!
+  displayName: String
+  description: String
+  category: String
+  config: JSON
+  enabled: Boolean!
+  transient: Boolean
+  secretVersion: Int
+  options: JSON
+}
+
+# ─── Destination Types ────────────────────────────────────────────────────────
+
+"""
+A RudderStack Destination represents a downstream tool or data warehouse that
+receives processed and routed events from one or more sources.
+"""
+type Destination {
+  id: ID!
+  name: String!
+  type: DestinationType!
+  workspaceId: ID!
+  details: DestinationDetails
+  enabled: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  connections: [Connection!]
+  transformations: [Transformation!]
+}
+
+"""Extended metadata and configuration for a Destination."""
+type DestinationDetails {
+  destinationId: ID!
+  displayName: String
+  description: String
+  category: String
+  config: JSON
+  secretConfig: JSON
+  options: JSON
+  isNativeEventFiltering: Boolean
+  isConnectionOverrideEnabled: Boolean
+}
+
+# ─── Connection Types ─────────────────────────────────────────────────────────
+
+"""
+A Connection links a Source to a Destination within a RudderStack workspace,
+defining the data flow mode and any attached transformations or filters.
+"""
+type Connection {
+  id: ID!
+  sourceId: ID!
+  destinationId: ID!
+  source: Source!
+  destination: Destination!
+  mode: ConnectionMode!
+  details: ConnectionDetails
+  enabled: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Detailed configuration of a source-to-destination connection."""
+type ConnectionDetails {
+  connectionId: ID!
+  name: String
+  config: JSON
+  transformations: [Transformation!]
+  eventFilters: JSON
+  isEnabled: Boolean!
+}
+
+# ─── Event Types ──────────────────────────────────────────────────────────────
+
+"""
+A base Event represents any inbound customer data event conforming to the
+RudderStack event-spec. Specialised subtypes carry call-specific fields.
+"""
+type Event {
+  id: ID!
+  type: EventType!
+  messageId: String!
+  originalTimestamp: DateTime
+  sentAt: DateTime
+  receivedAt: DateTime
+  userId: ID
+  anonymousId: ID
+  context: Context
+  details: EventDetails
+  channel: String
+  rudderId: String
+}
+
+"""Additional metadata and payload detail for an event."""
+type EventDetails {
+  eventId: ID!
+  writeKey: String
+  sourceId: ID
+  requestIp: String
+  properties: [Property!]
+  integrations: JSON
+  rawPayload: JSON
+}
+
+"""A Track event records a specific user action with named properties."""
+type TrackEvent {
+  id: ID!
+  type: EventType!
+  messageId: String!
+  userId: ID
+  anonymousId: ID
+  event: String!
+  properties: [Property!]
+  context: Context
+  originalTimestamp: DateTime
+  sentAt: DateTime
+  receivedAt: DateTime
+  rudderId: String
+  channel: String
+}
+
+"""An Identify event updates the identity record for a known or anonymous user."""
+type IdentifyEvent {
+  id: ID!
+  type: EventType!
+  messageId: String!
+  userId: ID!
+  anonymousId: ID
+  traits: Traits
+  context: Context
+  originalTimestamp: DateTime
+  sentAt: DateTime
+  receivedAt: DateTime
+  rudderId: String
+  channel: String
+}
+
+"""A Page event records a web page view with page metadata."""
+type PageEvent {
+  id: ID!
+  type: EventType!
+  messageId: String!
+  userId: ID
+  anonymousId: ID
+  name: String
+  category: String
+  properties: [Property!]
+  context: Context
+  originalTimestamp: DateTime
+  sentAt: DateTime
+  receivedAt: DateTime
+  rudderId: String
+  channel: String
+}
+
+"""A Screen event records a mobile screen view."""
+type ScreenEvent {
+  id: ID!
+  type: EventType!
+  messageId: String!
+  userId: ID
+  anonymousId: ID
+  name: String
+  category: String
+  properties: [Property!]
+  context: Context
+  originalTimestamp: DateTime
+  sentAt: DateTime
+  receivedAt: DateTime
+  rudderId: String
+  channel: String
+}
+
+"""A Group event associates a user with an organisational group or account."""
+type GroupEvent {
+  id: ID!
+  type: EventType!
+  messageId: String!
+  userId: ID
+  anonymousId: ID
+  groupId: ID!
+  traits: GroupTraits
+  context: Context
+  originalTimestamp: DateTime
+  sentAt: DateTime
+  receivedAt: DateTime
+  rudderId: String
+  channel: String
+}
+
+"""An Alias event merges two user identities (previousId → userId)."""
+type AliasEvent {
+  id: ID!
+  type: EventType!
+  messageId: String!
+  userId: ID!
+  previousId: ID!
+  context: Context
+  originalTimestamp: DateTime
+  sentAt: DateTime
+  receivedAt: DateTime
+  rudderId: String
+  channel: String
+}
+
+# ─── Property Types ───────────────────────────────────────────────────────────
+
+"""A key-value property attached to a Track, Page, or Screen event."""
+type Property {
+  key: String!
+  type: PropertyType!
+  value: PropertyValue
+  details: PropertyDetails
+}
+
+"""Metadata describing a property definition within a tracking plan."""
+type PropertyDetails {
+  name: String!
+  description: String
+  required: Boolean
+  allowedValues: [PropertyValue!]
+  example: PropertyValue
+}
+
+"""A scalar property value of any supported type."""
+type PropertyValue {
+  stringValue: String
+  numberValue: Float
+  booleanValue: Boolean
+  jsonValue: JSON
+  arrayValue: [JSON]
+}
+
+# ─── User Identity Types ──────────────────────────────────────────────────────
+
+"""A resolved unified user profile produced by RudderStack Profiles."""
+type UserProfile {
+  id: ID!
+  userId: UserId
+  anonymousId: AnonymousId
+  traits: Traits
+  identity: UserIdentity
+  details: UserDetails
+  groups: [Group!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Extended attributes for a resolved user profile."""
+type UserDetails {
+  profileId: ID!
+  mergedUserIds: [String!]
+  mergedAnonymousIds: [String!]
+  firstSeen: DateTime
+  lastSeen: DateTime
+  eventCount: Int
+  sourceIds: [ID!]
+  warehouseTableName: String
+}
+
+"""Encapsulates the identity graph entry for a user."""
+type UserIdentity {
+  userId: UserId
+  anonymousId: AnonymousId
+  email: String
+  phone: String
+  deviceId: String
+  idGraph: JSON
+}
+
+"""A known, authenticated user identifier."""
+type UserId {
+  value: ID!
+  source: String
+  createdAt: DateTime
+}
+
+"""An anonymous or pre-login user identifier (cookie, device fingerprint)."""
+type AnonymousId {
+  value: ID!
+  source: String
+  createdAt: DateTime
+}
+
+# ─── Trait Types ──────────────────────────────────────────────────────────────
+
+"""
+Traits are key-value attributes attached to a user via an Identify call.
+They describe who the user is (name, email, plan, company, etc.).
+"""
+type Traits {
+  userId: ID
+  email: String
+  name: String
+  firstName: String
+  lastName: String
+  phone: String
+  avatar: URL
+  birthday: DateTime
+  address: JSON
+  company: JSON
+  description: String
+  gender: String
+  title: String
+  username: String
+  website: URL
+  age: Int
+  customTraits: [TraitDetails!]
+}
+
+"""A single custom trait key-value pair with type metadata."""
+type TraitDetails {
+  key: String!
+  type: TraitType!
+  value: JSON
+  source: String
+  updatedAt: DateTime
+}
+
+# ─── Group Types ──────────────────────────────────────────────────────────────
+
+"""
+A Group represents an organisational account, company, or team to which
+one or more users can be associated via Group events.
+"""
+type Group {
+  id: ID!
+  groupId: ID!
+  traits: GroupTraits
+  details: GroupDetails
+  members: [UserProfile!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""Extended configuration and metadata for a Group."""
+type GroupDetails {
+  groupId: ID!
+  name: String
+  industry: String
+  employeeCount: Int
+  plan: String
+  website: URL
+  sourceId: ID
+  createdAt: DateTime
+}
+
+"""Trait attributes that describe an organisational group or account."""
+type GroupTraits {
+  name: String
+  industry: String
+  employees: Int
+  plan: String
+  totalBilled: Float
+  website: URL
+  avatar: URL
+  description: String
+  email: String
+  phone: String
+  address: JSON
+  customTraits: [TraitDetails!]
+}
+
+# ─── Context Types ────────────────────────────────────────────────────────────
+
+"""
+Context is a dictionary of extra information that provides helpful context
+for an event. RudderStack populates sub-contexts automatically from SDKs.
+"""
+type Context {
+  app: AppContext
+  device: DeviceContext
+  library: LibraryContext
+  network: NetworkContext
+  os: OSContext
+  page: PageContext
+  campaign: Campaign
+  ip: String
+  locale: String
+  timezone: String
+  userAgent: String
+  screen: JSON
+  details: ContextDetails
+}
+
+"""Additional context-level metadata."""
+type ContextDetails {
+  externalId: [JSON]
+  traits: Traits
+  referrer: JSON
+  groupId: String
+  active: Boolean
+}
+
+"""Application context: version and build info for the sending app."""
+type AppContext {
+  name: String!
+  version: String!
+  build: String
+  namespace: String
+}
+
+"""Device context: hardware and OS information from mobile SDKs."""
+type DeviceContext {
+  id: String
+  manufacturer: String
+  model: String
+  name: String
+  type: String
+  version: String
+  advertisingId: String
+  adTrackingEnabled: Boolean
+  attTrackingStatus: Int
+  token: String
+}
+
+"""Library context: the RudderStack SDK that sent the event."""
+type LibraryContext {
+  name: String!
+  version: String!
+}
+
+"""Network context: carrier and connectivity information."""
+type NetworkContext {
+  bluetooth: Boolean
+  carrier: String
+  cellular: Boolean
+  wifi: Boolean
+}
+
+"""Operating system context: name and version of the host OS."""
+type OSContext {
+  name: String!
+  version: String!
+}
+
+"""Page context: metadata about the web page that triggered the event."""
+type PageContext {
+  path: String
+  referrer: String
+  search: String
+  title: String
+  url: URL
+  initialReferrer: String
+  initialReferringDomain: String
+}
+
+"""UTM campaign parameters attached to an event's context."""
+type Campaign {
+  name: String
+  source: String
+  medium: String
+  term: String
+  content: String
+}
+
+# ─── Transformation Types ─────────────────────────────────────────────────────
+
+"""
+A Transformation is a user-defined function (JavaScript or Python) executed
+in-flight on events as they pass through a destination connection.
+"""
+type Transformation {
+  id: ID!
+  name: String!
+  language: TransformationLanguage!
+  workspaceId: ID!
+  details: TransformationDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended metadata for a Transformation."""
+type TransformationDetails {
+  transformationId: ID!
+  description: String
+  code: TransformationCode
+  versionId: String
+  testInput: JSON
+  testOutput: JSON
+}
+
+"""The source code payload of a transformation function."""
+type TransformationCode {
+  language: TransformationLanguage!
+  body: String!
+  importedLibraries: [String!]
+}
+
+"""A user-authored transformation applied manually or via API."""
+type UserTransformation {
+  id: ID!
+  name: String!
+  code: TransformationCode!
+  testInput: JSON
+  testOutput: JSON
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""A streaming transformation attached to a live event-stream connection."""
+type StreamTransformation {
+  id: ID!
+  connectionId: ID!
+  transformation: Transformation!
+  order: Int
+  enabled: Boolean!
+  createdAt: DateTime
+}
+
+# ─── Pipeline Types ───────────────────────────────────────────────────────────
+
+"""
+A Pipeline is a high-level abstraction over one or more source-to-destination
+connection flows, with status tracking and configuration metadata.
+"""
+type Pipeline {
+  id: ID!
+  name: String!
+  status: PipelineStatus!
+  workspaceId: ID!
+  details: PipelineDetails
+  connections: [Connection!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended runtime and configuration metadata for a Pipeline."""
+type PipelineDetails {
+  pipelineId: ID!
+  description: String
+  mode: ConnectionMode
+  lastRunAt: DateTime
+  nextRunAt: DateTime
+  syncFrequency: String
+  config: JSON
+  metrics: JSON
+}
+
+# ─── Webhook Types ────────────────────────────────────────────────────────────
+
+"""
+A Webhook Source receives inbound HTTP POST payloads from third-party SaaS tools
+and normalises them into RudderStack events for downstream routing.
+"""
+type Webhook {
+  id: ID!
+  name: String!
+  workspaceId: ID!
+  sourceId: ID!
+  endpoint: URL!
+  secret: String
+  enabled: Boolean!
+  headers: JSON
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ─── Regulation Types ─────────────────────────────────────────────────────────
+
+"""
+A Regulation represents a privacy compliance request — suppression (opt-out)
+or deletion — submitted against a user identity to comply with GDPR/CCPA.
+"""
+type Regulation {
+  id: ID!
+  type: RegulationType!
+  workspaceId: ID!
+  userId: String
+  email: String
+  details: RegulationDetails
+  status: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended metadata for a regulation request."""
+type RegulationDetails {
+  regulationId: ID!
+  requestedBy: String
+  approvedBy: String
+  sourceIds: [ID!]
+  completedAt: DateTime
+  failureReason: String
+}
+
+"""A specific data suppression record for a user identity."""
+type DataSuppression {
+  id: ID!
+  userId: String!
+  workspaceId: ID!
+  sourceIds: [ID!]
+  regulationId: ID
+  createdAt: DateTime!
+  expiresAt: DateTime
+}
+
+"""A data deletion request for a user identity across sources and destinations."""
+type DataDeletion {
+  id: ID!
+  userId: String!
+  workspaceId: ID!
+  sourceIds: [ID!]
+  destinationIds: [ID!]
+  regulationId: ID
+  status: String!
+  completedAt: DateTime
+  createdAt: DateTime!
+}
+
+# ─── Authentication Types ─────────────────────────────────────────────────────
+
+"""An API key used to authenticate requests to the RudderStack Config Backend API."""
+type APIKey {
+  id: ID!
+  name: String
+  workspaceId: ID!
+  type: TokenType!
+  maskedKey: String!
+  createdAt: DateTime!
+  lastUsedAt: DateTime
+  expiresAt: DateTime
+  enabled: Boolean!
+}
+
+"""A bearer token or write key issued for SDK or API authentication."""
+type Token {
+  id: ID!
+  type: TokenType!
+  workspaceId: ID!
+  sourceId: ID
+  value: String
+  maskedValue: String
+  createdAt: DateTime!
+  expiresAt: DateTime
+}
+
+# ─── Input Types ──────────────────────────────────────────────────────────────
+
+input SourceInput {
+  name: String!
+  type: SourceType!
+  config: JSON
+  enabled: Boolean
+}
+
+input DestinationInput {
+  name: String!
+  type: DestinationType!
+  config: JSON
+  secretConfig: JSON
+  enabled: Boolean
+}
+
+input ConnectionInput {
+  sourceId: ID!
+  destinationId: ID!
+  mode: ConnectionMode
+  enabled: Boolean
+  transformationIds: [ID!]
+}
+
+input TransformationInput {
+  name: String!
+  language: TransformationLanguage!
+  code: String!
+  description: String
+  importedLibraries: [String!]
+}
+
+input TrackEventInput {
+  userId: ID
+  anonymousId: ID
+  event: String!
+  properties: JSON
+  context: JSON
+  sentAt: DateTime
+  originalTimestamp: DateTime
+  writeKey: String!
+}
+
+input IdentifyEventInput {
+  userId: ID!
+  anonymousId: ID
+  traits: JSON
+  context: JSON
+  sentAt: DateTime
+  originalTimestamp: DateTime
+  writeKey: String!
+}
+
+input PageEventInput {
+  userId: ID
+  anonymousId: ID
+  name: String
+  category: String
+  properties: JSON
+  context: JSON
+  sentAt: DateTime
+  originalTimestamp: DateTime
+  writeKey: String!
+}
+
+input ScreenEventInput {
+  userId: ID
+  anonymousId: ID
+  name: String
+  category: String
+  properties: JSON
+  context: JSON
+  sentAt: DateTime
+  originalTimestamp: DateTime
+  writeKey: String!
+}
+
+input GroupEventInput {
+  userId: ID
+  anonymousId: ID
+  groupId: ID!
+  traits: JSON
+  context: JSON
+  sentAt: DateTime
+  originalTimestamp: DateTime
+  writeKey: String!
+}
+
+input AliasEventInput {
+  userId: ID!
+  previousId: ID!
+  context: JSON
+  sentAt: DateTime
+  originalTimestamp: DateTime
+  writeKey: String!
+}
+
+input RegulationInput {
+  type: RegulationType!
+  userId: String
+  email: String
+  sourceIds: [ID!]
+}
+
+input WebhookInput {
+  name: String!
+  sourceId: ID!
+  secret: String
+  headers: JSON
+  enabled: Boolean
+}
+
+input APIKeyInput {
+  name: String!
+  type: TokenType!
+  expiresAt: DateTime
+}
+
+# ─── Root Operations ──────────────────────────────────────────────────────────
+
+type Query {
+  """Fetch a single source by ID."""
+  source(id: ID!): Source
+
+  """List all sources in the workspace."""
+  sources(status: SourceStatus, type: SourceType, limit: Int, offset: Int): [Source!]!
+
+  """Fetch a single destination by ID."""
+  destination(id: ID!): Destination
+
+  """List all destinations in the workspace."""
+  destinations(type: DestinationType, enabled: Boolean, limit: Int, offset: Int): [Destination!]!
+
+  """Fetch a single source-destination connection by ID."""
+  connection(id: ID!): Connection
+
+  """List all connections in the workspace."""
+  connections(sourceId: ID, destinationId: ID, limit: Int, offset: Int): [Connection!]!
+
+  """Look up a stored event by its message ID."""
+  event(id: ID!): Event
+
+  """Fetch a resolved user profile by user ID."""
+  userProfile(userId: ID!): UserProfile
+
+  """Fetch a transformation by ID."""
+  transformation(id: ID!): Transformation
+
+  """List all transformations in the workspace."""
+  transformations(language: TransformationLanguage, limit: Int, offset: Int): [Transformation!]!
+
+  """Fetch a pipeline by ID."""
+  pipeline(id: ID!): Pipeline
+
+  """List all pipelines in the workspace."""
+  pipelines(status: PipelineStatus, limit: Int, offset: Int): [Pipeline!]!
+
+  """Fetch a regulation request by ID."""
+  regulation(id: ID!): Regulation
+
+  """List all regulation requests in the workspace."""
+  regulations(type: RegulationType, status: String, limit: Int, offset: Int): [Regulation!]!
+
+  """Fetch a webhook source by ID."""
+  webhook(id: ID!): Webhook
+
+  """List all webhook sources in the workspace."""
+  webhooks(enabled: Boolean, limit: Int, offset: Int): [Webhook!]!
+
+  """Fetch an API key by ID."""
+  apiKey(id: ID!): APIKey
+
+  """List all API keys in the workspace."""
+  apiKeys(type: TokenType, limit: Int, offset: Int): [APIKey!]!
+}
+
+type Mutation {
+  """Create a new event source."""
+  createSource(input: SourceInput!): Source!
+
+  """Update an existing source."""
+  updateSource(id: ID!, input: SourceInput!): Source!
+
+  """Delete a source."""
+  deleteSource(id: ID!): Boolean!
+
+  """Create a new destination."""
+  createDestination(input: DestinationInput!): Destination!
+
+  """Update an existing destination."""
+  updateDestination(id: ID!, input: DestinationInput!): Destination!
+
+  """Delete a destination."""
+  deleteDestination(id: ID!): Boolean!
+
+  """Create a source-to-destination connection."""
+  createConnection(input: ConnectionInput!): Connection!
+
+  """Delete a connection."""
+  deleteConnection(id: ID!): Boolean!
+
+  """Create a new transformation function."""
+  createTransformation(input: TransformationInput!): Transformation!
+
+  """Update an existing transformation."""
+  updateTransformation(id: ID!, input: TransformationInput!): Transformation!
+
+  """Delete a transformation."""
+  deleteTransformation(id: ID!): Boolean!
+
+  """Ingest a Track event."""
+  trackEvent(input: TrackEventInput!): Event!
+
+  """Ingest an Identify event."""
+  identifyEvent(input: IdentifyEventInput!): Event!
+
+  """Ingest a Page event."""
+  pageEvent(input: PageEventInput!): Event!
+
+  """Ingest a Screen event."""
+  screenEvent(input: ScreenEventInput!): Event!
+
+  """Ingest a Group event."""
+  groupEvent(input: GroupEventInput!): Event!
+
+  """Ingest an Alias event."""
+  aliasEvent(input: AliasEventInput!): Event!
+
+  """Submit a data regulation request (suppression or deletion)."""
+  createRegulation(input: RegulationInput!): Regulation!
+
+  """Register a new webhook source."""
+  createWebhook(input: WebhookInput!): Webhook!
+
+  """Remove a webhook source."""
+  deleteWebhook(id: ID!): Boolean!
+
+  """Generate a new API key."""
+  createAPIKey(input: APIKeyInput!): APIKey!
+
+  """Revoke an API key."""
+  revokeAPIKey(id: ID!): Boolean!
+}

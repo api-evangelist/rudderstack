@@ -2,11 +2,12 @@ aid: rudderstack
 url: https://raw.githubusercontent.com/api-evangelist/rudderstack/refs/heads/main/apis.yml
 name: RudderStack
 kind: company
-description: RudderStack is a warehouse-native customer data platform (CDP) for developers, with open-source data plane SDKs
-  (rudder-server) and a managed control plane. The platform exposes an HTTP Tracking (Event Stream) API for ingest, a Config
-  Backend API for managing sources/destinations/connections, a Transformations API for in-flight event transforms, a Tracking
-  Plan API for schema governance, a Profiles API for identity resolution and audiences, and a Reverse ETL API for warehouse-to-SaaS
-  sync.
+description: RudderStack is a warehouse-native customer data platform (CDP) for developers,
+  with open-source data plane SDKs (rudder-server) and a managed control plane. The
+  platform exposes an HTTP Tracking (Event Stream) API for ingest, a Config Backend
+  API for managing sources/destinations/connections, a Transformations API for in-flight
+  event transforms, a Tracking Plan API for schema governance, a Profiles API for
+  identity resolution and audiences, and a Reverse ETL API for warehouse-to-SaaS sync.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
 - Customer Data Platform
@@ -43,12 +44,11 @@ apis:
     type: OpenAPI
   - url: asyncapi/rudderstack-event-streaming-asyncapi.yml
     type: AsyncAPI
-  - type: NaftikoCapability
-    url: capabilities/gateway-http-api.yaml
-  - type: NaftikoCapability
-    url: capabilities/gateway-internal-api.yaml
-  description: The RudderStack HTTP Tracking API ingests customer events server-side via the standard CDP event-spec calls
-    — identify, track, page, screen, group, alias, and batch — using a Segment-compatible payload at /v1/{call}.
+  - url: graphql/rudderstack-graphql.md
+    type: GraphQL
+  description: The RudderStack HTTP Tracking API ingests customer events server-side
+    via the standard CDP event-spec calls — identify, track, page, screen, group,
+    alias, and batch — using a Segment-compatible payload at /v1/{call}.
 - aid: rudderstack:rudderstack-config-backend-api
   name: RudderStack Config Backend API
   tags:
@@ -60,8 +60,9 @@ apis:
   properties:
   - url: https://www.rudderstack.com/docs/api/
     type: Documentation
-  description: The RudderStack Config Backend API manages workspace configuration objects — sources, destinations, connections,
-    and workspace settings — supporting full programmatic provisioning of pipelines outside the Dashboard.
+  description: The RudderStack Config Backend API manages workspace configuration
+    objects — sources, destinations, connections, and workspace settings — supporting
+    full programmatic provisioning of pipelines outside the Dashboard.
 - aid: rudderstack:rudderstack-transformations-api
   name: RudderStack Transformations API
   tags:
@@ -72,8 +73,9 @@ apis:
   properties:
   - url: https://www.rudderstack.com/docs/transformations/
     type: Documentation
-  description: The RudderStack Transformations API manages user-defined transformation functions (JavaScript, with Python
-    on Enterprise) attached to a destination connection to filter, mask, enrich, or reshape events in flight.
+  description: The RudderStack Transformations API manages user-defined transformation
+    functions (JavaScript, with Python on Enterprise) attached to a destination connection
+    to filter, mask, enrich, or reshape events in flight.
 - aid: rudderstack:rudderstack-tracking-plan-api
   name: RudderStack Tracking Plan API
   tags:
@@ -84,8 +86,9 @@ apis:
   properties:
   - url: https://www.rudderstack.com/docs/data-governance/tracking-plans/
     type: Documentation
-  description: The RudderStack Tracking Plan API defines and enforces the canonical event schema (events, properties, traits,
-    types, required fields) used to validate ingested events and surface violations.
+  description: The RudderStack Tracking Plan API defines and enforces the canonical
+    event schema (events, properties, traits, types, required fields) used to validate
+    ingested events and surface violations.
 - aid: rudderstack:rudderstack-data-catalog-api
   name: RudderStack Data Catalog API
   tags:
@@ -95,8 +98,9 @@ apis:
   properties:
   - url: https://www.rudderstack.com/docs/data-governance/data-catalog/
     type: Documentation
-  description: The RudderStack Data Catalog API exposes the inventory of events and properties seen across all sources, supporting
-    schema discovery, lineage, and governance reporting.
+  description: The RudderStack Data Catalog API exposes the inventory of events and
+    properties seen across all sources, supporting schema discovery, lineage, and
+    governance reporting.
 - aid: rudderstack:rudderstack-profiles-api
   name: RudderStack Profiles API
   tags:
@@ -107,8 +111,9 @@ apis:
   properties:
   - url: https://www.rudderstack.com/docs/profiles/
     type: Documentation
-  description: The RudderStack Profiles API powers warehouse-native identity resolution, customer feature engineering, and
-    unified Customer 360 model definitions executed inside the customer's data warehouse.
+  description: The RudderStack Profiles API powers warehouse-native identity resolution,
+    customer feature engineering, and unified Customer 360 model definitions executed
+    inside the customer's data warehouse.
 - aid: rudderstack:rudderstack-audiences-api
   name: RudderStack Audiences API
   tags:
@@ -118,8 +123,8 @@ apis:
   properties:
   - url: https://www.rudderstack.com/docs/data-pipelines/reverse-etl/features/audiences/
     type: Documentation
-  description: The RudderStack Audiences API builds and manages audience definitions in the warehouse and activates them across
-    destinations via Reverse ETL.
+  description: The RudderStack Audiences API builds and manages audience definitions
+    in the warehouse and activates them across destinations via Reverse ETL.
 - aid: rudderstack:rudderstack-reverse-etl-api
   name: RudderStack Reverse ETL API
   tags:
@@ -130,8 +135,9 @@ apis:
   properties:
   - url: https://www.rudderstack.com/docs/data-pipelines/reverse-etl/
     type: Documentation
-  description: The RudderStack Reverse ETL API manages warehouse-source-to-SaaS-destination syncs, including model definitions,
-    sync schedules, run history, and incremental cursor management.
+  description: The RudderStack Reverse ETL API manages warehouse-source-to-SaaS-destination
+    syncs, including model definitions, sync schedules, run history, and incremental
+    cursor management.
 - aid: rudderstack:rudderstack-event-stream-api
   name: RudderStack Event Stream API
   tags:
@@ -141,8 +147,9 @@ apis:
   properties:
   - url: https://www.rudderstack.com/docs/data-pipelines/event-stream/
     type: Documentation
-  description: The RudderStack Event Stream API manages real-time event-stream pipelines — sources, destinations, connections,
-    event filters, and feature toggles — that route events from collection to downstream tools.
+  description: The RudderStack Event Stream API manages real-time event-stream pipelines
+    — sources, destinations, connections, event filters, and feature toggles — that
+    route events from collection to downstream tools.
 - aid: rudderstack:rudderstack-webhook-source-api
   name: RudderStack Webhook Source API
   tags:
@@ -154,8 +161,8 @@ apis:
     type: Documentation
   - url: asyncapi/rudderstack-event-streaming-asyncapi.yml
     type: AsyncAPI
-  description: The RudderStack Webhook Source API receives inbound webhooks from third-party SaaS tools and normalizes them
-    into RudderStack events for downstream routing.
+  description: The RudderStack Webhook Source API receives inbound webhooks from third-party
+    SaaS tools and normalizes them into RudderStack events for downstream routing.
 - aid: rudderstack:rudderstack-warehouse-destination-api
   name: RudderStack Warehouse Destination API
   tags:
@@ -168,9 +175,10 @@ apis:
   properties:
   - url: https://www.rudderstack.com/docs/destinations/warehouse-destinations/
     type: Documentation
-  description: The RudderStack Warehouse Destination API configures and operates loads into supported warehouses (Snowflake,
-    BigQuery, Redshift, Postgres, Databricks, Trino, S3 Data Lake) with configurable sync interval, schema namespace, and
-    incremental loading.
+  description: The RudderStack Warehouse Destination API configures and operates loads
+    into supported warehouses (Snowflake, BigQuery, Redshift, Postgres, Databricks,
+    Trino, S3 Data Lake) with configurable sync interval, schema namespace, and incremental
+    loading.
 - aid: rudderstack:rudderstack-orchestration-api
   name: RudderStack Orchestration API
   tags:
@@ -181,8 +189,9 @@ apis:
   properties:
   - url: https://www.rudderstack.com/docs/data-pipelines/orchestration/
     type: Documentation
-  description: The RudderStack Orchestration API integrates with Airflow and Dagster to coordinate Reverse ETL syncs, Profiles
-    model runs, and other RudderStack jobs from external orchestration systems.
+  description: The RudderStack Orchestration API integrates with Airflow and Dagster
+    to coordinate Reverse ETL syncs, Profiles model runs, and other RudderStack jobs
+    from external orchestration systems.
 common:
 - type: LinkedIn
   url: https://www.linkedin.com/company/rudderstack
