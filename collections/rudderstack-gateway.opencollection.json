@@ -1,0 +1,246 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RudderStack HTTP API",
+    "version": "1.0.0-oas3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "HTTP API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Identify",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/v1/identify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The identify call lets you associate a visiting user to their actions and record any associated traits."
+        },
+        {
+          "info": {
+            "name": "Track",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/v1/track",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The track call lets you track user actions along with any properties associated with them."
+        },
+        {
+          "info": {
+            "name": "Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/v1/page",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The page call lets you record your website’s page views with any additional relevant information about the viewed page."
+        },
+        {
+          "info": {
+            "name": "Screen",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/v1/screen",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The screen call is the mobile equivalent of the page call. It lets you record whenever your user views their mobile screen with any additional relevant information about the screen."
+        },
+        {
+          "info": {
+            "name": "Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/v1/group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The group call lets you link an identified user with a group such as a company, organization, or an account. It also lets you record any custom traits associated with that group, like the name of the company, the number of employees, etc."
+        },
+        {
+          "info": {
+            "name": "Alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/v1/alias",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The alias call lets you merge different identities of a known user."
+        },
+        {
+          "info": {
+            "name": "Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/v1/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The batch call enables you to send a batch of events (identify, track, page, group, screen, alias) in a single request."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Internal API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Extract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/internal/v1/extract",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Handles extract requests."
+        },
+        {
+          "info": {
+            "name": "Retl",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/internal/v1/retl",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Handles retl (reverse ETL) requests."
+        },
+        {
+          "info": {
+            "name": "Audience List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/internal/v1/audiencelist",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Handles audience list requests."
+        },
+        {
+          "info": {
+            "name": "Replay",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/internal/v1/replay",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Handles replay requests."
+        },
+        {
+          "info": {
+            "name": "Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/internal/v1/batch",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Handles internal batch requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
