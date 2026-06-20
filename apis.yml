@@ -8,7 +8,7 @@ description: RudderStack is a warehouse-native customer data platform (CDP) for 
   API for managing sources/destinations/connections, a Transformations API for in-flight
   event transforms, a Tracking Plan API for schema governance, a Profiles API for
   identity resolution and audiences, and a Reverse ETL API for warehouse-to-SaaS sync.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Customer Data Platform
 - CDP
