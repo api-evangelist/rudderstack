@@ -205,7 +205,7 @@ common:
   url: https://www.rudderstack.com/docs/get-started/
 - type: Pricing
   url: https://www.rudderstack.com/pricing/
-- type: SignUp
+- type: Signup
   url: https://app.rudderstack.com/signup
 - type: Login
   url: https://app.rudderstack.com/

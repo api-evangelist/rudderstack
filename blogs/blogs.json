@@ -5,14 +5,14 @@
       "source": "https://www.rudderstack.com/blog/rss.xml",
       "feed_url": "https://www.rudderstack.com/blog/rss.xml",
       "title": "",
-      "saved": 1,
+      "saved": 0,
       "method": "feed"
     },
     {
       "source": "https://status.rudderstack.com/history.atom",
       "feed_url": "https://status.rudderstack.com/history.atom",
       "title": "",
-      "saved": 0,
+      "saved": 1,
       "method": "feed"
     },
     {
@@ -23,6 +23,6 @@
       "method": "discovered"
     }
   ],
-  "fetched": "2026-06-14T20:42:17Z",
-  "post_count": 56
+  "fetched": "2026-06-27T12:03:07Z",
+  "post_count": 58
 }
