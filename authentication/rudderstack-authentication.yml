@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/rudderstack-gateway-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: writeKeyAuth
+  type: http
+  scheme: basic
+  description: Write Key Basic Authentication
+  sources:
+  - openapi/rudderstack-gateway-openapi.yml
