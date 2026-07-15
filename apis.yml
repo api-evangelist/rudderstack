@@ -193,6 +193,8 @@ apis:
     to coordinate Reverse ETL syncs, Profiles model runs, and other RudderStack jobs
     from external orchestration systems.
 common:
+- type: AgenticAccess
+  url: agentic-access/rudderstack-agentic-access.yml
 - type: DomainSecurity
   url: security/rudderstack-domain-security.yml
 - type: Authentication
