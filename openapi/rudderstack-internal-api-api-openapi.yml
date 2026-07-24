@@ -1,0 +1,265 @@
+openapi: 3.0.3
+info:
+  title: RudderStack HTTP HTTP API Internal API API
+  version: 1.0.0-oas3
+  description: The RudderStack HTTP API lets you track your customer event data and route it to your desired destinations.
+  termsOfService: https://www.rudderstack.com/master-service-agreement/
+  contact:
+    email: support@rudderstack.com
+  license:
+    name: Elastic License 2.0
+    url: https://www.elastic.co/licensing/elastic-license
+servers:
+- url: /v1
+tags:
+- name: Internal API
+paths:
+  /internal/v1/extract:
+    post:
+      tags:
+      - Internal API
+      summary: Extract
+      description: Handles extract requests.
+      operationId: Extract
+      responses:
+        '200':
+          description: StatusOK
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: OK
+        '400':
+          description: StatusBadRequest
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Invalid request
+        '401':
+          description: StatusUnauthorized
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Invalid Authorization Header
+        '404':
+          description: StatusNotFound
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Source does not accept webhook events
+        '413':
+          description: StatusRequestEntityTooLarge
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Request size too large
+        '429':
+          description: StatusTooManyRequests
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Too many requests
+      security:
+      - writeKeyAuth: []
+  /internal/v1/retl:
+    post:
+      tags:
+      - Internal API
+      summary: Retl
+      description: Handles retl (reverse ETL) requests.
+      operationId: Retl
+      responses:
+        '200':
+          description: StatusOK
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: OK
+        '400':
+          description: StatusBadRequest
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Invalid request
+        '401':
+          description: StatusUnauthorized
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Invalid Authorization Header
+        '404':
+          description: StatusNotFound
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Source does not accept webhook events
+        '413':
+          description: StatusRequestEntityTooLarge
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Request size too large
+        '429':
+          description: StatusTooManyRequests
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Too many requests
+      security:
+      - sourceIDAuth: []
+  /internal/v1/audiencelist:
+    post:
+      tags:
+      - Internal API
+      summary: Audience List
+      description: Handles audience list requests.
+      operationId: AudienceList
+      responses:
+        '200':
+          description: StatusOK
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: OK
+        '400':
+          description: StatusBadRequest
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Invalid request
+        '401':
+          description: StatusUnauthorized
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Invalid Authorization Header
+        '404':
+          description: StatusNotFound
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Source does not accept webhook events
+        '413':
+          description: StatusRequestEntityTooLarge
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Request size too large
+        '429':
+          description: StatusTooManyRequests
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Too many requests
+      security:
+      - writeKeyAuth: []
+  /internal/v1/replay:
+    post:
+      tags:
+      - Internal API
+      summary: Replay
+      description: Handles replay requests.
+      operationId: Replay
+      responses:
+        '200':
+          description: StatusOK
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: OK
+        '400':
+          description: StatusBadRequest
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Invalid request
+        '401':
+          description: StatusUnauthorized
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Invalid Authorization Header
+        '404':
+          description: StatusNotFound
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Source does not accept webhook events
+        '413':
+          description: StatusRequestEntityTooLarge
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Request size too large
+        '429':
+          description: StatusTooManyRequests
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Too many requests
+      security:
+      - sourceIDAuth: []
+  /internal/v1/batch:
+    post:
+      tags:
+      - Internal API
+      summary: Batch
+      description: Handles internal batch requests.
+      operationId: InternalBatch
+      responses:
+        '200':
+          description: StatusOK
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: OK
+        '400':
+          description: StatusBadRequest
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Invalid request
+        '401':
+          description: StatusUnauthorized
+          content:
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+              example: Invalid Authorization Header
+      security:
+      - sourceIDAuth: []
+components:
+  securitySchemes:
+    writeKeyAuth:
+      type: http
+      scheme: basic
+      description: Write Key Basic Authentication
+    sourceIDAuth:
+      type: http
+      scheme: basic
+      description: SourceID Basic Authentication
