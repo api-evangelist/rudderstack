@@ -1,0 +1,16 @@
+{
+  "provider": "rudderstack",
+  "sources": [
+    "rudderstack-http-api-api-openapi.yml",
+    "rudderstack-internal-api-api-openapi.yml"
+  ],
+  "outputs": [
+    "rudderstack-http-api-api-openapi.yml",
+    "rudderstack-internal-api-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

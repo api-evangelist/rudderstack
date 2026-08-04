@@ -1,0 +1,1511 @@
+{
+  "info": {
+    "_postman_id": "d91ff91b-82de-4e5f-90a8-b4037ce4a6b9",
+    "name": "RudderStack HTTP HTTP API Internal API API",
+    "description": "The RudderStack HTTP API lets you track your customer event data and route it to your desired destinations.\n\nContact Support:\n Email: support@rudderstack.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:49:09.000Z",
+    "updatedAt": "2026-07-28T02:49:09.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d91ff91b-82de-4e5f-90a8-b4037ce4a6b9"
+  },
+  "item": [
+    {
+      "name": "internal",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "extract",
+              "item": [
+                {
+                  "name": "Extract",
+                  "id": "4cd572e2-683b-47d3-ac64-7bd0d7cce879",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain; charset=utf-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/internal/v1/extract",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "internal",
+                        "v1",
+                        "extract"
+                      ]
+                    },
+                    "description": "Handles extract requests."
+                  },
+                  "response": [
+                    {
+                      "id": "c7dc25f1-3e93-4b32-bced-92909aac0d4c",
+                      "name": "StatusOK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/extract",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "extract"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-c7dc25f1-3e93-4b32-bced-92909aac0d4c"
+                    },
+                    {
+                      "id": "cdf49559-6640-4abc-a5d6-e8f821b8c2f8",
+                      "name": "StatusBadRequest",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/extract",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "extract"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-cdf49559-6640-4abc-a5d6-e8f821b8c2f8"
+                    },
+                    {
+                      "id": "faee1c1a-7c70-4973-93bb-64f3da8e1723",
+                      "name": "StatusUnauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/extract",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "extract"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-faee1c1a-7c70-4973-93bb-64f3da8e1723"
+                    },
+                    {
+                      "id": "205ce146-e0e5-438b-ae53-c59a8e6cac05",
+                      "name": "StatusNotFound",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/extract",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "extract"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-205ce146-e0e5-438b-ae53-c59a8e6cac05"
+                    },
+                    {
+                      "id": "85238feb-4b0d-40b1-bcf9-c0e3f63d3682",
+                      "name": "StatusRequestEntityTooLarge",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/extract",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "extract"
+                          ]
+                        }
+                      },
+                      "status": "Request Entity Too Large",
+                      "code": 413,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-85238feb-4b0d-40b1-bcf9-c0e3f63d3682"
+                    },
+                    {
+                      "id": "ce88e841-ea07-4a32-9423-2556be2496bb",
+                      "name": "StatusTooManyRequests",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/extract",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "extract"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-ce88e841-ea07-4a32-9423-2556be2496bb"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:49:10.000Z",
+                  "updatedAt": "2026-07-28T02:49:10.000Z",
+                  "uid": "35240-4cd572e2-683b-47d3-ac64-7bd0d7cce879"
+                }
+              ],
+              "id": "1359dc9a-df3e-4c7e-9fac-cbce5a482fb8",
+              "createdAt": "2026-07-28T02:49:10.000Z",
+              "updatedAt": "2026-07-28T02:49:10.000Z",
+              "uid": "35240-1359dc9a-df3e-4c7e-9fac-cbce5a482fb8"
+            },
+            {
+              "name": "retl",
+              "item": [
+                {
+                  "name": "Retl",
+                  "id": "eb0768f5-6148-45de-a864-99022bc7cc8b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain; charset=utf-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/internal/v1/retl",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "internal",
+                        "v1",
+                        "retl"
+                      ]
+                    },
+                    "description": "Handles retl (reverse ETL) requests."
+                  },
+                  "response": [
+                    {
+                      "id": "25b1899e-af04-45b6-ad37-7c1a5eae7513",
+                      "name": "StatusOK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/retl",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "retl"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-25b1899e-af04-45b6-ad37-7c1a5eae7513"
+                    },
+                    {
+                      "id": "0bcf982b-49fe-416f-a5c8-0a547e41bd0b",
+                      "name": "StatusBadRequest",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/retl",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "retl"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-0bcf982b-49fe-416f-a5c8-0a547e41bd0b"
+                    },
+                    {
+                      "id": "5677a769-8f9c-4a72-b483-5f7e62a82944",
+                      "name": "StatusUnauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/retl",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "retl"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-5677a769-8f9c-4a72-b483-5f7e62a82944"
+                    },
+                    {
+                      "id": "849dea2b-ec4b-4e31-bcc1-cbe5c5a93b1b",
+                      "name": "StatusNotFound",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/retl",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "retl"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-849dea2b-ec4b-4e31-bcc1-cbe5c5a93b1b"
+                    },
+                    {
+                      "id": "ece49ced-07aa-446d-af3e-8f5646ac7678",
+                      "name": "StatusRequestEntityTooLarge",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/retl",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "retl"
+                          ]
+                        }
+                      },
+                      "status": "Request Entity Too Large",
+                      "code": 413,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-ece49ced-07aa-446d-af3e-8f5646ac7678"
+                    },
+                    {
+                      "id": "145b41c0-1613-42b3-a732-b2c26e8eeead",
+                      "name": "StatusTooManyRequests",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/retl",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "retl"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-145b41c0-1613-42b3-a732-b2c26e8eeead"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:49:10.000Z",
+                  "updatedAt": "2026-07-28T02:49:10.000Z",
+                  "uid": "35240-eb0768f5-6148-45de-a864-99022bc7cc8b"
+                }
+              ],
+              "id": "90b5086d-93cf-4537-ab56-6bc0ce07ed37",
+              "createdAt": "2026-07-28T02:49:10.000Z",
+              "updatedAt": "2026-07-28T02:49:10.000Z",
+              "uid": "35240-90b5086d-93cf-4537-ab56-6bc0ce07ed37"
+            },
+            {
+              "name": "audiencelist",
+              "item": [
+                {
+                  "name": "Audience List",
+                  "id": "dce96137-e3a7-4fb4-8975-2accc33e4dd2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain; charset=utf-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/internal/v1/audiencelist",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "internal",
+                        "v1",
+                        "audiencelist"
+                      ]
+                    },
+                    "description": "Handles audience list requests."
+                  },
+                  "response": [
+                    {
+                      "id": "305614ff-16a3-4803-897f-cf39a473a6ab",
+                      "name": "StatusOK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/audiencelist",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "audiencelist"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-305614ff-16a3-4803-897f-cf39a473a6ab"
+                    },
+                    {
+                      "id": "4fc67cd8-5eee-41ad-938c-fd8e59282a21",
+                      "name": "StatusBadRequest",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/audiencelist",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "audiencelist"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-4fc67cd8-5eee-41ad-938c-fd8e59282a21"
+                    },
+                    {
+                      "id": "167efc0e-5d1a-4146-a77e-1412c10373d2",
+                      "name": "StatusUnauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/audiencelist",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "audiencelist"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-167efc0e-5d1a-4146-a77e-1412c10373d2"
+                    },
+                    {
+                      "id": "ee5ceac4-e9e4-4fa5-b7bd-7906234d28b2",
+                      "name": "StatusNotFound",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/audiencelist",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "audiencelist"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-ee5ceac4-e9e4-4fa5-b7bd-7906234d28b2"
+                    },
+                    {
+                      "id": "c091b24a-aac4-4e0d-8812-91add4a092f1",
+                      "name": "StatusRequestEntityTooLarge",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/audiencelist",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "audiencelist"
+                          ]
+                        }
+                      },
+                      "status": "Request Entity Too Large",
+                      "code": 413,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-c091b24a-aac4-4e0d-8812-91add4a092f1"
+                    },
+                    {
+                      "id": "9db624b3-777b-4bfa-a535-98047d031e52",
+                      "name": "StatusTooManyRequests",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/audiencelist",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "audiencelist"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-9db624b3-777b-4bfa-a535-98047d031e52"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:49:10.000Z",
+                  "updatedAt": "2026-07-28T02:49:10.000Z",
+                  "uid": "35240-dce96137-e3a7-4fb4-8975-2accc33e4dd2"
+                }
+              ],
+              "id": "198dbc06-a33c-4e71-b46b-eab8866336bf",
+              "createdAt": "2026-07-28T02:49:10.000Z",
+              "updatedAt": "2026-07-28T02:49:10.000Z",
+              "uid": "35240-198dbc06-a33c-4e71-b46b-eab8866336bf"
+            },
+            {
+              "name": "replay",
+              "item": [
+                {
+                  "name": "Replay",
+                  "id": "50732e5f-3665-4751-9ce6-32ece9746d93",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain; charset=utf-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/internal/v1/replay",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "internal",
+                        "v1",
+                        "replay"
+                      ]
+                    },
+                    "description": "Handles replay requests."
+                  },
+                  "response": [
+                    {
+                      "id": "02a77627-69ad-4071-af87-faea2560d18c",
+                      "name": "StatusOK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/replay",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "replay"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-02a77627-69ad-4071-af87-faea2560d18c"
+                    },
+                    {
+                      "id": "67d36633-fa29-4dc5-a648-5b8e996f4123",
+                      "name": "StatusBadRequest",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/replay",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "replay"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-67d36633-fa29-4dc5-a648-5b8e996f4123"
+                    },
+                    {
+                      "id": "71b4b653-3410-4cc0-974a-8bca922b442e",
+                      "name": "StatusUnauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/replay",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "replay"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-71b4b653-3410-4cc0-974a-8bca922b442e"
+                    },
+                    {
+                      "id": "5a296215-0bf1-4377-b11b-af86f9b1c5c1",
+                      "name": "StatusNotFound",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/replay",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "replay"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-5a296215-0bf1-4377-b11b-af86f9b1c5c1"
+                    },
+                    {
+                      "id": "f3eb47be-d725-4285-849a-812079e4020c",
+                      "name": "StatusRequestEntityTooLarge",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/replay",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "replay"
+                          ]
+                        }
+                      },
+                      "status": "Request Entity Too Large",
+                      "code": 413,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-f3eb47be-d725-4285-849a-812079e4020c"
+                    },
+                    {
+                      "id": "261097a1-2904-4d44-92b3-4f0e5e4fdaae",
+                      "name": "StatusTooManyRequests",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/replay",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "replay"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-261097a1-2904-4d44-92b3-4f0e5e4fdaae"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:49:10.000Z",
+                  "updatedAt": "2026-07-28T02:49:10.000Z",
+                  "uid": "35240-50732e5f-3665-4751-9ce6-32ece9746d93"
+                }
+              ],
+              "id": "5db85463-76c1-402a-b034-54c3e09a1bfd",
+              "createdAt": "2026-07-28T02:49:10.000Z",
+              "updatedAt": "2026-07-28T02:49:10.000Z",
+              "uid": "35240-5db85463-76c1-402a-b034-54c3e09a1bfd"
+            },
+            {
+              "name": "batch",
+              "item": [
+                {
+                  "name": "Batch",
+                  "id": "2cac2ea8-c742-4864-bef2-ef98b585fd1b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain; charset=utf-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/internal/v1/batch",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "internal",
+                        "v1",
+                        "batch"
+                      ]
+                    },
+                    "description": "Handles internal batch requests."
+                  },
+                  "response": [
+                    {
+                      "id": "4f544010-341c-4b27-be8f-cc5e2aaf590f",
+                      "name": "StatusOK",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/batch",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "batch"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-4f544010-341c-4b27-be8f-cc5e2aaf590f"
+                    },
+                    {
+                      "id": "760aa0c7-3e4f-48bd-adb5-481753d11b27",
+                      "name": "StatusBadRequest",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/batch",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "batch"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-760aa0c7-3e4f-48bd-adb5-481753d11b27"
+                    },
+                    {
+                      "id": "2540f2d6-e085-4219-8efd-5f0a088491ab",
+                      "name": "StatusUnauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain; charset=utf-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/internal/v1/batch",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "internal",
+                            "v1",
+                            "batch"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain; charset=utf-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:49:10.000Z",
+                      "updatedAt": "2026-07-28T02:49:10.000Z",
+                      "uid": "35240-2540f2d6-e085-4219-8efd-5f0a088491ab"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:49:10.000Z",
+                  "updatedAt": "2026-07-28T02:49:10.000Z",
+                  "uid": "35240-2cac2ea8-c742-4864-bef2-ef98b585fd1b"
+                }
+              ],
+              "id": "b4d2cd03-b0a1-438a-a8d7-b34194d7ae91",
+              "createdAt": "2026-07-28T02:49:10.000Z",
+              "updatedAt": "2026-07-28T02:49:10.000Z",
+              "uid": "35240-b4d2cd03-b0a1-438a-a8d7-b34194d7ae91"
+            }
+          ],
+          "id": "77d2efda-f05e-40b8-9d83-64b689a1b276",
+          "createdAt": "2026-07-28T02:49:10.000Z",
+          "updatedAt": "2026-07-28T02:49:10.000Z",
+          "uid": "35240-77d2efda-f05e-40b8-9d83-64b689a1b276"
+        }
+      ],
+      "id": "b072a2ef-29fc-49e5-8c8c-43d16aba8bb0",
+      "createdAt": "2026-07-28T02:49:10.000Z",
+      "updatedAt": "2026-07-28T02:49:10.000Z",
+      "uid": "35240-b072a2ef-29fc-49e5-8c8c-43d16aba8bb0"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/v1"
+    }
+  ]
+}
