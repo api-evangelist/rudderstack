@@ -32,10 +32,12 @@ tags:
 - Analytics
 - Identity Resolution
 created: '2026-05-08'
-modified: '2026-05-30'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
 - aid: rudderstack:rudderstack-config-backend-api
+  humanURL: https://www.rudderstack.com/docs/api/
+  baseURL: https://api.rudderstack.com
   name: RudderStack Config Backend API
   tags:
   - Sources
@@ -51,6 +53,8 @@ apis:
     connections, and workspace settings — supporting full programmatic provisioning of pipelines outside
     the Dashboard.
 - aid: rudderstack:rudderstack-transformations-api
+  humanURL: https://www.rudderstack.com/docs/api/transformation-api/
+  baseURL: https://api.rudderstack.com
   name: RudderStack Transformations API
   tags:
   - Transformations
@@ -65,6 +69,8 @@ apis:
     Python on Enterprise) attached to a destination connection to filter, mask, enrich, or reshape events
     in flight.
 - aid: rudderstack:rudderstack-tracking-plan-api
+  humanURL: https://www.rudderstack.com/docs/api/tracking-plan-api/
+  baseURL: https://api.rudderstack.com
   name: RudderStack Tracking Plan API
   tags:
   - Tracking Plan
@@ -78,6 +84,8 @@ apis:
     The RudderStack Tracking Plan API defines and enforces the canonical event schema (events, properties,
     traits, types, required fields) used to validate ingested events and surface violations.
 - aid: rudderstack:rudderstack-data-catalog-api
+  humanURL: https://www.rudderstack.com/docs/api/data-catalog-api/
+  baseURL: https://api.rudderstack.com
   name: RudderStack Data Catalog API
   tags:
   - Catalog
@@ -90,6 +98,8 @@ apis:
     The RudderStack Data Catalog API exposes the inventory of events and properties seen across all sources,
     supporting schema discovery, lineage, and governance reporting.
 - aid: rudderstack:rudderstack-profiles-api
+  humanURL: https://www.rudderstack.com/docs/api/profiles-api/
+  baseURL: https://api.rudderstack.com
   name: RudderStack Profiles API
   tags:
   - Profiles
@@ -103,6 +113,7 @@ apis:
     The RudderStack Profiles API powers warehouse-native identity resolution, customer feature engineering,
     and unified Customer 360 model definitions executed inside the customer's data warehouse.
 - aid: rudderstack:rudderstack-audiences-api
+  humanURL: https://www.rudderstack.com/docs/data-pipelines/reverse-etl/features/audiences/
   name: RudderStack Audiences API
   tags:
   - Audiences
@@ -115,6 +126,8 @@ apis:
     The RudderStack Audiences API builds and manages audience definitions in the warehouse and activates
     them across destinations via Reverse ETL.
 - aid: rudderstack:rudderstack-reverse-etl-api
+  humanURL: https://www.rudderstack.com/docs/api/retl-connections-api/
+  baseURL: https://api.rudderstack.com
   name: RudderStack Reverse ETL API
   tags:
   - Reverse ETL
@@ -128,6 +141,8 @@ apis:
     The RudderStack Reverse ETL API manages warehouse-source-to-SaaS-destination syncs, including model
     definitions, sync schedules, run history, and incremental cursor management.
 - aid: rudderstack:rudderstack-event-stream-api
+  humanURL: https://www.rudderstack.com/docs/data-pipelines/event-stream/
+  baseURL: https://{dataPlaneUrl}
   name: RudderStack Event Stream API
   tags:
   - Event Stream
@@ -141,6 +156,8 @@ apis:
     connections, event filters, and feature toggles — that route events from collection to downstream
     tools.
 - aid: rudderstack:rudderstack-webhook-source-api
+  humanURL: https://www.rudderstack.com/docs/sources/event-streams/cloud-apps/webhook-source/
+  baseURL: https://{dataPlaneUrl}
   name: RudderStack Webhook Source API
   tags:
   - Webhooks
@@ -155,6 +172,7 @@ apis:
     The RudderStack Webhook Source API receives inbound webhooks from third-party SaaS tools and normalizes
     them into RudderStack events for downstream routing.
 - aid: rudderstack:rudderstack-warehouse-destination-api
+  humanURL: https://www.rudderstack.com/docs/destinations/warehouse-destinations/
   name: RudderStack Warehouse Destination API
   tags:
   - Warehouse
@@ -171,6 +189,7 @@ apis:
     (Snowflake, BigQuery, Redshift, Postgres, Databricks, Trino, S3 Data Lake) with configurable sync
     interval, schema namespace, and incremental loading.
 - aid: rudderstack:rudderstack-orchestration-api
+  humanURL: https://www.rudderstack.com/docs/data-pipelines/orchestration/
   name: RudderStack Orchestration API
   tags:
   - Orchestration
@@ -184,6 +203,8 @@ apis:
     The RudderStack Orchestration API integrates with Airflow and Dagster to coordinate Reverse ETL syncs,
     Profiles model runs, and other RudderStack jobs from external orchestration systems.
 - aid: rudderstack:rudderstack-http-api-api
+  humanURL: https://www.rudderstack.com/docs/api/http-api/
+  baseURL: https://{dataPlaneUrl}
   name: RudderStack HTTP API API
   description: The HTTP API API from RudderStack — 7 operation(s) for http api.
   tags:
@@ -191,6 +212,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/rudderstack-http-api-api-openapi.yml
+  - type: Overlay
+    url: overlays/rudderstack-http-api-api-overlay.yaml
   - type: Documentation
     url: https://www.rudderstack.com/docs/sources/event-streams/http/
   - type: APIReference
@@ -200,6 +223,8 @@ apis:
   - type: GraphQL
     url: graphql/rudderstack-graphql.md
 - aid: rudderstack:rudderstack-internal-api-api
+  humanURL: https://www.rudderstack.com/docs/sources/event-streams/http/
+  baseURL: https://{dataPlaneUrl}
   name: RudderStack Internal API API
   description: The Internal API API from RudderStack — 5 operation(s) for internal api.
   tags:
@@ -207,6 +232,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/rudderstack-internal-api-api-openapi.yml
+  - type: Overlay
+    url: overlays/rudderstack-internal-api-api-overlay.yaml
   - type: Documentation
     url: https://www.rudderstack.com/docs/sources/event-streams/http/
   - type: APIReference
@@ -269,7 +296,7 @@ common:
 - type: Blog
   url: https://www.rudderstack.com/blog/
 - type: ChangeLog
-  url: https://www.rudderstack.com/docs/release-notes/
+  url: https://www.rudderstack.com/docs/releases/
 - type: License
   url: https://github.com/rudderlabs/rudder-server/blob/master/LICENSE.md
 - type: X (Twitter)
@@ -286,9 +313,76 @@ common:
   url: finops/rudderstack-finops.yml
 - type: Integrations
   url: https://www.rudderstack.com/partners/
+- type: ChangeLog
+  url: changelog/rudderstack-changelog.yml
+- type: Packages
+  url: packages/rudderstack-packages.yml
+- type: SDKs
+  url: packages/rudderstack-packages.yml
+- type: MCPServer
+  url: mcp/rudderstack-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/rudderstack-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/rudderstack-llms.txt
+- type: WellKnown
+  url: well-known/rudderstack-well-known.yml
+- type: Protobuf
+  url: grpc/rudderstack-grpc.yml
+- type: Conformance
+  url: conformance/rudderstack-conformance.yml
+- type: Compliance
+  url: security/rudderstack-trust-center.yml
+- type: TrustCenter
+  url: security/rudderstack-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/rudderstack-vulnerability-disclosure.yml
+- type: Security
+  url: security/rudderstack-vulnerability-disclosure.yml
+- type: ErrorCatalog
+  url: errors/rudderstack-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/rudderstack-lifecycle.yml
+- type: Conventions
+  url: conventions/rudderstack-conventions.yml
+- type: DataModel
+  url: data-model/rudderstack-data-model.yml
+- type: Sandbox
+  url: sandbox/rudderstack-sandbox.yml
+- type: CLI
+  url: cli/rudderstack-cli.yml
+- type: Webhooks
+  url: asyncapi/rudderstack-event-streaming-asyncapi.yml
+- type: Postman
+  url: https://www.getpostman.com/collections/480307c55ad2b9dd4e27
+- type: DeveloperPortal
+  url: https://www.rudderstack.com/docs/dev-tools/
+- type: Support
+  url: https://www.rudderstack.com/contact/
+- type: TermsOfService
+  url: https://www.rudderstack.com/terms-of-service/
+- type: PrivacyPolicy
+  url: https://www.rudderstack.com/privacy-policy/
+- type: MasterServiceAgreement
+  url: https://www.rudderstack.com/master-service-agreement/
+- type: SecurityOverview
+  url: https://www.rudderstack.com/security/
+- type: AgentSkillsDocs
+  url: https://www.rudderstack.com/docs/ai-features/agent-skills/
+- type: MCPDocs
+  url: https://www.rudderstack.com/docs/ai-features/rudderstack-mcp/
 integrations:
 - name: Solutions partners directory
 - name: Technology partners directory
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 52
+  pass: local-v1
+x-coverage:
+  state: covered
