@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RudderStack HTTP HTTP API Internal API API",
+    "version": "1.0.0-oas3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Internal API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Extract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/internal/v1/extract",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Handles extract requests."
+        },
+        {
+          "info": {
+            "name": "Retl",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/internal/v1/retl",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Handles retl (reverse ETL) requests."
+        },
+        {
+          "info": {
+            "name": "Audience List",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/internal/v1/audiencelist",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Handles audience list requests."
+        },
+        {
+          "info": {
+            "name": "Replay",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/internal/v1/replay",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Handles replay requests."
+        },
+        {
+          "info": {
+            "name": "Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/internal/v1/batch",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Handles internal batch requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

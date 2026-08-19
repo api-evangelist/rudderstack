@@ -1,0 +1,2643 @@
+{
+  "item": [
+    {
+      "id": "70a33022-8b50-4ea9-8d12-ece323131b5a",
+      "name": "HTTP API",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "00631990-0339-4b08-8569-c58987fdf3c1",
+          "name": "Identify",
+          "request": {
+            "name": "Identify",
+            "description": {
+              "content": "The identify call lets you associate a visiting user to their actions and record any associated traits.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "identify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain; charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1debf5fc-f816-414a-8f31-3ee3271f0ffb",
+              "name": "StatusOK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "OK",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0f1587ed-91a2-4f0e-8ed7-ebad6d7b31f5",
+              "name": "StatusBadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid request",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3287ae2f-dc25-4879-9274-060bdf313deb",
+              "name": "StatusUnauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid Authorization Header",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "254be942-9c9a-4c25-98a9-cd7fb49ffe9f",
+              "name": "StatusNotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Source does not accept webhook events",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "06fba1ce-1aff-4077-a000-739b547e197d",
+              "name": "StatusRequestEntityTooLarge",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Request size too large",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8f77179d-bd4c-47a8-bfa2-5e39529f2a8d",
+              "name": "StatusTooManyRequests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "identify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29099078-b9c9-4ec9-b49a-80a456bab2d5",
+          "name": "Track",
+          "request": {
+            "name": "Track",
+            "description": {
+              "content": "The track call lets you track user actions along with any properties associated with them.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "track"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain; charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"event\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bf6afea0-1fff-4878-a34f-d4c325de9d7f",
+              "name": "StatusOK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"event\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "OK",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "29de004f-604c-430c-8e4b-14dcbcd0e5de",
+              "name": "StatusBadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"event\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid request",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7a53463d-cbe6-4209-ae6b-9343e83d142f",
+              "name": "StatusUnauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"event\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid Authorization Header",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "28012305-9144-45ab-a0e8-ac0c384e623a",
+              "name": "StatusNotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"event\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Source does not accept webhook events",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9216a3e3-4872-40f9-8288-095544a59c58",
+              "name": "StatusRequestEntityTooLarge",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"event\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Request size too large",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "17f5aff5-6ed1-487d-bb88-8b7fae15adc4",
+              "name": "StatusTooManyRequests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "track"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"event\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3303dd4d-0621-47a3-9d73-e952ac59f88c",
+          "name": "Page",
+          "request": {
+            "name": "Page",
+            "description": {
+              "content": "The page call lets you record your website’s page views with any additional relevant information about the viewed page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "page"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain; charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7c83d41b-a9bc-4d77-9e1b-85c8c1050df2",
+              "name": "StatusOK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "OK",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c8efd891-f433-4657-b142-314441922952",
+              "name": "StatusBadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid request",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "894a73c6-f7b4-42a9-bd18-42c8fefc7516",
+              "name": "StatusUnauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid Authorization Header",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "706af4e0-b457-46a6-919c-34b37e191adc",
+              "name": "StatusNotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Source does not accept webhook events",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1c1c5a82-ca0f-4f99-8e4b-d657ead6d47a",
+              "name": "StatusRequestEntityTooLarge",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Request size too large",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "592dcc9a-f661-4d34-94e3-76132f2db8f7",
+              "name": "StatusTooManyRequests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "page"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3c41481-e999-4f89-8949-a8d286c7ae21",
+          "name": "Screen",
+          "request": {
+            "name": "Screen",
+            "description": {
+              "content": "The screen call is the mobile equivalent of the page call. It lets you record whenever your user views their mobile screen with any additional relevant information about the screen.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "screen"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain; charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f6e53b92-16d4-4df1-afc9-1f2f3bfff176",
+              "name": "StatusOK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "OK",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0ea98cd6-6328-4a08-aea2-1918cc7a92f4",
+              "name": "StatusBadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid request",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2a135ec3-9a0b-410e-90d2-fd515ae68e55",
+              "name": "StatusUnauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid Authorization Header",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "033087ba-405c-45df-83a1-fdd101782ea2",
+              "name": "StatusNotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Source does not accept webhook events",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4501c7a3-706d-4c69-81c3-82af30165b57",
+              "name": "StatusRequestEntityTooLarge",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Request size too large",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4de8633a-f530-4235-883f-7ae6bab63bc8",
+              "name": "StatusTooManyRequests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"properties\": \"<object>\",\n  \"context\": {\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c42c5090-cf62-4c5e-b9f5-c43ae092689e",
+          "name": "Group",
+          "request": {
+            "name": "Group",
+            "description": {
+              "content": "The group call lets you link an identified user with a group such as a company, organization, or an account. It also lets you record any custom traits associated with that group, like the name of the company, the number of employees, etc.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "group"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain; charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"traits\": \"<object>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9464312f-c2a0-497d-a31c-7c1c787b681d",
+              "name": "StatusOK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"traits\": \"<object>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "OK",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8047d938-589c-490d-87df-d175737d11d7",
+              "name": "StatusBadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"traits\": \"<object>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid request",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2fce25f9-0a12-4165-9bc6-644a44205fc3",
+              "name": "StatusUnauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"traits\": \"<object>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid Authorization Header",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "20064630-0012-416d-9cab-0f95141b489b",
+              "name": "StatusNotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"traits\": \"<object>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Source does not accept webhook events",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eefe333b-ecbb-4dde-9968-61d0cf38ce47",
+              "name": "StatusRequestEntityTooLarge",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"traits\": \"<object>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Request size too large",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7546f138-2a75-4bc9-a5c6-a6b4b8718635",
+              "name": "StatusTooManyRequests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "group"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"anonymousId\": \"<string>\",\n  \"groupId\": \"<string>\",\n  \"traits\": \"<object>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ccca721-a904-4b32-8b63-6ef90b5ef0df",
+          "name": "Alias",
+          "request": {
+            "name": "Alias",
+            "description": {
+              "content": "The alias call lets you merge different identities of a known user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "alias"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain; charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"<string>\",\n  \"previousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d6286b7-a50a-43ba-8301-c3352587fc86",
+              "name": "StatusOK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "alias"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"previousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "OK",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c735f96f-c9d2-404f-9f3e-c177f397bb11",
+              "name": "StatusBadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "alias"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"previousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid request",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "35af5b94-86c2-44a2-b307-fc4437b64ef5",
+              "name": "StatusUnauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "alias"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"previousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid Authorization Header",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2f0d3dc7-454c-4b6a-a74a-ba2eca2d48d8",
+              "name": "StatusNotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "alias"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"previousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Source does not accept webhook events",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "86ce915e-417e-42bc-8f2e-448d1972588d",
+              "name": "StatusRequestEntityTooLarge",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "alias"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"previousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Request size too large",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "003d852d-466a-4d54-9623-5f07e19e6797",
+              "name": "StatusTooManyRequests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "alias"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"<string>\",\n  \"previousId\": \"<string>\",\n  \"context\": {\n    \"traits\": {\n      \"trait1\": \"<string>\"\n    },\n    \"ip\": \"<string>\",\n    \"library\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e874ed2-ef08-441f-9c80-694c5a7a4060",
+          "name": "Batch",
+          "request": {
+            "name": "Batch",
+            "description": {
+              "content": "The batch call enables you to send a batch of events (identify, track, page, group, screen, alias) in a single request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain; charset=utf-8"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"batch\": [\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d055baaa-3f4d-4223-a03e-b27330358b3e",
+              "name": "StatusOK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batch\": [\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "OK",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3ca8da17-ea82-4140-b8b8-634031d14c1b",
+              "name": "StatusBadRequest",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batch\": [\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid request",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "41cc4bf3-e117-4535-a382-814a35bfdcba",
+              "name": "StatusUnauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batch\": [\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Invalid Authorization Header",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c9ba6f2-a961-4afb-aa49-a88d40a80f9e",
+              "name": "StatusNotFound",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batch\": [\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Source does not accept webhook events",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "763100e9-d59b-48a2-a7b5-ce2fda862656",
+              "name": "StatusRequestEntityTooLarge",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batch\": [\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Request size too large",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e71f350d-e465-4bfc-8b24-6d122436f440",
+              "name": "StatusTooManyRequests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain; charset=utf-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batch\": [\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    },\n    {\n      \"userId\": \"<string>\",\n      \"anonymousId\": \"<string>\",\n      \"type\": \"<string>\",\n      \"context\": {\n        \"traits\": {\n          \"trait1\": \"<string>\"\n        },\n        \"ip\": \"<string>\",\n        \"library\": {\n          \"name\": \"<string>\"\n        }\n      },\n      \"timestamp\": \"<string>\",\n      \"event\": \"<string>\",\n      \"properties\": \"<object>\",\n      \"name\": \"<string>\",\n      \"groupId\": \"<string>\",\n      \"traits\": \"<object>\",\n      \"previousId\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                }
+              ],
+              "body": "Too many requests",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "37c9d861-7e7a-4fb6-8d94-d57eca872174",
+    "name": "RudderStack HTTP HTTP API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The RudderStack HTTP API lets you track your customer event data and route it to your desired destinations.\n\nContact Support:\n Email: support@rudderstack.com",
+      "type": "text/plain"
+    }
+  }
+}

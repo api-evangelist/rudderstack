@@ -1,0 +1,125 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.rudderstack.com/docs/releases/, https://status.rudderstack.com/,
+  https://www.rudderstack.com/docs/api/, the rudderlabs/rudder-server and
+  rudderlabs/rudder-iac release streams, and the version prefixes present in the
+  documented endpoint paths.
+description: >-
+  RudderStack's versioning, deprecation and availability posture. The finding
+  worth stating plainly: RudderStack publishes a rich, dated, filterable product
+  release-notes feed and a public status page, but NO API deprecation policy, no
+  Sunset/Deprecation headers, no documented support window for a retired API
+  version, and no SLA document on the public site. Version discipline is
+  path-based and inconsistent — v0, v1, v2 and unversioned surfaces are all live
+  simultaneously on production hosts.
+versioning:
+  scheme: path segment
+  mechanism: Version is part of the URL path; there is no version request header and no account-level pinning.
+  surfaces:
+    - version: v1
+      plane: data
+      paths: [/v1/identify, /v1/track, /v1/page, /v1/screen, /v1/group, /v1/alias, /v1/batch, /pixel/v1/*]
+      base: '{DATA_PLANE_URL}'
+    - version: v2
+      plane: control
+      paths:
+        - /v2/catalog/*
+        - /v2/schemas
+        - /v2/audit-logs
+        - /v2/regulations
+        - /v2/sources
+        - /v2/destinations
+        - /v2/retl-connections
+        - '/v2/sources/{profilesID}/runs'
+      base: https://api.rudderstack.com
+    - version: v0
+      plane: control
+      paths:
+        - '/v0/testDestination/{destinationId}'
+        - '/v0/testSource/{sourceId}'
+      base: https://api.rudderstack.com
+      note: The Test API is still on a v0 path in production documentation.
+    - version: unversioned
+      plane: control
+      paths:
+        - /transformations
+        - '/transformations/{id}'
+        - '/transformations/{id}/versions'
+      base: https://api.rudderstack.com
+      note: >-
+        The Transformations API carries no version segment at all. A breaking
+        change here has nowhere to land except in place.
+  docs: https://www.rudderstack.com/docs/api/
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  notice_period: undocumented
+  note: >-
+    RudderStack publishes no API deprecation policy, no advance-notice commitment,
+    and emits no RFC 8594 Sunset or Deprecation response headers. Retirements are
+    announced, if at all, in the product release notes.
+  observed_retirements:
+    - name: Cloud Extract (legacy ETL)
+      status: deprecated
+      source: Recorded in plans/rudderstack-plans-pricing.yml during the 2026-05-08 pricing reconciliation.
+    - name: RudderTyper v1
+      status: superseded
+      superseded_by: RudderTyper v2 (packaged into rudder-cli)
+      announced: '2026-06-08'
+      source: https://www.rudderstack.com/docs/releases/
+      note: v1 docs remain published at /docs/dev-tools/ruddertyper/ alongside v2.
+    - name: rudder-sdk-js v2 (`rudder-sdk-js` on npm)
+      status: legacy line, still published
+      superseded_by: '@rudderstack/analytics-js v3'
+      note: Both lines published within a day of each other on 2026-08-13 — see packages/.
+  deprecated_operations_in_openapi: []
+beta_and_preview:
+  note: >-
+    RudderStack ships a visible beta tier and labels it in the docs navigation and
+    release notes. Agents should treat these as unstable.
+  items:
+    - {name: Rudder CLI, status: Beta, announced: '2026-06-29'}
+    - {name: RudderTyper 2.0, status: Beta, announced: '2026-06-08'}
+    - {name: Audiences, status: Private Beta, source: docs navigation}
+    - {name: Rudder AI Reviewer, status: Beta, source: docs navigation}
+    - {name: RudderStack MCP, status: 'active development — provider states some features may not be available and connection stability may vary', source: https://mcp.rudderstack.com/docs}
+status_page:
+  url: https://status.rudderstack.com/
+  platform: Atlassian Statuspage
+  machine_readable: https://status.rudderstack.com/api/v2/status.json
+  http_status: 200
+  probed: '2026-08-13'
+sla:
+  published: false
+  note: >-
+    No public SLA document. The Master Service Agreement
+    (https://www.rudderstack.com/master-service-agreement/) is the
+    contractual surface; uptime commitments are not published on the marketing or
+    docs site. Enterprise support tiers (dedicated Slack, TAM, CSM, solutions
+    architect) are listed on the pricing page.
+release_notes:
+  url: https://www.rudderstack.com/docs/releases/
+  format: dated, filterable by category and plan tier
+  entry_count_observed: 162
+  detail: changelog/rudderstack-changelog.yml
+open_source:
+  data_plane:
+    repo: https://github.com/rudderlabs/rudder-server
+    license: Elastic License 2.0 / AGPLv3 (see repo LICENSE)
+    note: >-
+      The data plane is self-hostable, so a self-hosted operator's version
+      lifecycle is their own — RudderStack's release cadence sets the ceiling, not
+      the floor.
+  transformer:
+    repo: https://github.com/rudderlabs/rudder-transformer
+  cli:
+    repo: https://github.com/rudderlabs/rudder-iac
+    latest_release: v0.23.0
+    released: '2026-08-07'
+    note: >-
+      README carries an explicit "Work in Progress — we do not guarantee backwards
+      compatibility at this stage" warning.

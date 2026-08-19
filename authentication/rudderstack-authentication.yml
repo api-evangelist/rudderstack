@@ -1,13 +1,130 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/rudderstack-gateway-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.rudderstack.com/docs/access-management/service-access-tokens/,
+  https://www.rudderstack.com/docs/access-management/personal-access-tokens/,
+  https://www.rudderstack.com/docs/api/transformation-api/,
+  https://www.rudderstack.com/docs/api/http-api/,
+  https://mcp.rudderstack.com/.well-known/oauth-authorization-server, and
+  openapi/rudderstack-http-api-api-openapi.yml
+docs: https://www.rudderstack.com/docs/access-management/
+description: >-
+  RudderStack runs THREE distinct authentication regimes, one per plane. The data
+  plane (event ingest) uses HTTP Basic with the source write key as the username
+  and an empty password. The control plane at api.rudderstack.com uses a Bearer
+  token — a workspace/organization Service Access Token (SAT) or, on Free and
+  self-hosted plans, a user Personal Access Token (PAT). The hosted MCP server at
+  mcp.rudderstack.com is an OAuth 2.0 protected resource with Dynamic Client
+  Registration and PKCE. Conflating them is the most common integration error:
+  a write key will not authenticate against api.rudderstack.com and a SAT will
+  not authenticate an event POST.
 summary:
   types:
-  - http
+    - http
+    - oauth2
+  planes: 3
 schemes:
-- name: writeKeyAuth
-  type: http
-  scheme: basic
-  description: Write Key Basic Authentication
-  sources:
-  - openapi/rudderstack-gateway-openapi.yml
+  - name: writeKeyAuth
+    plane: data
+    type: http
+    scheme: basic
+    base: '{DATA_PLANE_URL}'
+    description: >-
+      Source write key as the HTTP Basic username with an empty password
+      (`curl -u <source_write_key>: ...`). Scoped to a single source; it can only
+      write events, never read or configure anything.
+    used_by:
+      - openapi/rudderstack-http-api-api-openapi.yml
+      - openapi/rudderstack-internal-api-api-openapi.yml
+      - Pixel API (write key passed as the `writeKey` query parameter on a GET)
+    docs: https://www.rudderstack.com/docs/api/http-api/
+    sources:
+      - openapi/rudderstack-http-api-api-openapi.yml
+  - name: serviceAccessToken
+    plane: control
+    type: http
+    scheme: bearer
+    base: https://api.rudderstack.com
+    regional_base: https://api.eu.rudderstack.com
+    header: 'Authorization: Bearer <SERVICE_ACCESS_TOKEN>'
+    description: >-
+      Service Access Token. Issued at the organization or workspace level rather
+      than being tied to a user, so it survives member removal and role changes.
+      Organization-level SATs carry Admin permissions by default; workspace-level
+      SATs are created under a configurable workspace SAT access policy. Only
+      Admins can see the Service Access Tokens tab or create/delete tokens.
+    docs: https://www.rudderstack.com/docs/access-management/service-access-tokens/
+    used_by:
+      - Data Catalog API
+      - Tracking Plan API
+      - Transformations API
+      - Profiles API
+      - Reverse ETL Connections API
+      - Audit Logs API
+      - Event Audit API
+      - User Suppression API
+      - Test API
+      - rudder-cli (rudder-cli auth login)
+  - name: personalAccessToken
+    plane: control
+    type: http
+    scheme: bearer
+    base: https://api.rudderstack.com
+    header: 'Authorization: Bearer <token>'
+    description: >-
+      Personal Access Token, tied to an individual user and their role. Documented
+      as the token type for Free and self-hosted plans, and accepted by rudder-cli.
+      Breaks when the user is removed or their permissions change — which is the
+      stated reason SATs exist.
+    docs: https://www.rudderstack.com/docs/access-management/personal-access-tokens/
+  - name: testApiBasic
+    plane: control
+    type: http
+    scheme: basic
+    base: https://api.rudderstack.com
+    header: 'Authorization: Basic {Base64Encoded(:<SERVICE_ACCESS_TOKEN>)}'
+    description: >-
+      OUTLIER. The Test API (/v0/testDestination/{destinationId},
+      /v0/testSource/{sourceId}) authenticates with HTTP Basic using an EMPTY
+      username and the workspace Service Access Token as the PASSWORD — not the
+      Bearer scheme every other control-plane API uses. A workspace SAT carries
+      Read permissions by default and needs no additional resource permissions;
+      on the legacy RBAC system the token needs at least Viewer.
+    docs: https://www.rudderstack.com/docs/api/test-api/
+    used_by:
+      - Test API
+  - name: mcpOAuth
+    plane: agent
+    type: oauth2
+    base: https://mcp.rudderstack.com
+    description: >-
+      OAuth 2.0 authorization_code + refresh_token with PKCE (S256) protecting the
+      hosted MCP server. Dynamic Client Registration (RFC 7591) is advertised at
+      /register, so an MCP client can self-register; the user then signs in with
+      their existing RudderStack credentials and approves the integration.
+      Discovery follows RFC 8414 and RFC 9728.
+    flows:
+      authorization_code:
+        authorization_url: https://mcp.rudderstack.com/authorize
+        token_url: https://mcp.rudderstack.com/token
+        registration_url: https://mcp.rudderstack.com/register
+        scopes: {}
+        note: >-
+          The authorization server metadata document declares no `scopes_supported`
+          — see scopes/rudderstack-scopes.yml.
+    token_endpoint_auth_methods: [client_secret_basic, client_secret_post, none]
+    docs: https://mcp.rudderstack.com/docs
+    artifacts:
+      - well-known/rudderstack-mcp-oauth-authorization-server.json
+      - well-known/rudderstack-mcp-oauth-protected-resource.json
+enterprise:
+  sso:
+    supported: true
+    plans: [Enterprise]
+    providers_named: [Okta, OneLogin]
+    docs: https://www.rudderstack.com/security/
+  mfa:
+    supported: true
+    methods: [TOTP authenticator app, SMS, single-use backup codes]
+    since: '2026-08-05'
+    docs: https://www.rudderstack.com/docs/dashboard-guides/security/

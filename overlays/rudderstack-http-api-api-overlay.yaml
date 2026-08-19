@@ -1,0 +1,102 @@
+overlay: 1.0.0
+info:
+  title: RudderStack HTTP API — API Evangelist enhancements
+  version: 1.0.0
+x-provenance:
+  generated: '2026-08-13'
+  method: generated
+  source: >-
+    Enhancements captured from https://www.rudderstack.com/docs/api/http-api/ and
+    the artifacts in this repo (authentication/, conventions/, errors/,
+    rate-limits/, lifecycle/). Extends openapi/rudderstack-http-api-api-openapi.yml
+    without mutating it.
+  extends: openapi/rudderstack-http-api-api-openapi.yml
+actions:
+  - target: $.info
+    description: Name the real base URL policy and the documented payload limits, which the spec does not carry.
+    update:
+      x-base-url-policy: >-
+        The HTTP tracking API is served from the workspace's DATA PLANE URL, assigned
+        in the RudderStack dashboard under Connections. There is no single global
+        ingest host — RudderStack Cloud issues one per workspace and self-hosted
+        rudder-server operators run their own.
+      x-payload-limits:
+        max_event_size: 32 KB per call
+        max_batch_size: 4 MB per batch
+        max_json_nesting_depth: 200
+        oversize_status: 400
+      x-docs: https://www.rudderstack.com/docs/api/http-api/
+      x-regions:
+        control_plane_us: https://api.rudderstack.com
+        control_plane_eu: https://api.eu.rudderstack.com
+        note: >-
+          The regional split applies to the CONTROL plane. The data plane URL is
+          per-workspace and is not region-suffixed in the same way.
+  - target: $.servers
+    description: >-
+      Replace the relative "/v1" server with an explicit templated data-plane server.
+      A relative server URL makes the spec uncallable; a template names the host and
+      says a variable is required.
+    update:
+      - url: 'https://{dataPlaneUrl}'
+        description: >-
+          Workspace data plane. Copy the value from the RudderStack dashboard
+          (Connections). Self-hosted deployments substitute their own rudder-server host.
+        variables:
+          dataPlaneUrl:
+            default: hosted.rudderlabs.com
+            description: >-
+              Workspace-specific data plane hostname. hosted.rudderlabs.com is
+              RudderStack's shared hosted data plane and answers a health payload at
+              its root (HTTP 200, probed 2026-08-13); most workspaces are issued a
+              dedicated hostname.
+  - target: $.components.securitySchemes.writeKeyAuth
+    description: Document how the write key is actually presented.
+    update:
+      x-credential-placement: >-
+        HTTP Basic with the source write key as the USERNAME and an EMPTY password —
+        `curl -u <source_write_key>: -X POST <data_plane_url>/v1/track`.
+      x-scope: >-
+        Write-only, single source. A write key cannot read or configure anything and
+        will NOT authenticate against the control plane at api.rudderstack.com.
+      x-detail: authentication/rudderstack-authentication.yml
+  - target: $.paths.*.post.responses.429
+    description: State the rate-limit signalling reality on every throttled response.
+    update:
+      x-rate-limit-headers: none
+      x-retry-after: not sent
+      x-client-guidance: >-
+        RudderStack publishes no X-RateLimit-*, RateLimit-* or Retry-After headers.
+        Exponential backoff is the only viable strategy — the 429 is the entire signal.
+      x-detail: rate-limits/rudderstack-rate-limits.yml
+  - target: $.paths.*.post.responses.400
+    description: Enumerate the documented causes of a 400, which the one-line description omits.
+    update:
+      x-causes:
+        - Invalid request method
+        - Invalid request body
+        - Invalid source or destination ID
+        - Empty batch payload
+        - Event exceeds 32 KB per call or 4 MB per batch
+        - Event exceeds the 200-level JSON nesting depth
+      x-detail: errors/rudderstack-problem-types.yml
+  - target: $.paths.*.post
+    description: >-
+      Record that these operations are NOT idempotent at the request level and how
+      de-duplication actually works.
+    update:
+      x-idempotent: false
+      x-idempotency-key-header: null
+      x-dedupe-field: messageId
+      x-idempotency-note: >-
+        RudderStack documents no Idempotency-Key header. The SDKs generate a
+        per-event `messageId` used for downstream de-duplication, but a bare retry of
+        an HTTP POST carries no replay guarantee.
+      x-detail: conventions/rudderstack-conventions.yml
+  - target: $.paths./v1/batch.post
+    description: Note the batch-specific limits.
+    update:
+      x-batch-limits:
+        max_batch_size: 4 MB
+        max_call_size_within_batch: 32 KB
+        empty_batch: rejected with 400

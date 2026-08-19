@@ -1,0 +1,225 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.rudderstack.com/docs/sources/event-streams/sdks/ and the
+  github.com/rudderlabs organization, with every version/date read live from the
+  package registry metadata endpoint on 2026-08-13 (registry.npmjs.org,
+  pypi.org/pypi/*/json, rubygems.org/api/v1, repo.packagist.org/p2,
+  proxy.golang.org, crates.io/api/v1, search.maven.org, api.nuget.org).
+description: >-
+  First-party RudderStack client libraries and developer tooling. RudderStack
+  ships SDKs across web, mobile and server runtimes plus the rudder-cli
+  infrastructure-as-code binary and a Terraform provider. Versions and publish
+  dates below are the values the registries returned on 2026-08-13; where a
+  registry has no entry the field is null with a note rather than a guess.
+packages:
+  - language: javascript
+    registry: npm
+    name: '@rudderstack/analytics-js'
+    url: https://www.npmjs.com/package/@rudderstack/analytics-js
+    source: https://github.com/rudderlabs/rudder-sdk-js
+    install: npm install @rudderstack/analytics-js
+    official: true
+    version: 3.31.7
+    published: '2026-08-13'
+    note: JavaScript SDK v3 — the current browser SDK.
+  - language: javascript
+    registry: npm
+    name: rudder-sdk-js
+    url: https://www.npmjs.com/package/rudder-sdk-js
+    source: https://github.com/rudderlabs/rudder-sdk-js
+    install: npm install rudder-sdk-js
+    official: true
+    version: 2.52.18
+    published: '2026-08-13'
+    note: Legacy v2 browser SDK line; still actively published alongside v3.
+  - language: javascript
+    registry: npm
+    name: '@rudderstack/analytics-js-service-worker'
+    url: https://www.npmjs.com/package/@rudderstack/analytics-js-service-worker
+    source: https://github.com/rudderlabs/rudder-sdk-js
+    install: npm install @rudderstack/analytics-js-service-worker
+    official: true
+    version: 3.3.13
+    published: '2026-07-27'
+    note: Service worker / edge runtime build of the JavaScript SDK.
+  - language: javascript
+    registry: npm
+    name: '@rudderstack/rudder-sdk-node'
+    url: https://www.npmjs.com/package/@rudderstack/rudder-sdk-node
+    source: https://github.com/rudderlabs/rudder-sdk-node
+    install: npm install @rudderstack/rudder-sdk-node
+    official: true
+    version: 3.0.12
+    published: '2026-07-31'
+  - language: javascript
+    registry: npm
+    name: '@rudderstack/rudder-sdk-react-native'
+    url: https://www.npmjs.com/package/@rudderstack/rudder-sdk-react-native
+    source: https://github.com/rudderlabs/rudder-sdk-react-native
+    install: npm install @rudderstack/rudder-sdk-react-native
+    official: true
+    version: 3.1.1
+    published: '2026-06-29'
+  - language: python
+    registry: pypi
+    name: rudder-sdk-python
+    url: https://pypi.org/project/rudder-sdk-python/
+    source: https://github.com/rudderlabs/rudder-sdk-python
+    install: pip install rudder-sdk-python
+    official: true
+    version: 2.1.4
+    published: '2024-09-25'
+    note: >-
+      DECAY SIGNAL — the Python server SDK's last PyPI release predates the v2
+      control-plane API surface documented at api.rudderstack.com by roughly two
+      years, while the JS/Node/Ruby/PHP SDKs all published within the last month.
+  - language: python
+    registry: pypi
+    name: profiles-rudderstack
+    url: https://pypi.org/project/profiles-rudderstack/
+    source: https://github.com/rudderlabs/profiles-pycorelib
+    install: pip install profiles-rudderstack
+    official: true
+    version: 0.26.1
+    published: '2026-07-29'
+    note: Profiles (warehouse-native identity resolution) Python toolchain, not an event SDK.
+  - language: ruby
+    registry: rubygems
+    name: rudder-sdk-ruby
+    url: https://rubygems.org/gems/rudder-sdk-ruby
+    source: https://github.com/rudderlabs/rudder-sdk-ruby
+    install: gem install rudder-sdk-ruby
+    official: true
+    version: 3.2.1
+    published: '2026-07-22'
+  - language: php
+    registry: packagist
+    name: rudderstack/rudder-php-sdk
+    url: https://packagist.org/packages/rudderstack/rudder-php-sdk
+    source: https://github.com/rudderlabs/rudder-sdk-php
+    install: composer require rudderstack/rudder-php-sdk
+    official: true
+    version: 2.2.0
+    published: '2026-07-21'
+  - language: go
+    registry: goproxy
+    name: github.com/rudderlabs/analytics-go/v4
+    url: https://pkg.go.dev/github.com/rudderlabs/analytics-go/v4
+    source: https://github.com/rudderlabs/analytics-go
+    install: go get github.com/rudderlabs/analytics-go/v4
+    official: true
+    version: v4.2.3
+    published: '2026-01-08'
+    note: >-
+      v3 remains resolvable as v3.3.3+incompatible (published 2022-08-18); v4 is
+      the maintained module path.
+  - language: rust
+    registry: crates.io
+    name: rudderanalytics
+    url: https://crates.io/crates/rudderanalytics
+    source: https://github.com/rudderlabs/rudder-sdk-rust
+    install: cargo add rudderanalytics
+    official: true
+    version: 2.0.1
+    published: '2026-07-22'
+  - language: dotnet
+    registry: nuget
+    name: RudderAnalytics
+    url: https://www.nuget.org/packages/RudderAnalytics/
+    source: https://github.com/rudderlabs/rudder-analytics-dotnet
+    install: dotnet add package RudderAnalytics
+    official: true
+    version: 2.0.1
+    published: '2026-06-18'
+  - language: java
+    registry: maven
+    name: com.rudderstack.android.sdk:core
+    url: https://central.sonatype.com/artifact/com.rudderstack.android.sdk/core
+    source: https://github.com/rudderlabs/rudder-sdk-android
+    install: implementation 'com.rudderstack.android.sdk:core:1.27.2'
+    official: true
+    version: 1.27.2
+    published: '2025-05-05'
+    note: >-
+      Android (Java) SDK v1. RudderStack's current mobile line is the Kotlin SDK
+      (github.com/rudderlabs/rudder-sdk-kotlin) and the Swift SDK
+      (github.com/rudderlabs/rudder-sdk-swift); this v1 artifact is the legacy
+      Android core.
+  - language: java
+    registry: maven
+    name: com.rudderstack.sdk.java.analytics:analytics
+    url: https://central.sonatype.com/artifact/com.rudderstack.sdk.java.analytics/analytics
+    source: https://github.com/rudderlabs/rudder-sdk-java
+    install: implementation 'com.rudderstack.sdk.java.analytics:analytics:3.1.2'
+    official: true
+    version: 3.1.2
+    published: '2024-08-01'
+    note: >-
+      DECAY SIGNAL — the Java server SDK has not published to Maven Central since
+      2024-08-01, roughly two years behind the JS/Node/Ruby/PHP lines.
+  - language: kotlin
+    registry: maven
+    name: com.rudderstack.sdk.kotlin
+    url: https://github.com/rudderlabs/rudder-sdk-kotlin
+    source: https://github.com/rudderlabs/rudder-sdk-kotlin
+    install: See the repository README for the current Maven coordinates.
+    official: true
+    version: null
+    published: null
+    note: >-
+      CHECKED, NOTHING TO RECORD — search.maven.org returned no artifact under
+      the com.rudderstack.android, com.rudderstack.sdk.kotlin or com.rudderstack
+      groups for the Kotlin SDK on 2026-08-13. The repository is first-party and
+      active; the published coordinates could not be confirmed from an
+      unauthenticated registry query.
+  - language: swift
+    registry: swiftpm
+    name: rudder-sdk-swift
+    url: https://github.com/rudderlabs/rudder-sdk-swift
+    source: https://github.com/rudderlabs/rudder-sdk-swift
+    install: 'Swift Package Manager: https://github.com/rudderlabs/rudder-sdk-swift'
+    official: true
+    version: null
+    published: null
+    note: >-
+      CHECKED, NOTHING TO RECORD — Swift Package Manager has no central registry
+      metadata endpoint to query; the package resolves straight from the Git tag.
+  - language: dart
+    registry: pub.dev
+    name: rudder_sdk_flutter
+    url: https://pub.dev/packages/rudder_sdk_flutter
+    source: https://github.com/rudderlabs/rudder-sdk-flutter
+    install: flutter pub add rudder_sdk_flutter
+    official: true
+    version: 3.3.4
+    published: '2026-07-29'
+  - language: go
+    registry: github-releases
+    name: rudder-cli
+    url: https://github.com/rudderlabs/rudder-iac/releases
+    source: https://github.com/rudderlabs/rudder-iac
+    install: >-
+      curl -L https://github.com/rudderlabs/rudder-iac/releases/latest/download/rudder-cli_Darwin_arm64.tar.gz
+      | tar -xz rudder-cli
+    official: true
+    version: v0.23.0
+    published: '2026-08-07'
+    note: >-
+      The rudder-cli infrastructure-as-code binary. Distributed as a GitHub
+      release tarball and as the rudderlabs/rudder-cli Docker image — there is no
+      language-registry package. Command surface is catalogued in
+      cli/rudderstack-cli.yml.
+  - language: hcl
+    registry: terraform-registry
+    name: rudderlabs/rudderstack
+    url: https://registry.terraform.io/providers/rudderlabs/rudderstack/latest
+    source: https://github.com/rudderlabs/terraform-provider-rudderstack
+    install: 'terraform { required_providers { rudderstack = { source = "rudderlabs/rudderstack" } } }'
+    official: true
+    version: 4.11.0
+    published: '2026-07-30'
+    note: >-
+      Read from registry.terraform.io/v1/providers/rudderlabs/rudderstack.
+      RudderStack publishes agent skills for this provider
+      (skills/rudderstack-rudder-terraform-workflow.md).

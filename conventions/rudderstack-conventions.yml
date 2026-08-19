@@ -1,0 +1,172 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.rudderstack.com/docs/api/ and its per-API pages (http-api,
+  pixel-api, data-catalog-api, tracking-plan-api, transformation-api, profiles-api,
+  retl-connections-api, audit-logs-api, event-audit-api, user-suppression-api,
+  test-api), read from the markdown twins; cross-checked against
+  openapi/rudderstack-http-api-api-openapi.yml.
+description: >-
+  Cross-cutting request/response semantics for the RudderStack API surface — the
+  behaviour that applies across operations and that OpenAPI does not fully
+  express. The dominant convention is that RudderStack is TWO APIs wearing one
+  name: a data plane you POST events to with a write key, and a control plane you
+  manage configuration on with a bearer token. Almost every convention below
+  differs between them.
+planes:
+  data:
+    base: '{DATA_PLANE_URL}'
+    base_note: >-
+      Per-workspace, assigned in the dashboard under Connections. RudderStack Cloud
+      issues a hosted data plane URL; self-hosted rudder-server operators run their
+      own. Templated on purpose — there is no single global ingest host.
+    auth: HTTP Basic, source write key as username, empty password
+    content_type: application/json
+    response_body: 'text/plain; charset=utf-8 — literally "OK" on success'
+    docs: https://www.rudderstack.com/docs/api/http-api/
+  control:
+    base: https://api.rudderstack.com
+    regional_bases:
+      US: https://api.rudderstack.com
+      EU: https://api.eu.rudderstack.com
+    auth: 'Authorization: Bearer <SERVICE_ACCESS_TOKEN or PERSONAL_ACCESS_TOKEN>'
+    content_type: application/json
+    docs: https://www.rudderstack.com/docs/api/
+api_style: REST over HTTPS, JSON request and response bodies
+
+authentication:
+  scheme: Two schemes, one per plane — HTTP Basic (write key) on the data plane, Bearer token on the control plane.
+  detail: authentication/rudderstack-authentication.yml
+  docs: https://www.rudderstack.com/docs/access-management/
+
+regions:
+  supported: [US, EU]
+  mechanism: Separate control-plane hostname per region; the data plane URL is per-workspace.
+  note: >-
+    A US token will not work against api.eu.rudderstack.com. RudderStack documents
+    the two base URLs side by side on the Transformations API page.
+
+idempotency:
+  supported: false
+  mechanism: null
+  note: >-
+    RudderStack documents no Idempotency-Key header and no idempotency semantics on
+    either plane. Event de-duplication is instead handled with the event
+    `messageId` in the payload — the SDKs generate one per event and RudderStack
+    uses it downstream for de-duplication — but that is a payload field, not a
+    request-level idempotency contract, and the docs do not promise replay-safe
+    POSTs. Control-plane mutations (POST /transformations, PUT /catalog/*) carry no
+    idempotency guarantee at all.
+  payload_dedupe_field: messageId
+
+pagination:
+  styles: 2
+  offset:
+    used_by: [Data Catalog API, Tracking Plan API, Event Audit API]
+    request_params:
+      page: positive integer, default 1
+    limits:
+      max_pages: 50
+    response_fields:
+      currentPage: Current page number, starting at 1
+      pageSize: Maximum number of items per page
+      total: Total item count
+    ordering:
+      param: orderBy
+      example: 'orderBy=name:desc'
+  cursor:
+    used_by: [Audit Logs API]
+    request_params:
+      after_cursor: opaque cursor; fetch results after this point
+      per_page: 1-100, default 100
+    response_fields:
+      next: Relative URL of the next page, pre-built with the cursor
+  note: >-
+    The two styles are not interchangeable and RudderStack does not document a
+    single pagination convention. An agent must know which API it is calling.
+
+expansion:
+  supported: false
+  note: No field-expansion or sparse-fieldset parameter is documented on any endpoint.
+
+metadata:
+  supported: false
+  note: >-
+    No generic `metadata` bag on control-plane resources. Arbitrary customer data
+    rides in the event payload's `properties`, `traits` and `context` objects on
+    the data plane instead.
+
+request_tracing:
+  request_id_header: null
+  note: >-
+    No documented request-id or correlation header on either plane. Debugging is
+    routed through the dashboard Live Events view and the MCP "Events" tools
+    rather than a per-request identifier the caller can quote.
+
+versioning:
+  scheme: path segment
+  values:
+    - 'v1 — data plane event endpoints (/v1/track, /v1/identify, ...)'
+    - 'v2 — control plane (/v2/catalog/*, /v2/schemas, /v2/audit-logs, /v2/regulations, /v2/sources, /v2/retl-connections)'
+    - 'v0 — Test API (/v0/testDestination/{id}, /v0/testSource/{id})'
+    - 'unversioned — Transformations API (/transformations)'
+  header: null
+  detail: lifecycle/rudderstack-lifecycle.yml
+  note: >-
+    Four coexisting version conventions on one host, including an unversioned
+    production API. There is no version request header.
+
+error_envelope:
+  format: inconsistent
+  data_plane:
+    content_type: 'text/plain; charset=utf-8'
+    body: A bare human-readable string ("Invalid request", "Invalid Authorization Header", "Request size too large")
+    note: >-
+      NOT JSON. The data plane returns plain text even for errors, which means an
+      agent cannot parse a machine-readable error from an event POST.
+  control_plane:
+    content_type: application/json
+    note: >-
+      JSON error bodies. RudderStack publishes per-endpoint response-code tables
+      rather than one shared error schema, and no RFC 9457 problem+json.
+  rfc9457: false
+  detail: errors/rudderstack-problem-types.yml
+
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: 429
+  retry_after: undocumented
+  note: >-
+    RudderStack documents a 429 on the HTTP API and documents hourly token budgets
+    for the User Suppression API, but publishes NO rate-limit response headers —
+    no X-RateLimit-*, no RateLimit-*, no documented Retry-After. An agent cannot
+    read its remaining budget from a response; it can only observe the 429.
+  detail: rate-limits/rudderstack-rate-limits.yml
+
+payload_limits:
+  max_event_size: 32 KB per call
+  max_batch_size: 4 MB per batch (32 KB per call within the batch)
+  oversize_status: 400 on the documented limits; 413 is also defined in the spec
+  json_nesting_depth: 200 levels (objects and arrays both count); exceeding it is rejected at ingestion
+  docs: https://www.rudderstack.com/docs/api/http-api/
+
+id_format:
+  style: 27-character KSUID-like opaque strings
+  examples:
+    - 2C8Vk2wj8qkofy00YzJbvJOGeqa
+    - 1wJCPWvDLHgsi5inTHAChsrFn7O
+  prefixed_ids:
+    used_by: [Data Catalog API]
+    examples:
+      - prop_2bfXbQuinn4298XzqlyxmktRAX9d
+    note: >-
+      Data Catalog objects carry a type prefix (`prop_` for properties); older
+      surfaces (transformations, workspaces, sources) use bare opaque IDs.
+  detail: data-model/rudderstack-data-model.yml
+
+cross_links:
+  errors: errors/rudderstack-problem-types.yml
+  lifecycle: lifecycle/rudderstack-lifecycle.yml
+  authentication: authentication/rudderstack-authentication.yml
+  rate_limits: rate-limits/rudderstack-rate-limits.yml
+  data_model: data-model/rudderstack-data-model.yml

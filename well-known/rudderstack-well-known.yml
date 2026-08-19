@@ -1,0 +1,118 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live HTTP probes of the /.well-known/ discovery surface on every RudderStack
+  host named in apis.yml, the docs host, and the hosted MCP host, run 2026-08-13.
+description: >-
+  RudderStack serves no /.well-known/ documents on its marketing, docs or
+  control-plane API hosts — every path 404s. The one real discovery surface is
+  the hosted MCP server at mcp.rudderstack.com, which publishes both RFC 8414
+  OAuth Authorization Server Metadata and RFC 9728 OAuth Protected Resource
+  Metadata; both bodies are saved verbatim here. app.rudderstack.com is a
+  single-page app whose catch-all route answers HTTP 200 with a text/html shell
+  for EVERY /.well-known/ path — that is not a document and is recorded as a
+  miss, not a hit.
+hosts:
+  - host: https://www.rudderstack.com
+    note: Marketing site and docs (Hugo/Next.js). Serves /llms.txt but no /.well-known documents.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://api.rudderstack.com
+    note: >-
+      Control-plane API host (Config Backend, Data Catalog, Tracking Plan,
+      Transformations, Profiles, Reverse ETL, Audit Logs, User Suppression).
+      Returns a bare text/plain "Not Found" on every discovery path.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://app.rudderstack.com
+    note: >-
+      FALSE POSITIVE WARNING — the dashboard SPA answers 200 with the same
+      text/html application shell for every /.well-known/ path, including
+      agent-card.json and llms.txt. None of these is a document. Treated as a
+      miss throughout this pass.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/api-catalog
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/agent-card.json
+        status: 200
+        content_type: text/html
+        real_document: false
+      - path: /.well-known/agent.json
+        status: 200
+        content_type: text/html
+        real_document: false
+  - host: https://mcp.rudderstack.com
+    note: >-
+      Hosted MCP server. The only RudderStack host serving real /.well-known
+      documents. Both were saved verbatim.
+    documents:
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: application/json
+        real_document: true
+        file: rudderstack-mcp-oauth-authorization-server.json
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        content_type: application/json
+        real_document: true
+        file: rudderstack-mcp-oauth-protected-resource.json
+      - path: /.well-known/agent-card.json
+        status: 404
+summary:
+  paths_probed: 34
+  real_documents_found: 2
+  security_txt: false
+  openid_configuration: false
+  agent_card: false

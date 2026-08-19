@@ -3,8 +3,14 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: RudderStack
 providerId: rudderstack
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.rudderstack.com/docs/api/user-suppression-api/,
+  https://www.rudderstack.com/docs/api/http-api/,
+  https://www.rudderstack.com/pricing/
 created: '2026-05-08'
-modified: '2026-05-08'
+modified: '2026-08-13'
 reconciled: true
 tags:
   - Customer Data Platform
@@ -13,70 +19,118 @@ tags:
   - Rate Limiting
   - Quotas
   - Throttling
+limit_count: 5
 description: >-
-  RudderStack does not publish hard request-per-second caps on its HTTP Tracking API; instead, primary metering is monthly events as set by the subscribed plan tier (Free 250K, Starter 1M, Growth/Enterprise custom). The Config Backend API and Dashboard APIs apply lighter throttles primarily to protect the control plane. Self-hosted (open-source) deployments inherit only the limits the operator sets on rudder-server. Downstream destination throughput is bounded by the destination's own rate limits, which RudderStack respects per-connection.
-notes: >-
-  The principal commercial constraint is the monthly event quota in the customer's plan; bursts above plan are buffered and counted against the next billing period (or surface as overage on enterprise contracts). Verify the latest published throughput guidance with RudderStack support if scoping a sustained ingest > 5,000 events/sec.
-sources:
-  - https://www.rudderstack.com/docs/sources/event-streams/http/
-  - https://www.rudderstack.com/pricing/
-  - https://github.com/rudderlabs/rudder-server
+  RudderStack publishes very little runtime rate-limit information. The HTTP
+  tracking API documents a 429 "Too many requests" status but NO request-per-second
+  cap, and the only numeric per-API rate limit anywhere in the documentation is on
+  the User Suppression API, expressed as hourly token budgets. The real commercial
+  constraint is the monthly event quota attached to the plan tier. Payload limits
+  (32 KB per call, 4 MB per batch, 200-level JSON nesting) are documented and hard.
+headers:
+  published: false
+  x_ratelimit: []
+  ietf_ratelimit: []
+  retry_after: false
+  note: >-
+    THE MOST IMPORTANT FINDING HERE. RudderStack documents no rate-limit response
+    headers of any kind — no X-RateLimit-Limit/Remaining/Reset, no RFC-draft
+    RateLimit-*, and no Retry-After on a 429. An agent or SDK cannot read its
+    remaining budget or a server-supplied backoff interval from any response; the
+    only runtime signal is the 429 itself. Exponential backoff is the only viable
+    client strategy.
 responseCodes:
   throttled: 429
   payloadTooLarge: 413
+  badRequestOnOversize: 400
 limits:
-  - name: Free Plan Monthly Events
+  - name: User Suppression API — suppression tokens
+    scope: workspace
+    api: User Suppression API (POST /v2/regulations)
+    metric: tokens
+    limit: 4000
+    window: hour
+    timeFrame: hour
+    documented: true
+    source: https://www.rudderstack.com/docs/api/user-suppression-api/
+    notes: >-
+      1 user = 1 token for a suppression request. Published verbatim by RudderStack
+      as a table on the User Suppression API page.
+  - name: User Suppression API — deletion tokens
+    scope: workspace
+    api: User Suppression API (POST /v2/regulations with deletion)
+    metric: tokens
+    limit: 200000
+    window: hour
+    timeFrame: hour
+    documented: true
+    source: https://www.rudderstack.com/docs/api/user-suppression-api/
+    notes: >-
+      Token cost for deletion is users × destinations — m users across n
+      destinations consumes m*n tokens. A 200-destination workspace exhausts the
+      budget at 1,000 users per hour.
+  - name: HTTP tracking API throttling
+    scope: source
+    api: HTTP API ({DATA_PLANE_URL}/v1/*)
+    metric: requests
+    limit: null
+    window: null
+    documented: false
+    status_on_exhaustion: 429
+    source: https://www.rudderstack.com/docs/api/http-api/
+    notes: >-
+      HONEST ZERO. RudderStack documents the 429 response but publishes no numeric
+      request-rate cap for event ingest. Self-hosted rudder-server deployments
+      inherit only the limits the operator configures.
+  - name: Free plan monthly events
     scope: workspace
     metric: events
     limit: 250000
     timeFrame: month
-    notes: >-
-      Hard cap on tracked events per month for the Free tier; excess events are dropped or queued depending on settings.
-  - name: Starter Plan Monthly Events
+    window: month
+    documented: true
+    source: https://www.rudderstack.com/pricing/
+  - name: Growth plan monthly events (entry rung)
     scope: workspace
     metric: events
     limit: 1000000
     timeFrame: month
+    window: month
+    documented: true
+    source: https://www.rudderstack.com/pricing/
     notes: >-
-      Included events on the $220/month Starter plan; overage is billed or capped per contract.
-  - name: Growth Plan Monthly Events
-    scope: workspace
-    metric: events
-    limit: -1
-    timeFrame: month
-    notes: >-
-      Custom-quoted volume; specific cap is set in the Growth subscription order form.
-  - name: Enterprise Plan Monthly Events
-    scope: workspace
-    metric: events
-    limit: -1
-    timeFrame: month
-    notes: >-
-      Custom-quoted volume with optional burst allowance; defined in the enterprise contract.
-  - name: HTTP Payload Size
-    scope: request
-    metric: bytes
-    limit: 32768
-    timeFrame: per-event
-    notes: >-
-      Single tracking call payloads are recommended to stay under 32 KB; batch endpoint accepts up to 4 MB total.
-  - name: Batch Size
-    scope: request
-    metric: events
-    limit: 500
-    timeFrame: per-batch
-    notes: >-
-      Typical safe batch size for the /v1/batch endpoint; align with the SDKs' default flush thresholds.
-policies:
-  - name: Backoff Strategy
-    description: >-
-      Implement exponential backoff with jitter and honor Retry-After. The official SDKs already implement queueing, batching, and retry semantics.
-  - name: Quota Management
-    description: >-
-      Track workspace event volume continuously; alert at 70/85/95% of monthly quota; segment noisy SDKs to a separate workspace if approaching plan limits.
-  - name: Destination Backpressure
-    description: >-
-      RudderStack enforces destination-specific rate limits per connection. Failing destinations are retried with backoff; persistent failures route to dead-letter storage when configured.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+      Published volume ladder runs 1M / 3M / 5M / 7M / 10M / 25M, then sales-quoted.
+      Enterprise volume is quoted.
+payload_limits:
+  - name: Maximum event size
+    limit: 32 KB
+    scope: per call
+    status_on_exceed: 400
+    source: https://www.rudderstack.com/docs/api/http-api/
+  - name: Maximum batch size
+    limit: 4 MB
+    scope: per batch (32 KB per call within it)
+    status_on_exceed: 400
+    source: https://www.rudderstack.com/docs/api/http-api/
+  - name: Maximum JSON nesting depth
+    limit: 200 levels
+    scope: per event payload
+    status_on_exceed: rejected at ingestion with error feedback
+    source: https://www.rudderstack.com/docs/api/http-api/
+    notes: Objects and arrays both count toward the depth.
+pagination_caps:
+  - api: Data Catalog / Tracking Plan / Event Audit
+    max_pages: 50
+    note: >-
+      Not a rate limit, but a hard result-set ceiling — offset pagination returns a
+      maximum of 50 pages, so a large catalog cannot be fully enumerated without
+      filtering.
+  - api: Audit Logs
+    per_page_max: 100
+    note: Cursor pagination, per_page between 1 and 100, default 100.
+downstream:
+  note: >-
+    Destination throughput is bounded by each destination's own rate limits, which
+    RudderStack respects per connection. Enterprise customers can set P95 latency
+    alert thresholds per Event Stream destination (GA 2026-02-27).
+detail: conventions/rudderstack-conventions.yml

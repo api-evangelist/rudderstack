@@ -1,0 +1,99 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.rudderstack.com/docs/dev-tools/rudder-cli/commands/,
+  https://www.rudderstack.com/docs/dev-tools/rudder-cli/installation/, and
+  https://github.com/rudderlabs/rudder-iac
+docs: https://www.rudderstack.com/docs/dev-tools/rudder-cli/
+repo: https://github.com/rudderlabs/rudder-iac
+name: rudder-cli
+status: Beta
+announced: '2026-06-29'
+latest_release: v0.23.0
+released: '2026-08-07'
+description: >-
+  rudder-cli is RudderStack's first-party infrastructure-as-code CLI: it renders
+  workspace resources — Data Catalog events/properties/categories/custom types,
+  Tracking Plans, Event Stream sources, Transformations and libraries, SQL models,
+  Data Graphs — as YAML in Git, then validates, previews and applies them to a
+  workspace. It also carries RudderTyper v2, which generates type-safe client
+  bindings (TypeScript, Swift, Kotlin) from a Tracking Plan. The binary itself is
+  catalogued in packages/rudderstack-packages.yml; this artifact enumerates the
+  command surface.
+  STABILITY WARNING, from the provider: the repository README states this is a
+  work in progress and that backwards compatibility is NOT guaranteed at this
+  stage.
+install:
+  macos_arm64: >-
+    curl -L https://github.com/rudderlabs/rudder-iac/releases/latest/download/rudder-cli_Darwin_arm64.tar.gz
+    | tar -xz rudder-cli && sudo mv rudder-cli /usr/local/bin/
+  macos_x86_64: >-
+    curl -L https://github.com/rudderlabs/rudder-iac/releases/latest/download/rudder-cli_Darwin_x86_64.tar.gz
+    | tar -xz rudder-cli && sudo mv rudder-cli /usr/local/bin/
+  linux: >-
+    curl -L https://github.com/rudderlabs/rudder-iac/releases/latest/download/rudder-cli_Linux_x86_64.tar.gz
+    | tar -xz rudder-cli && sudo mv rudder-cli /usr/local/bin/
+  docker: docker run rudderlabs/rudder-cli
+  source: git clone https://github.com/rudderlabs/rudder-iac && make build
+authentication:
+  command: rudder-cli auth login
+  token: Workspace-level Service Access Token, or a Personal Access Token on Free and self-hosted plans
+  env_var: RUDDERSTACK_ACCESS_TOKEN
+  config_dir: ~/.rudder
+  detail: authentication/rudderstack-authentication.yml
+commands:
+  auth:
+    - {name: auth login, description: Authenticate the CLI against a RudderStack workspace with a SAT or PAT.}
+  core_workflow:
+    - {name: import workspace, description: 'Import existing workspace resources into a local project directory as YAML. Supports Data Catalog, Tracking Plans, Event Stream sources, Transformations and libraries, SQL models.', flags: ['-l <project-directory>']}
+    - {name: validate, description: 'Validate local YAML for syntax, schema compliance, resource references, transformation code syntax, SQL syntax and warehouse connectivity.', flags: ['-l <project-directory>']}
+    - {name: apply, description: Sync local configuration to the workspace., flags: ['-l <project-directory>', '--dry-run']}
+    - {name: destroy, description: 'DESTRUCTIVE — permanently remove CLI-managed resources from the workspace based on local project state; lists the plan and asks for confirmation.'}
+  workspace:
+    - {name: workspace accounts list, description: 'List workspace accounts. Flags include --category source and --json. RudderStack''s own MCP skill names this as the fallback for obtaining an account_id the MCP server cannot surface.'}
+    - {name: workspace retl-sources list, description: List Reverse ETL sources in the workspace.}
+  retl_sql_models:
+    - {name: import retl-sources, description: Import existing Reverse ETL / SQL model resources into the local project.}
+    - {name: retl-sources preview, description: Preview the rows a SQL model resource would return.}
+    - {name: retl-sources validate, description: Validate a SQL model resource against the warehouse.}
+  transformations:
+    - {name: transformations test, description: Test a transformation against captured or supplied events.}
+    - {name: transformations show-default-events, description: Print the default event payloads used for transformation testing.}
+  code_generation:
+    - {name: typer generate, description: 'Generate type-safe client bindings from a Tracking Plan (RudderTyper v2).'}
+    - {name: typer options kotlin, description: Show RudderTyper generation options for Kotlin.}
+    - {name: typer options swift, description: Show RudderTyper generation options for Swift.}
+    - {name: typer options typescript, description: Show RudderTyper generation options for TypeScript.}
+  tracking_plan_alias:
+    - {name: tp apply, description: 'Tracking-plan-scoped apply; documented in the Docker examples as `rudder-cli tp apply --dry-run -l /catalog`.'}
+resources_managed:
+  - Data Catalog — events, properties, categories, custom types
+  - Tracking Plans (including conditional validation variants)
+  - Event Stream sources (SDK-based)
+  - Transformations and transformation libraries
+  - SQL models (Reverse ETL)
+  - Data Graphs (Audiences)
+  - Reverse ETL warehouse accounts
+ci_cd:
+  github_actions: https://www.rudderstack.com/docs/dev-tools/rudder-cli/github-actions/transformations/
+  gitlab_ci: https://www.rudderstack.com/docs/dev-tools/rudder-cli/gitlab-ci-cd/transformations/
+recommended_flow: validate → apply --dry-run → apply
+agent_skills:
+  note: >-
+    RudderStack publishes five first-party agent skills for this CLI. See
+    skills/_index.yml.
+  files:
+    - skills/rudderstack-rudder-cli-setup.md
+    - skills/rudderstack-rudder-cli-workflow.md
+    - skills/rudderstack-rudder-import-and-evolve.md
+    - skills/rudderstack-rudder-transformations.md
+    - skills/rudderstack-rudder-typer-workflow.md
+alternatives:
+  terraform:
+    provider: rudderlabs/rudderstack
+    version: 4.11.0
+    registry: https://registry.terraform.io/providers/rudderlabs/rudderstack/latest
+    repo: https://github.com/rudderlabs/terraform-provider-rudderstack
+    note: >-
+      A second, older infrastructure-as-code path covering sources, destinations
+      and connections. RudderStack ships agent skills for it too.

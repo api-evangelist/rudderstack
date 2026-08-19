@@ -1,0 +1,104 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.rudderstack.com/docs/api/test-api/,
+  https://www.rudderstack.com/pricing/,
+  skills/rudderstack-rudder-mcp-workflow.md (provider-published),
+  https://www.rudderstack.com/docs/dev-tools/rudder-cli/commands/
+description: >-
+  RudderStack ships NO sandbox in the payments sense — there are no test-mode vs
+  live-mode key prefixes, no hosted test tokens, no fixture values, and no time
+  simulation. What it ships instead is a set of real testing surfaces against real
+  workspaces: a Test API that verifies a source→destination event workflow without
+  reading Live Events, a dry-run mode on every rudder-cli mutation, local
+  transformation testing against captured payloads, and a documented Dev/Prod
+  two-workspace pattern that RudderStack's own agent skills prescribe as the safe
+  way to iterate. Recording this honestly matters: an agent must understand there
+  is no isolated test environment it can safely mutate, only a second real
+  workspace.
+test_mode_keys:
+  supported: false
+  note: >-
+    Source write keys and Service Access Tokens carry no test/live prefix and no
+    mode flag. A write key is a write key; the only isolation boundary is the
+    workspace it belongs to.
+test_values:
+  published: false
+  note: >-
+    No test cards, test bank accounts, magic values or fixture identifiers — this
+    is a customer-data pipeline, not a payments API. Nothing to record.
+time_simulation:
+  supported: false
+surfaces:
+  - name: Test API
+    kind: verification endpoint
+    docs: https://www.rudderstack.com/docs/api/test-api/
+    base: https://api.rudderstack.com
+    regional_base: https://api.eu.rudderstack.com
+    endpoints:
+      - POST /v0/testDestination/{destinationId}
+      - POST /v0/testSource/{sourceId}
+    purpose: >-
+      Verify successful event transformation and delivery for a given
+      source-destination setup, without having to open the Live Events tab.
+    auth: >-
+      HTTP Basic with an EMPTY username and the workspace-level Service Access
+      Token as the password — `Authorization: Basic {Base64Encoded(:<SAT>)}`.
+      Note this differs from the Bearer scheme every other control-plane API uses.
+    token_permissions: Read (default for a workspace SAT); Viewer on the legacy RBAC system.
+    limitations_published_by_provider:
+      - Not supported for RudderStack Open Source (self-hosted).
+      - Some destinations (Apache Kafka, Google Pub/Sub, Google Sheets, and others) are not supported.
+  - name: rudder-cli dry run
+    kind: preview
+    docs: https://www.rudderstack.com/docs/dev-tools/rudder-cli/commands/
+    command: rudder-cli apply -l <project-directory> --dry-run
+    purpose: >-
+      Preview exactly what an apply would change in the workspace before writing.
+      RudderStack recommends running it first and its own agent skill enforces
+      validate → dry-run → apply.
+  - name: rudder-cli validate
+    kind: static validation
+    command: rudder-cli validate -l <project-directory>
+    checks:
+      - YAML syntax and schema compliance
+      - Resource references (an event referencing a valid property)
+      - Transformation code syntax
+      - SQL syntax and warehouse connectivity
+  - name: Transformation testing
+    kind: local execution against captured payloads
+    commands:
+      - rudder-cli transformations test
+      - rudder-cli transformations show-default-events
+    purpose: >-
+      Run a transformation against default or captured events before publishing it.
+      `show-default-events` prints the built-in sample payloads — the closest thing
+      RudderStack has to published fixtures.
+  - name: Live Events
+    kind: observability
+    docs: https://www.rudderstack.com/docs/monitor/live-events/
+    purpose: Inspect events flowing through the workspace in real time; also exposed as MCP tools.
+isolation_pattern:
+  name: Dev / Prod two-workspace pattern
+  source: skills/rudderstack-rudder-mcp-workflow.md
+  plan_gate: >-
+    Two workspaces (Dev + Prod) are a Growth feature; Free is "Prod only", so on the
+    Free tier there is NO isolation boundary at all.
+  workspaces:
+    - {workspace: Dev, purpose: Testing and iteration, governance: 'unplannedEvents: log'}
+    - {workspace: Prod, purpose: Production traffic, governance: 'unplannedEvents: block'}
+  flow:
+    - Point the client/CLI at the Dev workspace
+    - Apply changes to Dev
+    - Verify events end to end in Dev (live events plus a warehouse query)
+    - Switch to Prod and apply
+  rationale_published_by_provider:
+    - Safe iteration — test tracking-plan changes without affecting production
+    - End-to-end validation — trigger in Dev, verify in Dev's warehouse
+    - Early violation detection — schema mismatches surface in Dev before prod
+agent_warning: >-
+  RudderStack's own MCP skill instructs agents not to run mutating tools
+  (transformation upserts, destination connection changes, workspace switches)
+  without confirming the target workspace and resource with the user, because
+  every one of them affects shared, real workspace state. There is no undo and no
+  sandbox to fall back to.

@@ -1,0 +1,166 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.rudderstack.com/security/,
+  https://www.rudderstack.com/vulnerability-disclosure-policy/,
+  https://mcp.rudderstack.com/.well-known/oauth-authorization-server,
+  https://mcp.rudderstack.com/.well-known/oauth-protected-resource,
+  https://www.rudderstack.com/docs/api/ and its per-API pages, plus
+  openapi/rudderstack-http-api-api-openapi.yml and
+  grpc/rudderstack-warehouse.proto.
+description: >-
+  Which industry and cross-cutting standards RudderStack actually conforms to,
+  each with the evidence that decided it. RudderStack's strongest conformance is
+  in the agent layer — a correctly implemented OAuth 2.1-style MCP protected
+  resource with RFC 8414/9728 discovery, PKCE and Dynamic Client Registration —
+  and in compliance certification. Its weakest is HTTP-API hygiene: no RFC 9457
+  problem details, no RFC 8594 deprecation signalling, no rate-limit headers, no
+  idempotency contract, and two incompatible pagination styles.
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: >-
+      https://mcp.rudderstack.com/.well-known/oauth-authorization-server returns
+      200 with issuer, authorization_endpoint, token_endpoint, grant_types
+      [authorization_code, refresh_token] and code_challenge_methods [S256].
+  - id: rfc8414-oauth-authorization-server-metadata
+    conforms: true
+    evidence: Metadata document served and saved to well-known/rudderstack-mcp-oauth-authorization-server.json.
+  - id: rfc9728-oauth-protected-resource-metadata
+    conforms: true
+    evidence: >-
+      https://mcp.rudderstack.com/.well-known/oauth-protected-resource returns 200;
+      the 401 on /mcp carries a WWW-Authenticate Bearer challenge naming
+      resource_metadata, which is the RFC 9728 discovery path.
+  - id: rfc7591-dynamic-client-registration
+    conforms: true
+    evidence: registration_endpoint https://mcp.rudderstack.com/register is advertised in the AS metadata.
+  - id: pkce
+    conforms: true
+    evidence: code_challenge_methods_supported ["S256"].
+  - id: mcp
+    conforms: true
+    evidence: >-
+      Hosted MCP server at https://mcp.rudderstack.com/mcp; anonymous tools/list
+      returns a spec-shaped 401 invalid_token rather than a 404 or an HTML shell.
+      See mcp/rudderstack-mcp.yml.
+  - id: agent-skills
+    conforms: true
+    evidence: >-
+      23 first-party SKILL.md files published under the open Agent Skills format at
+      github.com/rudderlabs/rudder-agent-skills (MIT), saved verbatim in skills/.
+  - id: llmstxt
+    conforms: true
+    evidence: >-
+      /llms.txt (200, text/plain) and /docs/llms.txt (200, 162 KB) plus per-page
+      markdown twins at <page>/index.md. See llms/rudderstack-llms.yml.
+  - id: a2a
+    conforms: false
+    evidence: >-
+      /.well-known/agent-card.json and /.well-known/agent.json 404 on
+      www.rudderstack.com, api.rudderstack.com and mcp.rudderstack.com. The 200s on
+      app.rudderstack.com are the SPA catch-all serving text/html, not an agent
+      card.
+  - id: oidc
+    conforms: false
+    evidence: No /.well-known/openid-configuration on any RudderStack host. SSO for the dashboard is via Okta/OneLogin as a relying party, not a published OP.
+  - id: http-basic-auth
+    conforms: true
+    evidence: Data-plane ingest uses HTTP Basic with the source write key as username (openapi securityScheme writeKeyAuth).
+  - id: bearer-token-auth
+    conforms: true
+    evidence: 'Control plane at api.rudderstack.com requires `Authorization: Bearer <SERVICE_ACCESS_TOKEN>` on every documented endpoint.'
+  - id: openapi
+    conforms: partial
+    evidence: >-
+      OpenAPI 3.0.3 is published for the data-plane HTTP tracking API only
+      (openapi/), and rudder-transformer ships an OpenAPI 3.0.1 for the
+      self-hosted transformer service. NO OpenAPI exists for the control plane at
+      api.rudderstack.com, which is where all management operations live.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      RudderStack publishes no AsyncAPI. The event surface is real (webhook sources,
+      event streaming) and is captured in asyncapi/ by this pipeline, not by the
+      provider.
+  - id: grpc
+    conforms: true
+    evidence: >-
+      rudder-server publishes five .proto files defining the Warehouse, Processor,
+      Cluster and data-plane-auth gRPC services, saved verbatim in grpc/. These are
+      internal control interfaces of the self-hosted data plane, not a public
+      customer API.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      No application/problem+json anywhere. Data-plane errors are
+      'text/plain; charset=utf-8' bare strings. See errors/rudderstack-problem-types.yml.
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header and no documented idempotency semantics on either
+      plane. Event de-duplication relies on the payload `messageId`, which is not a
+      request-level contract.
+  - id: pagination
+    conforms: partial
+    evidence: >-
+      Two incompatible styles on the same host — offset (page / currentPage /
+      pageSize, capped at 50 pages) on Data Catalog, Tracking Plan and Event Audit;
+      cursor (after_cursor / per_page / next) on Audit Logs.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Sunset or Deprecation response headers and no published deprecation policy.
+  - id: ietf-ratelimit-headers
+    conforms: false
+    evidence: No X-RateLimit-*, RateLimit-* or Retry-After headers documented; only a bare 429.
+  - id: json-api
+    conforms: false
+    evidence: Plain JSON resources; no JSON:API media type or document structure.
+  - id: odata
+    conforms: false
+    evidence: Not an OData surface.
+  - id: scim
+    conforms: false
+    evidence: >-
+      No SCIM provisioning endpoint is documented. Enterprise identity is SSO
+      (Okta, OneLogin) plus dashboard-managed roles and access policies.
+  - id: soc2
+    conforms: true
+    evidence: >-
+      "SOC 2 - We have obtained SOC 2 Type 2 compliance and regularly audit our
+      policies and procedures" — https://www.rudderstack.com/security/.
+  - id: hipaa
+    conforms: true
+    evidence: >-
+      "HIPAA - We comply with HIPAA requirements for PHI and can sign a BAA" —
+      https://www.rudderstack.com/security/. The pricing page gates HIPAA/BAA to
+      Enterprise.
+  - id: gdpr
+    conforms: true
+    evidence: >-
+      https://www.rudderstack.com/security/ states GDPR compliance; the User
+      Suppression API (/v2/regulations) is the operational data-subject
+      suppression/deletion surface.
+  - id: iso-27001
+    conforms: false
+    evidence: Not claimed on the security page. Absence of a claim, not evidence of absence of the control.
+  - id: pci-dss
+    conforms: false
+    evidence: Not claimed; RudderStack is not a payments provider.
+  - id: fedramp
+    conforms: false
+    evidence: Not claimed.
+  - id: coordinated-vulnerability-disclosure
+    conforms: true
+    evidence: >-
+      A published Vulnerability Disclosure Policy at
+      https://www.rudderstack.com/vulnerability-disclosure-policy/ (200) defining
+      scope, researcher commitments and a reporting web form. No bug bounty and no
+      /.well-known/security.txt.
+  - id: security-txt
+    conforms: false
+    evidence: /.well-known/security.txt returns 404 on every RudderStack host.
+summary:
+  conforms: 15
+  partial: 2
+  does_not_conform: 12

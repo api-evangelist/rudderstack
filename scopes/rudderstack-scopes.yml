@@ -1,0 +1,51 @@
+generated: '2026-08-13'
+method: probed
+source: https://mcp.rudderstack.com/.well-known/oauth-authorization-server
+docs: https://www.rudderstack.com/docs/access-management/policies-overview/
+description: >-
+  RudderStack runs an OAuth 2.0 authorization server for its hosted MCP endpoint,
+  but PUBLISHES NO SCOPES. The RFC 8414 metadata document at
+  https://mcp.rudderstack.com/.well-known/oauth-authorization-server returns HTTP
+  200 and declares issuer, endpoints, grant types, PKCE methods and token
+  endpoint auth methods — and omits `scopes_supported` entirely. The RFC 9728
+  protected-resource document likewise omits `scopes_supported`. There is no
+  scope vocabulary for a client to request or for this catalog to record. This is
+  an honest zero, not a gap in the probe.
+  Authorization is instead expressed as workspace ACCESS POLICIES applied to the
+  token holder — organization-level Service Access Tokens carry Admin by default,
+  workspace-level SATs carry a configurable resource-permission policy, and
+  Personal Access Tokens inherit the user's role. Those permissions are managed
+  in the dashboard and are not exposed as OAuth scopes.
+authorization_server: https://mcp.rudderstack.com
+scopes_supported: null
+scope_count: 0
+evidence:
+  - url: https://mcp.rudderstack.com/.well-known/oauth-authorization-server
+    http_status: 200
+    finding: no scopes_supported member
+    file: well-known/rudderstack-mcp-oauth-authorization-server.json
+  - url: https://mcp.rudderstack.com/.well-known/oauth-protected-resource
+    http_status: 200
+    finding: no scopes_supported member
+    file: well-known/rudderstack-mcp-oauth-protected-resource.json
+  - url: https://mcp.rudderstack.com/mcp
+    http_status: 401
+    finding: >-
+      WWW-Authenticate challenge names only resource_metadata and
+      error="invalid_token" — no scope hint.
+scopes: []
+permission_model:
+  style: role-and-policy, not scope
+  levels:
+    - name: Organization Service Access Token
+      default: Admin permissions across the organization
+      docs: https://www.rudderstack.com/docs/access-management/service-access-tokens/
+    - name: Workspace Service Access Token
+      default: Configured under the workspace SAT access policy at creation time
+      docs: https://www.rudderstack.com/docs/access-management/policies-overview/
+    - name: Personal Access Token
+      default: Inherits the individual member's role
+      docs: https://www.rudderstack.com/docs/access-management/personal-access-tokens/
+  enterprise_access_management:
+    plans: [Enterprise]
+    note: The pricing page lists "Enterprise access management — 3 groups" on Growth and unlimited on Enterprise.

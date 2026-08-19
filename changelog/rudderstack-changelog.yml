@@ -1,0 +1,144 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.rudderstack.com/docs/releases/
+docs: https://www.rudderstack.com/docs/releases/
+description: >-
+  RudderStack publishes a dated product release-notes feed at
+  /docs/releases/, filterable by category (APIs, Data Governance, Debugging &
+  Monitoring, Destinations, Profiles, Reverse ETL, RudderStack Features, SDKs,
+  Sources, Tracking Plans, Transformations, Warehouses) and by plan tier (Free /
+  Growth / Enterprise) — 162 entries were listed on 2026-08-13. IMPORTANT
+  DISTINCTION: this is a PRODUCT changelog, not an API changelog. Entries announce
+  features and destinations; they do not enumerate API version cuts, request/
+  response schema changes, or breaking changes to a documented endpoint. There is
+  no per-API changelog and no version-diff surface.
+  NOTE: the pointer previously recorded in apis.yml,
+  https://www.rudderstack.com/docs/release-notes/, now returns HTTP 404. The live
+  path is /docs/releases/.
+scheme: dated product release notes (no API version numbering)
+current_version: null
+current_version_note: >-
+  There is no single "current API version" to record. Versions are per-path — v2
+  on the control plane, v1 on the data plane, v0 on the Test API, unversioned on
+  Transformations. See lifecycle/rudderstack-lifecycle.yml.
+entry_count_observed: 162
+categories:
+  - APIs
+  - Data Governance
+  - Debugging & Monitoring
+  - Destinations
+  - Profiles
+  - Reverse ETL
+  - RudderStack Features
+  - SDKs
+  - Sources
+  - Tracking Plans
+  - Transformations
+  - Warehouses
+entries:
+  - date: '2026-08-05'
+    title: TOTP-based Multi-Factor Authentication (MFA)
+    plans: [free, growth, enterprise]
+    additions:
+      - Authenticator-app 2FA as an alternative to SMS, with single-use backup codes.
+    breaking: []
+  - date: '2026-07-15'
+    title: PagerDuty and incident.io Alert Channels
+    plans: [growth, enterprise]
+    additions:
+      - Pipeline, transformation, warehouse and Reverse ETL failure alerts routed to PagerDuty and incident.io.
+    breaking: []
+  - date: '2026-06-29'
+    title: Rudder CLI (Beta)
+    plans: [free, growth, enterprise]
+    additions:
+      - Command-line tool for managing RudderStack resources as YAML in Git — validate, sync, CI/CD.
+    breaking: []
+    related: cli/rudderstack-cli.yml
+  - date: '2026-06-16'
+    title: Native Facebook Lead Ads Source
+    plans: [growth, enterprise]
+    additions:
+      - First-party source for Facebook/Instagram Instant Form leads.
+    breaking: []
+  - date: '2026-06-15'
+    title: RudderStack Assistant
+    plans: [free, growth, enterprise]
+    additions:
+      - Browser extension for real-time JavaScript SDK event monitoring, health checks and debugging.
+    breaking: []
+  - date: '2026-06-08'
+    title: RudderTyper 2.0 (Beta)
+    plans: [growth, enterprise]
+    additions:
+      - Type-safe client bindings for TypeScript, Swift and Kotlin generated from Tracking Plans, packaged into rudder-cli.
+    breaking: []
+    supersedes: RudderTyper v1
+  - date: '2026-06-03'
+    title: Rudder AI
+    plans: [growth, enterprise]
+    additions:
+      - AI Slack assistant with read-only workspace access and automatic PII masking.
+    breaking: []
+  - date: '2026-03-31'
+    title: Singular API v2 and SDID Support
+    plans: [free, growth, enterprise]
+    additions:
+      - Automatic routing to Singular v2 endpoints when SDID is present, with no configuration change.
+    breaking: []
+  - date: '2026-03-17'
+    title: Stream Events to Snowflake Iceberg Tables
+    plans: [growth, enterprise]
+    additions:
+      - Real-time delivery into Snowflake-managed Apache Iceberg tables.
+    breaking: []
+  - date: '2026-03-16'
+    title: Custom Web Device Mode Integration (GA)
+    plans: [free, growth, enterprise]
+    additions:
+      - Write JavaScript to connect the web SDK to any browser tool; RudderStack handles consent, filtering and error isolation.
+    breaking: []
+  - date: '2026-03-12'
+    title: 'Android (Kotlin) SDK and iOS (Swift) SDK'
+    plans: [free, growth, enterprise]
+    additions:
+      - New Kotlin Android SDK (coroutines, plugin architecture, ~4x faster event processing).
+      - New Swift SDK (async/await, runtime plugin system, multi-instance, macOS coverage).
+    breaking:
+      - The iOS (Swift) SDK REPLACES the legacy iOS (Objective-C) SDK.
+    related: packages/rudderstack-packages.yml
+  - date: '2026-02-27'
+    title: P95 Latency Alerts for Event Stream Destinations (GA)
+    plans: [enterprise]
+    additions:
+      - Configurable latency thresholds and alerts for Event Stream cloud destinations.
+    breaking: []
+  - date: '2026-02-23'
+    title: Bot Management (Beta)
+    plans: [growth, enterprise]
+    additions:
+      - Detect, flag and drop bot traffic on web sources before it enters the pipeline.
+    breaking: []
+  - date: '2025-12-08'
+    title: Snowflake Streaming Destination (GA)
+    plans: [growth, enterprise]
+    additions:
+      - Snowpipe Streaming API delivery into Snowflake in seconds.
+    breaking: []
+  - date: '2025-12-01'
+    title: Cloud Extract End of Support Announcement
+    plans: [growth, enterprise]
+    breaking:
+      - Support for Cloud Extract (ETL) ended 2025-12-01; all ETL pipelines were turned off 2026-01-10.
+    additions: []
+    note: >-
+      The clearest retirement notice in the feed — a dated end-of-support and a
+      dated shutdown, announced roughly six weeks ahead. It is the exception, not a
+      published policy; see lifecycle/rudderstack-lifecycle.yml.
+window: >-
+  Recent entries only (2025-12 through 2026-08). The full 162-entry feed is at
+  https://www.rudderstack.com/docs/releases/ and is the source of truth.
+gaps:
+  - No API changelog. Endpoint, parameter and schema changes are not tracked separately from product announcements.
+  - No RSS/Atom or JSON feed found for the release notes.
+  - No breaking-change label in the feed itself; breaking-ness above is read from the entry text.

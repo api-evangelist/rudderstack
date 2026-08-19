@@ -1,0 +1,109 @@
+generated: '2026-08-13'
+method: searched
+status: published
+source: https://mcp.rudderstack.com/docs
+description: >-
+  RudderStack operates an official, centrally hosted remote MCP server at
+  https://mcp.rudderstack.com/mcp. It is an OAuth 2.0 protected resource: an
+  anonymous POST of tools/list returns HTTP 401 invalid_token with a
+  WWW-Authenticate challenge pointing at
+  /.well-known/oauth-protected-resource, so the live tool schemas require an
+  authenticated introspection this pipeline does not perform. The tool
+  categories below are recorded verbatim from RudderStack's own MCP
+  documentation and from the provider-published rudder-mcp-workflow agent skill
+  (skills/rudderstack-rudder-mcp-workflow.md) — names and inputSchemas are NOT
+  reproduced because RudderStack does not publish them and its own skill states
+  the client's discovered tool list is the source of truth.
+deployment:
+  mode: remote
+  endpoint: https://mcp.rudderstack.com/mcp
+  auth: oauth
+  verified: probed
+  note: >-
+    Remote only. RudderStack documents `npx -y mcp-remote https://mcp.rudderstack.com/mcp`
+    for clients without native HTTP transport — that is a generic third-party
+    bridge to the same hosted URL, not a RudderStack-published stdio server, so
+    it does not make this `both`. A separate first-party stdio server does exist
+    for a different product (github.com/rudderlabs/profiles-mcp, the Profiles
+    toolchain); it is recorded under `related_servers` below rather than folded
+    into this deployment.
+server:
+  name: rudderstack
+  transport: streamable-http
+  url: https://mcp.rudderstack.com/mcp
+  docs: https://mcp.rudderstack.com/docs
+  product_docs: https://www.rudderstack.com/docs/ai-features/rudderstack-mcp/
+  auth: oauth2
+  protected_resource: well-known/rudderstack-mcp-oauth-protected-resource.json
+  authorization_server: well-known/rudderstack-mcp-oauth-authorization-server.json
+  oauth:
+    issuer: https://mcp.rudderstack.com
+    authorization_endpoint: https://mcp.rudderstack.com/authorize
+    token_endpoint: https://mcp.rudderstack.com/token
+    registration_endpoint: https://mcp.rudderstack.com/register
+    dynamic_client_registration: true
+    grant_types: [authorization_code, refresh_token]
+    code_challenge_methods: [S256]
+    bearer_methods_supported: [header]
+    note: >-
+      Dynamic Client Registration (RFC 7591) is advertised, so an MCP client can
+      self-register without a RudderStack-issued client_id. Sign-in is the user's
+      existing RudderStack workspace account.
+probe:
+  url: https://mcp.rudderstack.com/mcp
+  method: POST
+  body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  http_status: 401
+  response: '{"error":"invalid_token","error_description":"Missing or invalid access token"}'
+  www_authenticate: >-
+    Bearer resource_metadata="https://mcp.rudderstack.com/.well-known/oauth-protected-resource",
+    error="invalid_token"
+  fetched: '2026-08-13'
+tool_categories:
+  - name: Data Sources
+    description: >-
+      List sources and fetch a source's details, definitions, event schemas,
+      event metrics, and the tracking plan(s) bound to it.
+    backing_surface: https://api.rudderstack.com control-plane sources + Event Audit API
+  - name: Destinations
+    description: >-
+      List destinations and fetch a destination's details, definitions, event
+      metrics, latency metrics, and recent delivery errors.
+    backing_surface: https://api.rudderstack.com control-plane destinations
+  - name: Transformations
+    description: >-
+      List transformations and libraries, fetch a transformation, create or
+      update transformations, and test them against captured payloads.
+    backing_surface: https://api.rudderstack.com/transformations (Transformations API)
+  - name: Events
+    description: Stream and inspect live events flowing through the workspace.
+    backing_surface: Live events / debugger — no public REST equivalent.
+  - name: Documentation
+    description: Search the RudderStack documentation from inside the MCP client.
+    backing_surface: Documentation search — no public REST equivalent.
+schemas:
+  available: false
+  reason: >-
+    tools/list is OAuth-gated. RudderStack publishes tool CATEGORIES in prose,
+    not tool names or inputSchemas. Obtaining the real schemas requires an
+    authenticated introspection against a RudderStack workspace.
+related_servers:
+  - name: profiles-mcp
+    mode: local-stdio
+    package: https://github.com/rudderlabs/profiles-mcp
+    product: RudderStack Profiles (warehouse-native identity resolution)
+    note: >-
+      First-party, but a separate product surface from the hosted workspace MCP
+      server. Setup is documented in the provider-published
+      skills/rudderstack-rudder-profiles-setup.md.
+clients_documented:
+  - claude.ai custom connector (Team/Enterprise and Individual Paid)
+  - Claude Desktop (via mcp-remote)
+  - Claude Code
+  - Cursor
+  - VS Code
+  - Windsurf
+limitations_published_by_provider:
+  - The MCP server is in active development.
+  - Some RudderStack features may not be available yet.
+  - Connection stability may vary during updates.

@@ -1,0 +1,119 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  Derived from the 4xx/5xx responses in openapi/rudderstack-http-api-api-openapi.yml
+  and openapi/rudderstack-internal-api-api-openapi.yml, then enriched from the
+  published response-code tables at
+  https://www.rudderstack.com/docs/api/http-api/,
+  https://www.rudderstack.com/docs/api/profiles-api/,
+  https://www.rudderstack.com/docs/api/data-catalog-api/tracking-plans/ and
+  https://www.rudderstack.com/docs/api/user-suppression-api/.
+description: >-
+  RudderStack's error surface. There is no shared error schema and no RFC 9457
+  problem+json anywhere. The data plane answers errors as bare `text/plain`
+  strings — an agent gets "Invalid Authorization Header", not a parseable
+  document. The control plane answers JSON, but RudderStack publishes a separate
+  response-code table per API page rather than one catalog, so the codes below are
+  assembled from those tables.
+format: none
+rfc9457: false
+content_types:
+  data_plane: 'text/plain; charset=utf-8'
+  control_plane: application/json
+envelope:
+  shared_schema: false
+  note: >-
+    No `error`/`code`/`message` envelope is documented as common across the
+    control-plane APIs. Individual endpoints document a status code and a prose
+    description of what causes it.
+problem_types:
+  - status: 400
+    title: Bad Request
+    plane: data
+    source: openapi/rudderstack-http-api-api-openapi.yml
+    body_example: Invalid request
+    causes:
+      - Invalid request method
+      - Invalid request body
+      - Invalid source or destination ID
+      - Empty batch payload
+      - Event exceeds the 32 KB per-call maximum (or 4 MB per batch)
+      - Event exceeds the 200-level JSON nesting depth
+    remediation: >-
+      Validate the payload against the event spec, confirm the source ID, and split
+      oversized batches. Size and depth limits are hard and are enforced at ingest.
+    docs: https://www.rudderstack.com/docs/api/http-api/
+  - status: 401
+    title: Unauthorized
+    plane: both
+    source: openapi/rudderstack-http-api-api-openapi.yml
+    body_example: Invalid Authorization Header
+    causes:
+      - Missing or invalid Authorization header
+      - Data plane — the source write key is wrong, or Basic auth is malformed
+      - Control plane — the Service Access Token or Personal Access Token is wrong, revoked, or from the other region
+    remediation: >-
+      Data plane expects HTTP Basic with the write key as username and an EMPTY
+      password (`curl -u <write_key>:`). Control plane expects
+      `Authorization: Bearer <token>`. The two are not interchangeable. Check the
+      region — a US token fails against api.eu.rudderstack.com.
+  - status: 404
+    title: Not Found
+    plane: data
+    source: openapi/rudderstack-http-api-api-openapi.yml
+    body_example: Source does not accept webhook events
+    causes:
+      - Source or destination is disabled
+      - The source is not configured to accept the event type being sent
+    remediation: Enable the source/destination in the dashboard and confirm the source type accepts this call.
+  - status: 409
+    title: Conflict
+    plane: control
+    causes:
+      - A Profiles project run is already in flight for the specified source ID
+    remediation: Poll the existing run's status endpoint instead of starting a second run.
+    docs: https://www.rudderstack.com/docs/api/profiles-api/
+  - status: 413
+    title: Request Entity Too Large
+    plane: data
+    source: openapi/rudderstack-http-api-api-openapi.yml
+    body_example: Request size too large
+    causes:
+      - Request body exceeds the accepted size
+    remediation: >-
+      Keep single calls under 32 KB and batches under 4 MB. Note the docs state
+      oversize also surfaces as a 400 — both codes are in play.
+  - status: 429
+    title: Too Many Requests
+    plane: both
+    source: openapi/rudderstack-http-api-api-openapi.yml
+    causes:
+      - Ingest throttling on the data plane
+      - Hourly token budget exhausted on the User Suppression API
+    remediation: >-
+      Back off and retry. RudderStack publishes NO rate-limit headers and no
+      Retry-After, so a client has no signal other than the 429 itself — use
+      exponential backoff. See rate-limits/rudderstack-rate-limits.yml.
+  - status: 500
+    title: Internal Server Error
+    plane: both
+    source: openapi/rudderstack-http-api-api-openapi.yml
+    causes:
+      - Unhandled server-side failure
+    remediation: Retry with backoff; check https://status.rudderstack.com/ before escalating.
+gaps:
+  - No machine-readable error codes. Nothing in either plane returns a stable
+    symbolic error identifier an agent can branch on — only an HTTP status and,
+    on the control plane, a human sentence.
+  - No documented error catalog page. RudderStack has no single "Errors"
+    reference; codes live in per-endpoint tables.
+  - Data-plane errors are text/plain, so a JSON-parsing client throws before it
+    can read the reason.
+related:
+  destination_delivery_errors:
+    note: >-
+      Downstream destination delivery failures are a separate error surface with no
+      public REST endpoint — they are visible in the dashboard and through the MCP
+      "Destinations" tools. RudderStack's own agent skill
+      skills/rudderstack-rudder-destination-debugging.md ships an error reference
+      for them.

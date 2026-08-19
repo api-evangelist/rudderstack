@@ -1,0 +1,77 @@
+generated: '2026-08-13'
+method: searched
+probe: true
+source: https://www.rudderstack.com/security/
+url: https://www.rudderstack.com/security/
+http_status: 200
+description: >-
+  RudderStack publishes a security and compliance overview page rather than a
+  hosted trust center — there is no trust.rudderstack.com (DNS does not resolve)
+  and no Vanta/Drata/SafeBase portal was found. The page names three compliance
+  programs and the enterprise security controls that back them. The architectural
+  claim it leads with is material to how the compliance posture works:
+  RudderStack is warehouse-native and states it does not store customer data, so
+  much of the data-at-rest control surface belongs to the customer's own warehouse.
+trust_center_hosted: false
+probed:
+  - {url: 'https://trust.rudderstack.com/', status: 'DNS did not resolve'}
+  - {url: 'https://security.rudderstack.com/', status: 'DNS did not resolve'}
+  - {url: 'https://www.rudderstack.com/security/', status: 200}
+certifications:
+  - name: SOC 2
+    level: Type 2
+    status: obtained
+    evidence: >-
+      "SOC 2 - We have obtained SOC 2 Type 2 compliance and regularly audit our
+      policies and procedures to ensure continued compliance."
+  - name: HIPAA
+    status: compliant, BAA available
+    plan_gate: Enterprise
+    evidence: >-
+      "HIPAA - We comply with HIPAA requirements for PHI and can sign a BAA."
+      The pricing comparison table lists HIPAA / BAA under Enterprise only.
+  - name: GDPR
+    status: compliant
+    evidence: >-
+      "GDPR - We compliant with GDPR and are constantly adding features to enable
+      you to meet your EU data protection requirements." EU data residency is
+      backed by a separate control-plane host, https://api.eu.rudderstack.com.
+not_claimed:
+  certifications:
+    - ISO 27001
+    - PCI DSS
+    - FedRAMP
+    - CSA STAR
+  note: >-
+    These were not claimed on the security page. That records the absence of a
+    published claim, not a finding about RudderStack's controls.
+security_controls_published:
+  - {name: SSO, detail: 'Okta, OneLogin', plan_gate: Enterprise}
+  - {name: SSH Tunnel, detail: Encryption for in-flight data to warehouses/databases, plan_gate: Enterprise}
+  - {name: Permissions management, detail: Limit access to features exposing PHI or PII}
+  - {name: Audit logs, detail: 'Track user activity in the workspace; exposed programmatically via the Audit Logs API (/v2/audit-logs)'}
+  - {name: MFA, detail: 'TOTP authenticator app or SMS, with single-use backup codes', since: '2026-08-05'}
+  - {name: VPC deployment, detail: Available on Enterprise (talk to sales)}
+  - {name: PII masking, detail: Data Compliance Toolkit; also applied automatically by Rudder AI}
+  - {name: User suppression and deletion, detail: 'User Suppression API (/v2/regulations)', plan_gate: 'Growth, Enterprise'}
+architecture_claim: >-
+  "We do not store your data, giving you complete ownership, control and
+  transparency. We build on your warehouse."
+related:
+  vulnerability_disclosure: security/rudderstack-vulnerability-disclosure.yml
+  domain_security: security/rudderstack-domain-security.yml
+  legal:
+    master_service_agreement: https://www.rudderstack.com/master-service-agreement/
+    privacy_policy: https://www.rudderstack.com/privacy-policy/
+    terms_of_service: https://www.rudderstack.com/terms-of-service/
+evidence:
+  - source: https://www.rudderstack.com/security/
+    http_status: 200
+    keywords:
+      - soc 2
+      - soc 2 type 2
+      - hipaa
+      - baa
+      - gdpr
+      - sso
+      - audit logs

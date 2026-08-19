@@ -1,0 +1,62 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/rudderlabs/rudder-server/tree/master/proto
+description: >-
+  RudderStack publishes Protocol Buffer service definitions in the open-source
+  rudder-server data plane. Five .proto files were found on the master branch and
+  saved VERBATIM. IMPORTANT SCOPE NOTE: these are INTERNAL control interfaces of a
+  self-hosted rudder-server deployment — warehouse upload orchestration, processor
+  transform, cluster mode changes, data-plane authentication — not a public
+  customer-facing gRPC API. RudderStack Cloud customers cannot call them; a
+  self-hosted operator can. They are recorded because they are real, first-party,
+  and machine-readable, and because they document the internal seams of the data
+  plane better than any prose page does.
+repository: https://github.com/rudderlabs/rudder-server
+branch: master
+harvested: '2026-08-13'
+public_api: false
+buf_module: null
+files:
+  - file: rudderstack-warehouse.proto
+    path: proto/warehouse/warehouse.proto
+    package: proto
+    service: Warehouse
+    bytes: 5613
+    rpcs:
+      - GetHealth
+      - GetWHUploads
+      - GetWHUpload
+      - TriggerWHUpload
+      - TriggerWHUploads
+      - Validate
+      - RetryWHUploads
+      - CountWHUploadsToRetry
+      - ValidateObjectStorageDestination
+      - RetrieveFailedBatches
+    note: Warehouse upload orchestration — list, inspect, trigger, validate and retry warehouse loads.
+  - file: rudderstack-processor.proto
+    path: proto/processor/processor.proto
+    package: proto
+    service: Processor
+    bytes: 1156
+  - file: rudderstack-cluster.proto
+    path: proto/cluster/cluster.proto
+    package: proto
+    service: Cluster
+    bytes: 1470
+    note: Cluster mode/state coordination for a multi-node rudder-server deployment.
+  - file: rudderstack-dpauth.proto
+    path: proto/common/dpauth.proto
+    package: proto
+    bytes: 859
+    note: Data-plane authentication messages shared across services.
+  - file: rudderstack-types.proto
+    path: proto/event-schema/types.proto
+    package: proto
+    bytes: 465
+    note: Event-schema type definitions.
+dependencies:
+  - google/protobuf/timestamp.proto
+  - google/protobuf/empty.proto
+  - google/protobuf/wrappers.proto
+  - google/protobuf/struct.proto

@@ -1,0 +1,39 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.rudderstack.com/llms.txt
+description: >-
+  RudderStack publishes two real llms.txt documents, both saved verbatim. The
+  site-level file at https://www.rudderstack.com/llms.txt is a compact
+  product/solutions/company index. The documentation-level file at
+  https://www.rudderstack.com/docs/llms.txt is a 162 KB link index over the
+  entire docs tree, and it is the more useful of the two for agents — every entry
+  points at an `index.md` markdown twin that the docs site serves alongside the
+  rendered HTML page.
+files:
+  - path: llms/rudderstack-llms.txt
+    url: https://www.rudderstack.com/llms.txt
+    http_status: 200
+    content_type: text/plain
+    bytes: 5876
+    scope: site
+  - path: llms/rudderstack-docs-llms.txt
+    url: https://www.rudderstack.com/docs/llms.txt
+    http_status: 200
+    content_type: text/plain
+    bytes: 162065
+    scope: docs
+markdown_twins:
+  supported: true
+  pattern: '<docs page URL>index.md'
+  example: https://www.rudderstack.com/docs/api/transformation-api/index.md
+  note: >-
+    Every documentation page ships a markdown twin at `<page>/index.md` and the
+    rendered page carries explicit "Copy Markdown", "Open in ChatGPT", "Open in
+    Claude" and "Open in Perplexity" affordances. The twins are Hugo source with
+    shortcodes intact (`{{% api-method %}}`, `{{< query-params >}}`), which is
+    verbose but fully machine-parseable — the entire API reference in this
+    enrichment pass was read from them.
+not_published:
+  - path: /llms-full.txt
+    http_status: 404
+    note: The root llms-full.txt path returns the site's Next.js 404 shell.

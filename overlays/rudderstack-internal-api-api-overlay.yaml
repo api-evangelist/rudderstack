@@ -1,0 +1,57 @@
+overlay: 1.0.0
+info:
+  title: RudderStack Internal API — API Evangelist enhancements
+  version: 1.0.0
+x-provenance:
+  generated: '2026-08-13'
+  method: generated
+  source: >-
+    Enhancements derived from the rudder-server source surface and the artifacts in
+    this repo (authentication/, conventions/, errors/, rate-limits/). Extends
+    openapi/rudderstack-internal-api-api-openapi.yml without mutating it.
+  extends: openapi/rudderstack-internal-api-api-openapi.yml
+actions:
+  - target: $.info
+    description: >-
+      Flag the stability status of this surface. These are INTERNAL data-plane routes
+      used by RudderStack's own Reverse ETL, Audiences and Replay features; they are
+      not part of the documented public API reference at
+      https://www.rudderstack.com/docs/api/ and carry no compatibility promise.
+    update:
+      x-stability: internal
+      x-public-reference: false
+      x-warning: >-
+        These operations (/internal/v1/extract, /internal/v1/retl,
+        /internal/v1/audiencelist, /internal/v1/replay, /internal/v1/batch) are not
+        documented on the RudderStack API reference. They are reachable on the data
+        plane but should not be treated as a supported integration surface.
+      x-base-url-policy: >-
+        Served from the workspace data plane URL, same host as the public /v1/*
+        tracking endpoints.
+  - target: $.servers
+    description: Replace the relative "/v1" server with an explicit templated data-plane server.
+    update:
+      - url: 'https://{dataPlaneUrl}'
+        description: Workspace data plane host, as assigned in the RudderStack dashboard.
+        variables:
+          dataPlaneUrl:
+            default: hosted.rudderlabs.com
+            description: Workspace-specific data plane hostname.
+  - target: $.components.securitySchemes.writeKeyAuth
+    description: Document credential placement.
+    update:
+      x-credential-placement: HTTP Basic, source write key as username, empty password.
+      x-detail: authentication/rudderstack-authentication.yml
+  - target: $.paths.*.post
+    description: Record non-idempotency, consistent with the public tracking operations.
+    update:
+      x-idempotent: false
+      x-idempotency-key-header: null
+      x-detail: conventions/rudderstack-conventions.yml
+  - target: $.paths.*.post.responses.429
+    description: State the rate-limit signalling reality.
+    update:
+      x-rate-limit-headers: none
+      x-retry-after: not sent
+      x-client-guidance: Exponential backoff; the 429 is the entire signal.
+      x-detail: rate-limits/rudderstack-rate-limits.yml

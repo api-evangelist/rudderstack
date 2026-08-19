@@ -4,7 +4,10 @@ schema: https://www.finops.org/framework/
 provider: RudderStack
 providerId: rudderstack
 created: '2026-05-08'
-modified: '2026-05-08'
+# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
+# bulk sweep dated 2026-05-08, not harvested from the provider. See roadmap#35.
+method: generated
+modified: '2026-08-13'
 reconciled: true
 tags:
   - Customer Data Platform
@@ -15,7 +18,7 @@ tags:
   - Cost Management
   - FOCUS
 description: >-
-  RudderStack's billing surface is a tier-based monthly subscription metered primarily on monthly tracked events. Free (250K events) is gratis; Starter is a flat $220/month including 1M events; Growth and Enterprise are custom-quoted committed-volume contracts. Reverse ETL connections, Profiles, and Python Transformations gate higher tiers. Hidden adjacent costs include the customer-owned data warehouse compute used by Profiles and Reverse ETL, and the egress traffic to downstream SaaS destinations.
+  RudderStack's billing surface is a tier-based monthly subscription metered primarily on monthly tracked events. Free (250K events) is gratis; Growth starts at $265/month including 1M events on a published volume ladder (1M/3M/5M/7M/10M/25M) with 15% off on annual billing; Enterprise is custom-quoted. (Corrected 2026-08-13 against the live pricing page — the previously recorded $220 "Starter" tier no longer exists; see plans/rudderstack-plans-pricing.yml.) Reverse ETL connections, Profiles, and Python Transformations gate higher tiers. Hidden adjacent costs include the customer-owned data warehouse compute used by Profiles and Reverse ETL, and the egress traffic to downstream SaaS destinations.
 notes: >-
   Reconciled against published RudderStack pricing on 2026-05-08. RudderStack does not currently expose a public FOCUS-formatted billing feed; usage and invoice data is available through the Dashboard, monthly invoices, and (for Enterprise) custom usage exports. Self-hosted (open-source) deployments do not generate RudderStack invoices but do incur infrastructure cost in the operator's cloud.
 sources:
@@ -40,7 +43,7 @@ billingModel:
     - Usage
     - Adjustment
     - Tax
-  commitmentDiscount: Annual prepay discount on Starter; committed-volume discount on Growth and Enterprise contracts.
+  commitmentDiscount: 15% annual prepay discount on Growth; committed-volume discount on Enterprise contracts.
 focusColumns:
   ServiceName: RudderStack
   ServiceCategory: Customer Data Platform

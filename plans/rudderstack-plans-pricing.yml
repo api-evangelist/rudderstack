@@ -3,8 +3,11 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: RudderStack
 providerId: rudderstack
+generated: '2026-08-13'
+method: searched
+source: https://www.rudderstack.com/pricing/
 created: '2026-05-08'
-modified: '2026-05-08'
+modified: '2026-08-13'
 reconciled: true
 tags:
   - Customer Data Platform
@@ -12,139 +15,143 @@ tags:
   - Data Pipeline
   - Event Streaming
   - Plans
+plan_count: 3
 description: >-
-  RudderStack offers four published plan tiers — Free, Starter, Growth, and Enterprise — metered primarily on monthly events tracked through the Event Stream pipeline. Reverse ETL connections are bundled with caps that grow by tier. Profiles (warehouse-native identity resolution) and Python Transformations are gated to Growth/Enterprise. The data plane (rudder-server) is open source and available under the AGPLv3, allowing fully self-hosted deployments at no software cost.
+  RudderStack publishes THREE tiers on its pricing page as of 2026-08-13 — Free,
+  Growth and Enterprise — metered on monthly events tracked through the Event
+  Stream pipeline. Growth is priced from $265/month for 1 million events with a
+  published volume ladder (1M, 3M, 5M, 7M, 10M, 25M, then "talk to sales"), 15%
+  off on annual billing, and a 30-day free trial. Enterprise is quote-only.
+  A fourth surface exists outside the price list: the rudder-server data plane is
+  open source and self-hostable at no software cost.
+  CHANGE SINCE THE LAST PASS (2026-05-08): the "Starter" tier at $220/month is
+  gone. The published ladder is now Free → Growth ($265) → Enterprise, and the
+  Free tier's Reverse ETL connection allowance is 10 (previously recorded
+  differently). This artifact was upgraded from method:generated to
+  method:searched by reading the live pricing page.
 notes: >-
-  Reconciled against https://www.rudderstack.com/pricing/ on 2026-05-08. Custom volumes for Growth/Enterprise are quoted by RudderStack sales. Cloud Extract (legacy ETL) is deprecated.
+  Growth's headline price is per-month at the 1M-events rung; higher rungs are
+  selectable on the page but their prices are rendered client-side and were not
+  captured as numbers, so only the entry price is recorded here rather than a
+  guessed ladder. Enterprise and >25M events are sales-quoted.
 sources:
   - https://www.rudderstack.com/pricing/
-  - https://www.rudderstack.com/legal/master-services-agreement/
+  - https://www.rudderstack.com/master-service-agreement/
   - https://github.com/rudderlabs/rudder-server
 plans:
-  - id: rudderstack-open-source
-    name: Open Source (Self-Hosted)
-    type: free
-    description: >-
-      The rudder-server data plane is licensed under AGPLv3 and can be self-hosted. Customers run their own infrastructure and (optionally) host the control plane via Control Plane Lite. No software fee.
-    entries:
-      - label: Self-Host
-        name: self_host
-        type: flat
-        metric: events
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: 0
-        currency: USD
-        userMultiplied: false
-    elements:
-      - name: AGPLv3 License
-      - name: All SDKs and Connectors
-      - name: Bring Your Own Infrastructure
   - id: rudderstack-free
     name: Free
     type: free
-    description: >-
-      Cloud free tier — up to 250,000 monthly tracked events, 16+ SDKs, 200+ cloud destinations, warehouse destinations, and Reverse ETL.
-    entries:
-      - label: Monthly Tracked Events
-        name: monthly_events
-        type: included
-        metric: event
-        limit: 250000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: 0
-        currency: USD
-        userMultiplied: false
-    elements:
-      - name: 250K Events/mo
-      - name: All SDK Sources
-      - name: 200+ Cloud Destinations
-      - name: Warehouse Destinations
-      - name: Reverse ETL (limited connections)
-      - name: Community Support
-  - id: rudderstack-starter
-    name: Starter
-    type: paid
-    description: >-
-      $220/month for up to 1 million tracked events; adds unlimited tracking plans, email support, and a 99.95% uptime SLA. Most popular self-serve tier.
-    entries:
-      - label: Monthly Subscription
-        name: monthly_subscription
-        type: flat
-        metric: account
-        limit: 1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: 220
-        currency: USD
-        userMultiplied: false
-      - label: Included Monthly Events
-        name: monthly_events_included
-        type: included
-        metric: event
-        limit: 1000000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: 0
-        currency: USD
-        userMultiplied: false
-    elements:
-      - name: 1M Events/mo
-      - name: Unlimited Tracking Plans
-      - name: Email Support
-      - name: 99.95% Uptime SLA
+    price: 0
+    currency: USD
+    period: month
+    trial: null
+    audience: Startups and small teams building their customer data stack.
+    included:
+      events_per_month: 250000
+      sdk_sources: 16
+      cloud_event_sources: 15
+      cloud_destinations: 200
+      warehouse_destinations: 10
+      warehouse_sync_interval: 3 hours
+      reverse_etl_connections: 10
+      transformations_limit: 5
+      tracking_plans: 1
+      tracking_plan_events: 5
+      team_members: 10
+      workspaces: Prod only
+    excluded:
+      - Python Transformations
+      - Event Audit API
+      - Event Replay
+      - Bot Management
+      - Advanced Consent Integration
+      - PII Masking
+      - User Suppression & Deletion API
+      - SSO
+      - SSH Tunnel
+      - Profiles & Data Apps
+    support: Community Slack
   - id: rudderstack-growth
     name: Growth
     type: paid
-    description: >-
-      Custom-volume plan with unlimited team members, transformations, and Reverse ETL connections. Profiles (identity resolution, audiences, activations, attribution, propensity scoring) become available at this tier. Pricing on request.
-    entries:
-      - label: Custom Subscription
-        name: custom_subscription
-        type: custom
-        metric: events
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: contact_sales
-        currency: USD
-        userMultiplied: false
-    elements:
-      - name: Unlimited Team Members
-      - name: Unlimited Transformations
-      - name: Unlimited Reverse ETL Connections
-      - name: Profiles (Identity, Audiences, Activations)
-      - name: Dedicated Support
+    price: 265
+    currency: USD
+    period: month
+    price_basis: 1 million events/month (entry rung)
+    annual_discount: 15%
+    trial: 30 days
+    audience: Teams with higher volume and advanced integration needs.
+    volume_ladder:
+      - 1 million events/month
+      - 3 million events/month
+      - 5 million events/month
+      - 7 million events/month
+      - 10 million events/month
+      - 25 million events/month
+      - '> 25 million — contact sales'
+    included:
+      warehouse_sync_interval: 30 minutes
+      reverse_etl_connections: 25
+      transformations_limit: 25
+      tracking_plans: unlimited
+      tracking_plan_events: 75
+      team_members: unlimited
+      workspaces: 2 (Dev + Prod)
+      access_management_groups: 3
+      alerting_channels: Email, Webhook, Slack, MS Teams, PagerDuty, incident.io
+    adds_over_free:
+      - Python Transformations
+      - Event Audit API
+      - Event Replay
+      - Bot Management
+      - Advanced Consent Integration
+      - PII Masking
+      - User Suppression & Deletion API
+      - SSH Tunnel
+      - Dedicated Slack support
+    support: Dedicated Slack, email
   - id: rudderstack-enterprise
     name: Enterprise
-    type: enterprise
-    description: >-
-      Highest tier — adds Python Transformations, full Profiles & Data Apps, HIPAA compliance, SSO/SAML, custom retention, and named TAM. Pricing on request.
-    entries:
-      - label: Custom Subscription
-        name: custom_subscription
-        type: custom
-        metric: events
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: contact_sales
-        currency: USD
-        userMultiplied: false
-    elements:
-      - name: Python Transformations
-      - name: Profiles + Data Apps
-      - name: HIPAA-Compliant Hosting
-      - name: SSO / SAML
-      - name: Named TAM and Premium SLA
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+    type: custom
+    price: null
+    currency: USD
+    period: null
+    audience: Large organizations requiring advanced security, governance and white-glove support.
+    included:
+      events_per_month: Enterprise-grade volume, quoted
+      warehouse_sync_interval: 5 minutes
+      reverse_etl_connections: unlimited
+      transformations_limit: unlimited
+      tracking_plan_events: unlimited
+      workspaces: custom
+      data_retention: custom
+      access_management_groups: unlimited
+    adds_over_growth:
+      - Profiles & Data Apps — identity resolution, Feature Builder, Customer 360 table, Audience Builder, Activations, Attribution, Propensity Scores, real-time Activation API, Activation API Redis cache
+      - SSO
+      - VPC deployment
+      - HIPAA / BAA
+      - Custom MSA
+      - Custom alerting channels
+      - Technical Account Manager, Customer Success Manager, Solutions Architect, onboarding support up to 6 months
+    support: White glove — TAM, CSM, Solutions Architect
+self_hosted:
+  id: rudderstack-open-source
+  name: Open Source (self-hosted rudder-server)
+  price: 0
+  note: >-
+    Not a pricing-page tier. The rudder-server data plane is open source and
+    self-hostable; the operator pays their own infrastructure cost and RudderStack
+    charges no software fee. Personal Access Tokens are documented as the
+    control-plane token type for Free and self-hosted plans.
+  repo: https://github.com/rudderlabs/rudder-server
+metering:
+  primary_metric: events tracked per month through Event Stream
+  secondary_gates:
+    - Reverse ETL connections
+    - Transformation count
+    - Tracking plan events
+    - Warehouse sync interval
+    - Workspace count
+detail: finops/rudderstack-finops.yml

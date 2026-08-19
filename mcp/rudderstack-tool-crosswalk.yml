@@ -1,0 +1,225 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  mcp/rudderstack-mcp.yml (tool categories captured from
+  https://mcp.rudderstack.com/docs and the provider-published
+  skills/rudderstack-rudder-mcp-workflow.md),
+  openapi/rudderstack-http-api-api-openapi.yml,
+  openapi/rudderstack-internal-api-api-openapi.yml, and the documented
+  control-plane operations at https://www.rudderstack.com/docs/api/.
+description: >-
+  Binds RudderStack's hosted MCP tool surface to its REST surface. THE HEADLINE
+  FINDING IS A PLANE MISMATCH: the only OpenAPI documents in this repo describe
+  the DATA plane (the write-key-authenticated event ingest endpoints on the
+  customer's data plane URL), while every MCP tool operates on the CONTROL plane
+  at https://api.rudderstack.com — sources, destinations, transformations,
+  schemas, live events. RudderStack publishes no OpenAPI for the control plane,
+  so not one MCP tool binds to an operationId in openapi/. The crosswalk records
+  that gap explicitly rather than manufacturing bindings.
+  Confidence is low throughout because tools/list is OAuth-gated (HTTP 401):
+  RudderStack publishes tool CATEGORIES in prose, not tool names or inputSchemas,
+  and its own agent skill states the client's discovered list is authoritative.
+surfaces:
+  openapi:
+    - path: openapi/rudderstack-http-api-api-openapi.yml
+      plane: data
+      base: '{DATA_PLANE_URL}'
+      auth: HTTP Basic, source write key as username
+      operations: [Identify, Track, Page, Screen, Group, Alias, Batch]
+      gated: false
+    - path: openapi/rudderstack-internal-api-api-openapi.yml
+      plane: data
+      base: '{DATA_PLANE_URL}'
+      operations: [Extract, Retl, AudienceList, Replay, InternalBatch]
+      gated: false
+      note: Internal data-plane routes used by Reverse ETL, Audiences and Replay.
+  rest_documented_but_unspecified:
+    base: https://api.rudderstack.com
+    regional_base: https://api.eu.rudderstack.com
+    plane: control
+    auth: Bearer Service Access Token or Personal Access Token
+    docs: https://www.rudderstack.com/docs/api/
+    openapi: null
+    note: >-
+      RudderStack documents these endpoints in prose + curl on the docs site but
+      publishes no machine-readable contract for them. Operation names used below
+      are DESCRIPTIVE labels derived from the documented method+path, not
+      operationIds that exist in any spec.
+  graphql:
+    endpoint: null
+    file: graphql/rudderstack-schema.graphql
+    note: >-
+      NOT A RUDDERSTACK SURFACE. That file is a conceptual schema written from the
+      docs in an earlier pass and says so in its own header; RudderStack ships no
+      GraphQL endpoint. It is excluded from every binding below.
+  mcp:
+    url: https://mcp.rudderstack.com/mcp
+    gated: true
+    http_status: 401
+    auth: oauth
+crosswalk:
+  - tool: sources.list / sources.get (category "Data Sources")
+    category: data-sources
+    rest: []
+    rest_documented:
+      - GET https://api.rudderstack.com/v2/sources
+    binding: control-plane-no-spec
+    confidence: low
+    note: >-
+      GET /v2/sources is documented on the User Suppression API page as the way
+      to enumerate source IDs. No OpenAPI operationId exists for it. Tool name is
+      inferred from the published category, not observed.
+  - tool: sources.event_schemas / sources.event_metrics (category "Data Sources")
+    category: data-sources
+    rest: []
+    rest_documented:
+      - GET https://api.rudderstack.com/v2/schemas
+      - GET https://api.rudderstack.com/v2/schemas/{schemaID}
+      - GET https://api.rudderstack.com/v2/schemas/{schemaID}/versions
+    binding: control-plane-no-spec
+    confidence: medium
+    note: >-
+      The Event Audit API is the documented REST equivalent of the MCP "event
+      schemas for a source" capability; both return the observed event/property
+      shape per write key.
+  - tool: sources.tracking_plan (category "Data Sources")
+    category: data-sources
+    rest: []
+    rest_documented:
+      - GET https://api.rudderstack.com/v2/catalog/tracking-plans
+      - GET https://api.rudderstack.com/v2/catalog/tracking-plans/{trackingPlanId}
+      - GET https://api.rudderstack.com/v2/catalog/tracking-plans/{trackingPlanId}/sources/{sourceId}
+    binding: control-plane-no-spec
+    confidence: medium
+  - tool: destinations.list / destinations.get (category "Destinations")
+    category: destinations
+    rest: []
+    rest_documented:
+      - GET https://api.rudderstack.com/v2/destinations
+    binding: control-plane-no-spec
+    confidence: low
+  - tool: destinations.errors / destinations.latency_metrics (category "Destinations")
+    category: destinations
+    rest: []
+    rest_documented: []
+    binding: none
+    confidence: low
+    note: >-
+      Delivery-error and latency telemetry is surfaced in the dashboard and via
+      the MCP server; RudderStack documents no public REST endpoint for it.
+  - tool: transformations.list / transformations.get (category "Transformations")
+    category: transformations
+    rest: []
+    rest_documented:
+      - GET https://api.rudderstack.com/transformations
+      - GET https://api.rudderstack.com/transformations/{id}
+      - GET https://api.rudderstack.com/transformations/{id}/versions
+      - GET https://api.rudderstack.com/transformations/{id}/versions/{versionId}
+    binding: control-plane-no-spec
+    confidence: high
+    note: >-
+      One-to-one semantic match with the documented Transformations API; only the
+      machine-readable contract is missing.
+  - tool: transformations.create / transformations.update (category "Transformations")
+    category: transformations
+    rest: []
+    rest_documented:
+      - POST https://api.rudderstack.com/transformations
+      - POST https://api.rudderstack.com/transformations?publish=true
+      - POST https://api.rudderstack.com/transformations/{id}
+      - DELETE https://api.rudderstack.com/transformations/{id}
+      - POST https://api.rudderstack.com/transformations/{id}/connectToDestination
+    binding: control-plane-no-spec
+    confidence: high
+    note: MUTATING. RudderStack's own skill warns against running these without confirming the workspace.
+  - tool: transformations.test (category "Transformations")
+    category: transformations
+    rest: []
+    rest_documented:
+      - POST https://api.rudderstack.com/v0/testDestination/{destinationId}
+      - POST https://api.rudderstack.com/v0/testSource/{sourceId}
+    binding: control-plane-no-spec
+    confidence: low
+    note: >-
+      The Test API verifies the source/destination event workflow; whether the MCP
+      "test a transformation against captured payloads" tool calls it or an
+      internal route is not published.
+  - tool: events.live (category "Events")
+    category: events
+    rest: []
+    rest_documented: []
+    binding: none
+    confidence: low
+    note: >-
+      Live-events inspection has no public REST equivalent. The nearest PUBLIC
+      surface is the opposite direction — writing events via the data-plane
+      Track/Identify operations in openapi/.
+  - tool: docs.search (category "Documentation")
+    category: documentation
+    rest: []
+    rest_documented: []
+    binding: none
+    confidence: low
+    note: Documentation search; no REST API. Compare llms/rudderstack-docs-llms.txt.
+mcp_only:
+  - tool: destinations.errors / destinations.latency_metrics
+    reason: Delivery telemetry is dashboard/MCP-only; no documented public REST endpoint.
+  - tool: events.live
+    reason: Live event streaming/inspection has no public REST endpoint.
+  - tool: docs.search
+    reason: Documentation retrieval, not a workspace resource; no REST endpoint.
+  - tool: workspace switch
+    reason: >-
+      RudderStack's own skill documents a workspace-switch tool for multi-workspace
+      accounts. No public REST equivalent.
+rest_only:
+  - operationId: Identify
+    spec: openapi/rudderstack-http-api-api-openapi.yml
+    reason: Data-plane event ingest; the MCP server reads workspace state, it does not ingest events.
+  - operationId: Track
+    spec: openapi/rudderstack-http-api-api-openapi.yml
+    reason: Data-plane event ingest.
+  - operationId: Page
+    spec: openapi/rudderstack-http-api-api-openapi.yml
+    reason: Data-plane event ingest.
+  - operationId: Screen
+    spec: openapi/rudderstack-http-api-api-openapi.yml
+    reason: Data-plane event ingest.
+  - operationId: Group
+    spec: openapi/rudderstack-http-api-api-openapi.yml
+    reason: Data-plane event ingest.
+  - operationId: Alias
+    spec: openapi/rudderstack-http-api-api-openapi.yml
+    reason: Data-plane event ingest.
+  - operationId: Batch
+    spec: openapi/rudderstack-http-api-api-openapi.yml
+    reason: Data-plane batch ingest.
+  - operationId: Extract
+    spec: openapi/rudderstack-internal-api-api-openapi.yml
+    reason: Internal data-plane route.
+  - operationId: Retl
+    spec: openapi/rudderstack-internal-api-api-openapi.yml
+    reason: Internal data-plane route used by Reverse ETL.
+  - operationId: AudienceList
+    spec: openapi/rudderstack-internal-api-api-openapi.yml
+    reason: Internal data-plane route used by Audiences.
+  - operationId: Replay
+    spec: openapi/rudderstack-internal-api-api-openapi.yml
+    reason: Internal data-plane route used by Event Replay.
+  - operationId: InternalBatch
+    spec: openapi/rudderstack-internal-api-api-openapi.yml
+    reason: Internal data-plane batch route.
+coverage:
+  mcp_tool_categories: 5
+  mcp_tools_named_by_provider: 0
+  mcp_tools_bound_to_openapi_operationid: 0
+  mcp_tools_bound_to_documented_rest: 7
+  mcp_only: 4
+  rest_only: 12
+  openapi_operations_total: 12
+  openapi_operations_bound: 0
+  note: >-
+    Zero of twelve OpenAPI operations back an MCP tool, and zero MCP tools bind to
+    an operationId. The two surfaces are on different planes. Closing this would
+    take an OpenAPI for https://api.rudderstack.com, which RudderStack does not
+    publish.

@@ -1,0 +1,213 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  Derived from openapi/rudderstack-http-api-api-openapi.yml (components.schemas
+  and their id-reference fields) and from the documented control-plane object
+  reference at https://www.rudderstack.com/docs/api/ — specifically the Data
+  Catalog, Tracking Plan, Transformations, Profiles, Reverse ETL Connections,
+  Event Audit and User Suppression API pages, read from their markdown twins.
+description: >-
+  RudderStack's entity graph splits cleanly along the same seam as everything else
+  in this profile. The DATA-PLANE model is the event payload — six standard call
+  types (track, identify, page, screen, group, alias) plus batch, each carrying
+  identity keys, a properties/traits bag and a context object; it is fully
+  described by the OpenAPI in openapi/. The CONTROL-PLANE model — workspace,
+  source, destination, connection, transformation, tracking plan, catalog event,
+  catalog property, category, custom type, Profiles project, RETL connection,
+  sync, regulation, audit log — has NO machine-readable contract, so its entities
+  and relationships below are read from documented endpoint paths and response
+  fields rather than from a schema.
+id_conventions:
+  style: 27-character KSUID-like opaque strings
+  examples:
+    - 2C8Vk2wj8qkofy00YzJbvJOGeqa
+    - 1wJCPWvDLHgsi5inTHAChsrFn7O
+  prefixed:
+    prop_: catalog property (e.g. prop_2bfXbQuinn4298XzqlyxmktRAX9d)
+  note: >-
+    Only the Data Catalog uses type prefixes. Every other surface uses bare opaque
+    IDs, so an ID alone does not identify its entity type.
+entities:
+  - name: EventPayload
+    plane: data
+    spec: openapi/rudderstack-http-api-api-openapi.yml
+    variants: [TrackPayload, IdentifyPayload, PagePayload, ScreenPayload, GroupPayload, AliasPayload, BatchPayload]
+    identity_fields: [userId, anonymousId, previousId, groupId]
+    fields:
+      - {name: userId, note: Known-user identifier}
+      - {name: anonymousId, note: Pre-identification device/session identifier}
+      - {name: event, note: 'Event name; track only'}
+      - {name: name, note: 'Page/screen name; page and screen only'}
+      - {name: groupId, note: 'Group/account identifier; group only'}
+      - {name: previousId, note: 'Prior identifier being aliased; alias only'}
+      - {name: properties, note: 'Free-form event attributes; track, page, screen'}
+      - {name: traits, note: 'Free-form subject attributes; identify, group'}
+      - {name: context, note: 'App, device, library, network, OS, page and campaign sub-contexts'}
+      - {name: timestamp, note: Client-supplied event time}
+      - {name: messageId, note: Per-event identifier used for downstream de-duplication}
+  - name: Workspace
+    plane: control
+    note: Top-level tenant. Every control-plane object belongs to exactly one workspace.
+    referenced_by_param: workspace_id (Audit Logs API)
+  - name: Source
+    plane: control
+    endpoints: [GET /v2/sources]
+    key_fields: [id, name, type, writeKey, enabled]
+    note: Holds the write key the data plane authenticates against.
+  - name: Destination
+    plane: control
+    endpoints: [GET /v2/destinations]
+    key_fields: [id, name, type, enabled]
+  - name: Connection
+    plane: control
+    note: Binds a source to a destination. Managed via the dashboard, rudder-cli and the Terraform provider.
+  - name: Transformation
+    plane: control
+    endpoints:
+      - POST /transformations
+      - GET /transformations
+      - GET /transformations/{id}
+      - POST /transformations/{id}
+      - DELETE /transformations/{id}
+      - GET /transformations/{id}/versions
+      - GET /transformations/{id}/versions/{versionId}
+      - POST /transformations/{id}/connectToDestination
+    key_fields: [id, name, code, language, versionId]
+    note: Versioned. A version is immutable once published.
+  - name: TransformationLibrary
+    plane: control
+    note: Reusable code imported by transformations.
+  - name: TrackingPlan
+    plane: control
+    endpoints:
+      - POST /v2/catalog/tracking-plans
+      - GET /v2/catalog/tracking-plans
+      - GET /v2/catalog/tracking-plans/{trackingPlanId}
+      - PUT /v2/catalog/tracking-plans/{trackingPlanId}
+      - DELETE /v2/catalog/tracking-plans/{trackingPlanId}
+    key_fields: [id, name, version, createdAt, updatedAt]
+    note: Versioned — GET accepts an optional numeric `version` query parameter.
+  - name: CatalogEvent
+    plane: control
+    endpoints:
+      - POST /v2/catalog/events
+      - GET /v2/catalog/events
+      - GET /v2/catalog/events/{eventId}
+      - PUT /v2/catalog/events/{eventId}
+      - DELETE /v2/catalog/events/{eventId}
+    key_fields: [id, name, eventType, description, categoryId]
+    constraints:
+      - Name is 3-65 characters, must start with a letter, and allows letters, numbers, underscores, commas, spaces, dashes and dots.
+      - eventType is one of track, identify, group, page, screen and is IMMUTABLE once set.
+      - '`name` must be omitted for non-track event types.'
+  - name: CatalogProperty
+    plane: control
+    endpoints:
+      - POST /v2/catalog/properties
+      - GET /v2/catalog/properties
+      - GET /v2/catalog/properties/{propertyId}
+      - PUT /v2/catalog/properties/{propertyId}
+      - DELETE /v2/catalog/properties/{propertyId}
+    key_fields: [id, name, type, description]
+    id_prefix: prop_
+  - name: Category
+    plane: control
+    endpoints:
+      - POST /v2/catalog/categories
+      - GET /v2/catalog/categories
+      - GET /v2/catalog/categories/{categoryId}
+      - PUT /v2/catalog/categories/{categoryId}
+  - name: CustomType
+    plane: control
+    endpoints:
+      - POST /v2/catalog/custom-types
+      - GET /v2/catalog/custom-types
+      - GET /v2/catalog/custom-types/{customTypeId}
+      - PUT /v2/catalog/custom-types/{customTypeId}
+      - DELETE /v2/catalog/custom-types/{customTypeId}
+    note: Reusable property type definitions, including conditional-validation variants.
+  - name: Schema
+    plane: control
+    endpoints:
+      - GET /v2/schemas
+      - GET /v2/schemas/{schemaID}
+      - GET /v2/schemas/{schemaID}/versions
+      - GET /v2/schemas/{schemaID}/versions/{versionID}
+    note: >-
+      Event Audit API. The OBSERVED event shape per write key, versioned — the
+      empirical counterpart to the declared CatalogEvent.
+  - name: ProfilesProject
+    plane: control
+    endpoints:
+      - POST /v2/sources/{profilesID}/start
+      - GET /v2/sources/{profilesID}/runs/{runId}/status
+    note: >-
+      Modelled as a SOURCE in the path (`/v2/sources/{profilesID}`) even though it
+      is a Profiles project — a naming collision worth knowing before building a
+      client.
+  - name: ProfilesRun
+    plane: control
+    key_fields: [runId, status]
+  - name: RetlConnection
+    plane: control
+    endpoints:
+      - POST /v2/retl-connections/{connectionId}/start
+      - GET /v2/retl-connections/{connectionId}/syncs
+      - GET /v2/retl-connections/{connectionId}/syncs/{syncId}
+      - POST /v2/retl-connections/{connectionId}/stop
+  - name: Sync
+    plane: control
+    key_fields: [syncId, status]
+  - name: Regulation
+    plane: control
+    endpoints:
+      - POST /v2/regulations
+      - GET /v2/regulations
+      - DELETE /v2/regulations/{regulation_id}
+    note: User suppression / deletion request. Token-metered — see rate-limits/.
+  - name: AuditLog
+    plane: control
+    endpoints: [GET /v2/audit-logs]
+    key_fields: [id, workspace_id]
+    pagination: cursor (after_cursor / per_page / next)
+  - name: SqlModel
+    plane: control
+    note: Reverse ETL model. Managed through rudder-cli, not a documented REST endpoint.
+  - name: DataGraph
+    plane: control
+    note: Entity/event/relationship model powering Audiences. Managed through rudder-cli YAML.
+relationships:
+  - {from: Workspace, to: Source, type: has_many, via: workspace_id}
+  - {from: Workspace, to: Destination, type: has_many, via: workspace_id}
+  - {from: Workspace, to: TrackingPlan, type: has_many, via: workspace_id}
+  - {from: Workspace, to: Transformation, type: has_many, via: workspace_id}
+  - {from: Workspace, to: AuditLog, type: has_many, via: workspace_id}
+  - {from: Source, to: EventPayload, type: has_many, via: writeKey}
+  - {from: Source, to: TrackingPlan, type: has_one, via: 'GET /v2/catalog/tracking-plans/{trackingPlanId}/sources/{sourceId}'}
+  - {from: TrackingPlan, to: CatalogEvent, type: has_many, via: 'GET /v2/catalog/tracking-plans/{trackingPlanId}/events'}
+  - {from: CatalogEvent, to: CatalogProperty, type: has_many, via: property references in the event rule}
+  - {from: CatalogEvent, to: Category, type: belongs_to, via: categoryId}
+  - {from: CatalogProperty, to: CustomType, type: belongs_to, via: custom type reference}
+  - {from: Source, to: Schema, type: has_many, via: writeKey}
+  - {from: Schema, to: SchemaVersion, type: has_many, via: 'GET /v2/schemas/{schemaID}/versions'}
+  - {from: Transformation, to: TransformationVersion, type: has_many, via: 'GET /transformations/{id}/versions'}
+  - {from: Transformation, to: Destination, type: has_many, via: 'POST /transformations/{id}/connectToDestination'}
+  - {from: Connection, to: Source, type: belongs_to, via: sourceId}
+  - {from: Connection, to: Destination, type: belongs_to, via: destinationId}
+  - {from: RetlConnection, to: Sync, type: has_many, via: 'GET /v2/retl-connections/{connectionId}/syncs'}
+  - {from: ProfilesProject, to: ProfilesRun, type: has_many, via: 'GET /v2/sources/{profilesID}/runs/{runId}/status'}
+  - {from: Regulation, to: Destination, type: has_many, via: 'destination list in the suppression request (token cost is users x destinations)'}
+  - {from: EventPayload, to: Destination, type: has_many, via: 'connection routing — one event fans out to every connected destination'}
+gaps:
+  - >-
+    No control-plane OpenAPI. Every entity above the data plane is derived from
+    documented paths and prose field tables, not from a schema, so field types and
+    required-ness are not authoritative here.
+  - >-
+    No `$ref` graph to walk. The only components.schemas block in the repo is the
+    seven data-plane payload types, and none of them reference each other except
+    BatchPayload wrapping the rest.
+  - >-
+    Sources and Profiles projects share the /v2/sources path space, which the
+    entity graph above disambiguates but a naive client will not.
+render: null
