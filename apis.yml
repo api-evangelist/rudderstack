@@ -33,7 +33,7 @@ tags:
 - Identity Resolution
 created: '2026-05-08'
 modified: '2026-08-13'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: rudderstack:rudderstack-config-backend-api
   humanURL: https://www.rudderstack.com/docs/api/
