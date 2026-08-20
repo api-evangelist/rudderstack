@@ -26,6 +26,15 @@ tags:
 - Customer Data Platform
 - CDP
 - Data Pipeline
+- Open-Source
+- Event Streaming
+- Reverse ETL
+- Analytics
+- Identity Resolution
+tags_raw:
+- Customer Data Platform
+- CDP
+- Data Pipeline
 - Open Source
 - Event Streaming
 - Reverse ETL
@@ -57,6 +66,11 @@ apis:
   baseURL: https://api.rudderstack.com
   name: RudderStack Transformations API
   tags:
+  - Transformation
+  - JavaScript
+  - Python
+  - Data Quality
+  tags_raw:
   - Transformations
   - JavaScript
   - Python
@@ -160,6 +174,10 @@ apis:
   baseURL: https://{dataPlaneUrl}
   name: RudderStack Webhook Source API
   tags:
+  - Webhook
+  - Sources
+  - Cloud Apps
+  tags_raw:
   - Webhooks
   - Sources
   - Cloud Apps
