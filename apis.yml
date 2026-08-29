@@ -8,6 +8,18 @@ description: RudderStack is a warehouse-native customer data platform (CDP) for 
   API for managing sources/destinations/connections, a Transformations API for in-flight
   event transforms, a Tracking Plan API for schema governance, a Profiles API for
   identity resolution and audiences, and a Reverse ETL API for warehouse-to-SaaS sync.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
