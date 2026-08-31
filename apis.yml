@@ -78,7 +78,7 @@ apis:
   baseURL: https://api.rudderstack.com
   name: RudderStack Transformations API
   tags:
-  - Transformation
+  - Transformations
   - JavaScript
   - Python
   - Data Quality
