@@ -33,6 +33,7 @@ conformance:
     errors: []
     warnings: []
     informational: []
+  did_web: null
 catalog:
   host_display_name: RudderStack
   host_identifier: rudderstack.com
