@@ -61,6 +61,12 @@ apis:
   name: RudderStack Config Backend API
   tags:
   - Sources
+  - Destination
+  - Connections
+  - Workspace
+  - Management
+  tags_raw:
+  - Sources
   - Destinations
   - Connections
   - Workspaces
@@ -195,6 +201,13 @@ apis:
   humanURL: https://www.rudderstack.com/docs/destinations/warehouse-destinations/
   name: RudderStack Warehouse Destination API
   tags:
+  - Warehouse
+  - Snowflake
+  - BigQuery
+  - Redshift
+  - Databricks
+  - Destination
+  tags_raw:
   - Warehouse
   - Snowflake
   - BigQuery
