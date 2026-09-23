@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: RudderStack HTTP HTTP API Internal API API
+  title: RudderStack HTTP Internal API
   version: 1.0.0-oas3
   description: The RudderStack HTTP API lets you track your customer event data and route it to your desired destinations.
   termsOfService: https://www.rudderstack.com/master-service-agreement/
