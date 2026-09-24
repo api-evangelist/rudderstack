@@ -37,7 +37,7 @@ tags:
 - Customer Data Platform
 - CDP
 - Data Pipeline
-- Open-Source
+- Open Source
 - Event Streaming
 - Reverse ETL
 - Analytics
@@ -51,6 +51,7 @@ tags_raw:
 - Reverse ETL
 - Analytics
 - Identity Resolution
+- Open-Source
 created: '2026-05-08'
 modified: '2026-09-16'
 specificationVersion: '0.23'
@@ -251,8 +252,6 @@ apis:
     url: https://www.rudderstack.com/docs/event-spec/standard-events/
   - type: AsyncAPI
     url: asyncapi/rudderstack-event-streaming-asyncapi.yml
-  - type: GraphQL
-    url: graphql/rudderstack-graphql.md
 - aid: rudderstack:rudderstack-internal-api-api
   humanURL: https://www.rudderstack.com/docs/sources/event-streams/http/
   baseURL: https://{dataPlaneUrl}
@@ -271,8 +270,6 @@ apis:
     url: https://www.rudderstack.com/docs/event-spec/standard-events/
   - type: AsyncAPI
     url: asyncapi/rudderstack-event-streaming-asyncapi.yml
-  - type: GraphQL
-    url: graphql/rudderstack-graphql.md
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/rudderstack/overview
