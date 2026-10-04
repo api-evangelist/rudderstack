@@ -422,15 +422,21 @@ paths:
       - writeKeyAuth: []
 components:
   schemas:
-    AliasPayload:
+    GroupPayload:
       type: object
       properties:
         userId:
           type: string
           description: Unique identifier for a particular user in your database.
-        previousId:
+        anonymousId:
           type: string
-          description: The previous unique identifier of the user.
+          description: Sets the user ID for cases where there is no unique identifier for the user.
+        groupId:
+          type: string
+          description: Unique identifier of the group, as present in your database.
+        traits:
+          type: object
+          description: Dictionary of the traits associated with the group, such as name or email.
         context:
           type: object
           description: Dictionary of information that provides context about a message.
@@ -454,85 +460,15 @@ components:
           type: string
           format: date-time
           description: The timestamp of the message’s arrival.
-    TrackPayload:
+    AliasPayload:
       type: object
       properties:
         userId:
           type: string
           description: Unique identifier for a particular user in your database.
-        anonymousId:
+        previousId:
           type: string
-          description: Sets the user ID for cases where there is no unique identifier for the user.
-        event:
-          type: string
-          description: Name of the event being performed by the user.
-        properties:
-          type: object
-          description: Dictionary of the properties associated with a particular event.
-        context:
-          type: object
-          description: Dictionary of information that provides context about a message.
-          properties:
-            ip:
-              type: string
-              description: IP address.
-            library:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: Name of the library.
-        timestamp:
-          type: string
-          format: date-time
-          description: The timestamp of the message’s arrival.
-    PagePayload:
-      type: object
-      properties:
-        userId:
-          type: string
-          description: Unique identifier for a particular user in your database.
-        anonymousId:
-          type: string
-          description: Sets the user ID for cases where there is no unique identifier for the user.
-        name:
-          type: string
-          description: Name of the page being viewed.
-        properties:
-          type: object
-          description: Dictionary of the properties associated with a particular event.
-        context:
-          type: object
-          description: Dictionary of information that provides context about a message.
-          properties:
-            ip:
-              type: string
-              description: IP address.
-            library:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: Name of the library.
-        timestamp:
-          type: string
-          format: date-time
-          description: The timestamp of the message’s arrival.
-    GroupPayload:
-      type: object
-      properties:
-        userId:
-          type: string
-          description: Unique identifier for a particular user in your database.
-        anonymousId:
-          type: string
-          description: Sets the user ID for cases where there is no unique identifier for the user.
-        groupId:
-          type: string
-          description: Unique identifier of the group, as present in your database.
-        traits:
-          type: object
-          description: Dictionary of the traits associated with the group, such as name or email.
+          description: The previous unique identifier of the user.
         context:
           type: object
           description: Dictionary of information that provides context about a message.
@@ -643,6 +579,70 @@ components:
         properties:
           type: object
           description: Dictionary of the properties associated with the page being viewed, such as url and referrer.
+        context:
+          type: object
+          description: Dictionary of information that provides context about a message.
+          properties:
+            ip:
+              type: string
+              description: IP address.
+            library:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the library.
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the message’s arrival.
+    PagePayload:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Unique identifier for a particular user in your database.
+        anonymousId:
+          type: string
+          description: Sets the user ID for cases where there is no unique identifier for the user.
+        name:
+          type: string
+          description: Name of the page being viewed.
+        properties:
+          type: object
+          description: Dictionary of the properties associated with a particular event.
+        context:
+          type: object
+          description: Dictionary of information that provides context about a message.
+          properties:
+            ip:
+              type: string
+              description: IP address.
+            library:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the library.
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the message’s arrival.
+    TrackPayload:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Unique identifier for a particular user in your database.
+        anonymousId:
+          type: string
+          description: Sets the user ID for cases where there is no unique identifier for the user.
+        event:
+          type: string
+          description: Name of the event being performed by the user.
+        properties:
+          type: object
+          description: Dictionary of the properties associated with a particular event.
         context:
           type: object
           description: Dictionary of information that provides context about a message.
