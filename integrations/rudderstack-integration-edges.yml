@@ -1,0 +1,674 @@
+generated: '2026-10-14'
+edges:
+- partner_name: Amplitude
+  partner: amplitude
+  partner_match: domain
+  partner_url: https://help.amplitude.com/hc/en-us/articles/360058073772-Create-and-manage-organizations-and-projects#view-and-edit-your-project-information
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/am
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - am
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - alias
+      - group
+      - identify
+      - page
+      - screen
+      - track
+      device_mode: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Amazon Audience
+  partner: amazon
+  partner_match: domain+name-among-holders
+  partner_url: https://advertising.amazon.com/API/docs/en-us/guides/amazon-marketing-cloud/audiences/audience-management-service#:~:text=a%20given%20invocation.-,Note,-The%20time%2Dto
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/amazon_audience
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - amazon_audience
+      connection_modes:
+      - cloud
+      cloud_event_types:
+      - record
+      audience: true
+      source_types: 1
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Appcues
+  partner: appcues
+  partner_match: domain
+  partner_url: https://fast.appcues.com/${your_account_id}.js
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/appcues
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - appcues
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - identify
+      - page
+      - screen
+      - track
+      device_mode: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: bloomreach
+  partner: bloomreach
+  partner_match: domain
+  partner_url: https://documentation.bloomreach.com/engagement/reference/authentication
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/bloomreach
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - bloomreach
+      - bloomreach_catalog
+      connection_modes:
+      - cloud
+      cloud_event_types:
+      - identify
+      - page
+      - record
+      - screen
+      - track
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Bluecore
+  partner: bluecore
+  partner_match: domain
+  partner_url: https://app.bluecore.com/admin/dashboard/<namespace>
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/bluecore
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - bluecore
+      connection_modes:
+      - cloud
+      cloud_event_types:
+      - identify
+      - track
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Braze
+  partner: braze
+  partner_match: domain
+  partner_url: https://www.braze.com/docs/api/endpoints/subscription_groups
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/braze
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - braze
+      connection_modes:
+      - cloud
+      - device
+      - hybrid
+      cloud_event_types:
+      - alias
+      - group
+      - identify
+      - page
+      - screen
+      - track
+      device_mode: true
+      audience: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: ClickHouse
+  partner: clickhouse
+  partner_match: domain
+  partner_url: https://clickhouse.com/docs/en/operations/server-configuration-parameters/settings#server_configuration_parameters-tcp_port
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/clickhouse
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - clickhouse
+      connection_modes:
+      - cloud
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Cordial
+  partner: cordial
+  partner_match: domain
+  partner_url: https://support.cordial.com/hc/en-us/articles/115005365087-API-keys
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/cordial
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - cordial
+      connection_modes:
+      - cloud
+      cloud_event_types:
+      - identify
+      - track
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Discord
+  partner: discord
+  partner_match: domain
+  partner_url: https://discord.com/api/webhooks/12rf2vXXX38y3234gr34/7831XXXgfb284q3130
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/discord
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - discord
+      connection_modes:
+      - cloud
+      cloud_event_types:
+      - identify
+      - track
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Facebook Custom Audience
+  partner: facebook
+  partner_match: domain+name-among-holders
+  partner_url: https://developers.facebook.com/docs/marketing-api/audiences/guides/custom-audiences/#hash
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/fb_custom_audience
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - fb_custom_audience
+      connection_modes:
+      - cloud
+      cloud_event_types:
+      - audiencelist
+      - record
+      audience: true
+      source_types: 3
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Google Analytics 4 (GA4)
+  partner: google-analytics
+  partner_match: domain+name-among-holders
+  partner_url: https://developers.google.com/analytics/devguides/collection/protocol/ga4/validating-events?client_type=gtag
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/ga4
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - ga4
+      connection_modes:
+      - cloud
+      - device
+      - hybrid
+      cloud_event_types:
+      - group
+      - page
+      - track
+      device_mode: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_url: https://developers.hubspot.com/docs/api-reference/crm-contacts-v3/batch/post-crm-v3-objects-contacts-batch-upsert
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/hs
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - hs
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - identify
+      - track
+      device_mode: true
+      audience: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Intercom
+  partner: intercom
+  partner_match: domain
+  partner_url: https://developers.intercom.com/intercom-api-reference/v1.2/reference/updating-the-last-seen-time
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/intercom
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - intercom
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - group
+      - identify
+      - track
+      device_mode: true
+      audience: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Iterable
+  partner: iterable
+  partner_match: domain
+  partner_url: https://api.iterable.com/api/docs#users_updateUser
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/iterable
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - iterable
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - alias
+      - identify
+      - page
+      - screen
+      - track
+      device_mode: true
+      audience: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: LaunchDarkly Segment
+  partner: launchdarkly
+  partner_match: domain
+  partner_url: https://docs.launchdarkly.com/home/account-security/api-access-tokens#creating-api-access-tokens
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/launchdarkly_audience
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - launchdarkly_audience
+      connection_modes:
+      - cloud
+      cloud_event_types:
+      - audiencelist
+      audience: true
+      source_types: 2
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: MoEngage
+  partner: moengage
+  partner_match: domain
+  partner_url: https://help.moengage.com/hc/en-us/articles/29787626775828-Support-for-Object-Data-Type#h_01J69KZAJS0VWTZEG0MXXDPTFV
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/moengage
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - moengage
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - alias
+      - identify
+      - track
+      device_mode: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Mixpanel
+  partner: mixpanel
+  partner_match: domain
+  partner_url: https://docs.mixpanel.com/docs/tracking/how-tos/api-credentials#project-token
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/mp
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - mp
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - alias
+      - group
+      - identify
+      - page
+      - screen
+      - track
+      device_mode: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Optimizely Fullstack
+  partner: optimizely
+  partner_match: domain+name-among-holders
+  partner_url: https://docs.developers.optimizely.com/web-experimentation/docs/locate-ids-used-for-apis#account-id
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/optimizely_fullstack
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - optimizely_fullstack
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - identify
+      - page
+      - screen
+      - track
+      device_mode: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: PostHog
+  partner: posthog
+  partner_match: domain
+  partner_url: https://app.posthog.com
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/posthog
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - posthog
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - alias
+      - group
+      - identify
+      - page
+      - screen
+      - track
+      device_mode: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Sendinblue
+  partner: sendinblue
+  partner_match: domain
+  partner_url: https://my.sendinblue.com/
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/sendinblue
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - sendinblue
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - identify
+      - page
+      - track
+      device_mode: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Singular
+  partner: singular
+  partner_match: domain
+  partner_url: https://support.singular.net/hc/en-us/articles/360037640812-Server-to-Server-Integration-Guide#h_01S2S004
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/singular
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - singular
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - track
+      device_mode: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Snowflake
+  partner: snowflake
+  partner_match: domain
+  partner_url: https://docs.snowflake.com/en/user-guide/data-load-s3-config.html#option-1-configuring-a-snowflake-storage-integration
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/snowflake
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - snowflake
+      connection_modes:
+      - cloud
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: TikTok Ads
+  partner: tiktok-ads
+  partner_match: domain+name-among-holders
+  partner_url: https://ads.tiktok.com/help/article/standard-events-parameters?lang=en
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/tiktok_ads
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - tiktok_ads
+      connection_modes:
+      - cloud
+      - device
+      cloud_event_types:
+      - track
+      device_mode: true
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Zapier
+  partner: zapier
+  partner_match: domain
+  partner_url: https://hooks.zapier.com/hooks/catch/123X56/abcdefg/
+  marketplace: coverage
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://github.com/rudderlabs/rudder-integrations-config/tree/main/src/configurations/destinations/zapier
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - zapier
+      connection_modes:
+      - cloud
+      cloud_event_types:
+      - page
+      - screen
+      - track
+      source_types: 13
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Hightouch
+  partner: hightouch
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://hightouch.com/docs/destinations/rudderstack
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - rudderstack
+      status: released
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+method: searched
+checked:
+- https://github.com/rudderlabs/rudder-integrations-config
+- https://hightouch.com/docs/destinations/rudderstack
+marketplace_apps:
+- marketplace: coverage
+  channel: coverage-list
+  app: rudderstack
+  url: https://github.com/rudderlabs/rudder-integrations-config
+  app_count: 367
+  adapter: sweep-cdp.py:src_rudderstack
+  listed: 323
+  destinations: 237
+  sources: 86
+  linked: 24
+  unlinked: 298
+  identity: domain (dominant external domain linked in the connector's ui-config.json)
+  status: ok
+source: https://github.com/rudderlabs/rudder-integrations-config
