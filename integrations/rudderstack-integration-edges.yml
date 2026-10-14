@@ -653,10 +653,36 @@ edges:
       status: released
   detected_by: sweep-cdp.py
   first_seen: '2026-10-14'
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/rudderstack/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - RudderStack
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Single Sign-On
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - BOOKMARK_SOM
+  - CREATE
+  - DEACTIVATE
+  - SAML
+  - UPDATE
 method: searched
 checked:
 - https://github.com/rudderlabs/rudder-integrations-config
 - https://hightouch.com/docs/destinations/rudderstack
+- okta/integrations/okta-integration-edges.yml
 marketplace_apps:
 - marketplace: coverage
   channel: coverage-list
