@@ -422,6 +422,78 @@ paths:
       - writeKeyAuth: []
 components:
   schemas:
+    TrackPayload:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Unique identifier for a particular user in your database.
+        anonymousId:
+          type: string
+          description: Sets the user ID for cases where there is no unique identifier for the user.
+        event:
+          type: string
+          description: Name of the event being performed by the user.
+        properties:
+          type: object
+          description: Dictionary of the properties associated with a particular event.
+        context:
+          type: object
+          description: Dictionary of information that provides context about a message.
+          properties:
+            ip:
+              type: string
+              description: IP address.
+            library:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the library.
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the message’s arrival.
+    BatchPayload:
+      type: object
+      properties:
+        batch:
+          type: array
+          items:
+            type: object
+            allOf:
+            - $ref: '#/components/schemas/IdentifyPayload'
+            - $ref: '#/components/schemas/TrackPayload'
+            - $ref: '#/components/schemas/PagePayload'
+            - $ref: '#/components/schemas/ScreenPayload'
+            - $ref: '#/components/schemas/GroupPayload'
+            - $ref: '#/components/schemas/AliasPayload'
+            properties:
+              userId:
+                type: string
+              anonymousId:
+                type: string
+              type:
+                type: string
+              context:
+                type: object
+                properties:
+                  traits:
+                    type: object
+                    properties:
+                      trait1:
+                        type: string
+                  ip:
+                    type: string
+                  library:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+              timestamp:
+                type: string
+      required:
+      - batch
     GroupPayload:
       type: object
       properties:
@@ -492,78 +564,6 @@ components:
           type: string
           format: date-time
           description: The timestamp of the message’s arrival.
-    IdentifyPayload:
-      type: object
-      properties:
-        userId:
-          type: string
-          description: Unique identifier for a particular user in your database.
-        anonymousId:
-          type: string
-          description: Sets the user ID for cases where there is no unique identifier for the user.
-        context:
-          type: object
-          description: Dictionary of information that provides context about a message.
-          properties:
-            traits:
-              type: object
-              properties:
-                trait1:
-                  type: string
-                  description: New value for trait1.
-            ip:
-              type: string
-              description: IP address.
-            library:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: Name of the library.
-        timestamp:
-          type: string
-          format: date-time
-          description: The timestamp of the message’s arrival.
-    BatchPayload:
-      type: object
-      properties:
-        batch:
-          type: array
-          items:
-            type: object
-            allOf:
-            - $ref: '#/components/schemas/IdentifyPayload'
-            - $ref: '#/components/schemas/TrackPayload'
-            - $ref: '#/components/schemas/PagePayload'
-            - $ref: '#/components/schemas/ScreenPayload'
-            - $ref: '#/components/schemas/GroupPayload'
-            - $ref: '#/components/schemas/AliasPayload'
-            properties:
-              userId:
-                type: string
-              anonymousId:
-                type: string
-              type:
-                type: string
-              context:
-                type: object
-                properties:
-                  traits:
-                    type: object
-                    properties:
-                      trait1:
-                        type: string
-                  ip:
-                    type: string
-                  library:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-              timestamp:
-                type: string
-      required:
-      - batch
     ScreenPayload:
       type: object
       properties:
@@ -628,7 +628,7 @@ components:
           type: string
           format: date-time
           description: The timestamp of the message’s arrival.
-    TrackPayload:
+    IdentifyPayload:
       type: object
       properties:
         userId:
@@ -637,16 +637,16 @@ components:
         anonymousId:
           type: string
           description: Sets the user ID for cases where there is no unique identifier for the user.
-        event:
-          type: string
-          description: Name of the event being performed by the user.
-        properties:
-          type: object
-          description: Dictionary of the properties associated with a particular event.
         context:
           type: object
           description: Dictionary of information that provides context about a message.
           properties:
+            traits:
+              type: object
+              properties:
+                trait1:
+                  type: string
+                  description: New value for trait1.
             ip:
               type: string
               description: IP address.
