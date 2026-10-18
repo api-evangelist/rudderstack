@@ -678,8 +678,26 @@ edges:
   - DEACTIVATE
   - SAML
   - UPDATE
+- partner_name: dbt (dbt-package-hub)
+  partner: dbt
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: dbt-package-hub
+  evidence: https://hub.getdbt.com/rudderlabs/rudder_events_registry/latest/
+  mirror_of: dbt/integrations/dbt-integration-edges.yml
+  apps:
+  - RudderStack
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: dbt package
 method: searched
 checked:
+- dbt/integrations/dbt-integration-edges.yml
 - https://github.com/rudderlabs/rudder-integrations-config
 - https://hightouch.com/docs/destinations/rudderstack
 - okta/integrations/okta-integration-edges.yml
