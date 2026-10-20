@@ -1,4 +1,38 @@
-generated: '2026-10-14'
+generated: '2026-10-20'
+method: searched
+source:
+- https://github.com/rudderlabs/rudder-integrations-config
+checked:
+- dbt/integrations/dbt-integration-edges.yml
+- https://api.nuget.org/v3
+- https://crates.io/api/v1
+- https://github.com/rudderlabs/rudder-integrations-config
+- https://hightouch.com/docs/destinations/rudderstack
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
+- okta/integrations/okta-integration-edges.yml
+- https://composio.dev/toolkits/rudderstack
+- https://monid.ai/tools/rudderstack
+- https://n8n.io/integrations/rudderstack/
+- https://zapier.com/apps/rudderstack/integrations
+summary: null
+marketplace_apps:
+- marketplace: coverage
+  channel: coverage-list
+  app: rudderstack
+  url: https://github.com/rudderlabs/rudder-integrations-config
+  app_count: 370
+  adapter: sweep-cdp.py:src_rudderstack
+  listed: 323
+  destinations: 237
+  sources: 86
+  linked: 24
+  unlinked: 298
+  identity: domain (dominant external domain linked in the connector's ui-config.json)
+  status: ok
 edges:
 - partner_name: Okta (own)
   partner: okta
@@ -920,31 +954,4 @@ edges:
       status: released
   detected_by: sweep-cdp.py
   first_seen: '2026-10-14'
-method: searched
-checked:
-- dbt/integrations/dbt-integration-edges.yml
-- https://api.nuget.org/v3
-- https://crates.io/api/v1
-- https://github.com/rudderlabs/rudder-integrations-config
-- https://hightouch.com/docs/destinations/rudderstack
-- https://proxy.golang.org
-- https://pypi.org/pypi
-- https://registry.npmjs.org
-- https://repo1.maven.org/maven2
-- https://rubygems.org/api/v1
-- okta/integrations/okta-integration-edges.yml
-marketplace_apps:
-- marketplace: coverage
-  channel: coverage-list
-  app: rudderstack
-  url: https://github.com/rudderlabs/rudder-integrations-config
-  app_count: 370
-  adapter: sweep-cdp.py:src_rudderstack
-  listed: 323
-  destinations: 237
-  sources: 86
-  linked: 24
-  unlinked: 298
-  identity: domain (dominant external domain linked in the connector's ui-config.json)
-  status: ok
-source: https://github.com/rudderlabs/rudder-integrations-config
+templates: []
